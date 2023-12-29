@@ -3,13 +3,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: "./main.js",
   context: path.resolve(__dirname, 'src'),
+  entry: "./js/main.js",
   module: {
     rules: [
       { test: /\.svg$/, use: "svg-inline-loader" },
       { test: /\.css$/, use: ["style-loader", "css-loader"] },
-      { test: /\.(js)$/, exclude: /node_modules/, use: "babel-loader",  options: {presets: ['env'] }},
+      { test: /\.(js)$/, 
+          exclude: /node_modules/,  
+          use: { 
+            loader: 'babel-loader',
+            options: { presets: ['@babel/preset-env'] }
+          }
+        },
       { test: /\.s?css$/, use: [  MiniCssExtractPlugin.loader, {loader: "css-loader"} ]}
     ],
   },
