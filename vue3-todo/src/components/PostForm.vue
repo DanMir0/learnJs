@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent>
     <h4>Создание поста</h4>
-    <my-input v-model="post.title" type="text" placeholder="Название" v-focus />
+    <my-input v-model="post.title"  v-bind:modelValue="post.title" @update:modelValue="post.title=$event" type="text" placeholder="Название" v-focus />
     <my-input v-model="post.body" type="text" placeholder="Описание" />
     <my-button style="align-self: flex-end; margin-top: 15px" @click="createPost"
       >Создать</my-button
