@@ -335,3 +335,70 @@
 // }
 
 // console.log(missingNumber); // Ожидаемый результат: 4
+
+//? Напишите функцию mergeArrays(arr1, arr2), которая принимает два массива и возвращает новый массив, содержащий все элементы из обоих массивов без повторений.
+// function mergeArrays(arr1, arr2) {
+//   let nums = arr1.concat(arr2);
+//   return nums.filter((num, i, arr) => num !== arr[i+1])
+// }
+// const arr1 = [1, 2, 3];
+// const arr2 = [3, 4, 5];
+// const mergedArray = mergeArrays(arr1, arr2);
+// console.log(mergedArray); // Ожидаемый результат: [1, 2, 3, 4, 5]
+
+//? Напишите функцию filterUnique(arr), которая принимает массив и возвращает новый массив, содержащий только уникальные элементы из исходного массива.
+// const arr = [1, 2, 3, 3, 4, 5, 5];
+// function filterUnique(arr) {
+//     return [...new Set(arr)]
+//    // return arr.filter((num, i, arr) => num !== arr[i+1])
+// }
+// const uniqueElements = filterUnique(arr);
+// console.log(uniqueElements); // Ожидаемый результат: [1, 2, 3, 4, 5]
+
+//? Напишите функцию countOccurrences(arr, target), которая принимает массив и целевой элемент, и возвращает количество вхождений целевого элемента в массив.
+// const arr = [1, 2, 3, 3, 4, 5, 3];
+// const targetElement = 3;
+// function countOccurrences(arr, el) {
+//     return arr.filter(num => num === el).length
+// }
+// const occurrences = countOccurrences(arr, targetElement);
+// console.log(occurrences); // Ожидаемый результат: 3
+
+//? Поиск наименьшего отсутствующего положительного числа Напишите функцию findMissingPositive(arr), которая принимает массив целых чисел и возвращает наименьшее положительное число, которое отсутствует в массиве.
+// const numbers = [1, 2, 0];
+// function findMissingPositive(arr) {
+//     const positiveArr = arr.filter(num => num > 0)
+//     if (positiveArr.length === 0) return 1
+//     positiveArr.sort((a, b) => a - b)
+
+//     for (let i = 0; i < positiveArr.length; i++) {
+//         if (positiveArr[i] !== i+1) {
+//             return i + 1
+//         }
+//     }
+
+//     return positiveArr[positiveArr.length - 1] + 1
+// }
+// const missingPositive = findMissingPositive(numbers);
+// console.log(missingPositive); // Ожидаемый результат: 3
+
+//? У вас есть массив объектов, представляющих цвета, каждый объект имеет свойства name (строка) и order (число). Напишите функцию sortColorsByOrder(colors), которая принимает такой массив и возвращает новый массив, отсортированный по порядку (свойство order) в возрастающем порядке.
+// const colors = [
+//     { name: 'Blue', order: 3 },
+//     { name: 'Red', order: 1 },
+//     { name: 'Green', order: 2 }
+//   ];
+//   function sortColorsByOrder(colors) {
+//     return colors.sort((prevColor, nextColor) => prevColor.order - nextColor.order)
+//   }
+//   const sortedColors = sortColorsByOrder(colors);
+//   console.log(sortedColors); // Ожидаемый результат: [{ name: 'Red', order: 1 }, { name: 'Green', order: 2 }, { name: 'Blue', order: 3 }]
+
+//? Напишите функцию findSubstring(str, substring), которая принимает строку и подстроку, и возвращает true, если подстрока присутствует в строке, и false в противном случае.
+//   const str = 'Hello, World!';
+// const substring = 'World';
+// function findSubstring(str, search) {
+//     return str.includes(search)
+// }
+// const isSubstringPresent = findSubstring(str, substring);
+// console.log(isSubstringPresent); // Ожидаемый результат: true
