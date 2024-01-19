@@ -402,3 +402,56 @@
 // }
 // const isSubstringPresent = findSubstring(str, substring);
 // console.log(isSubstringPresent); // Ожидаемый результат: true
+
+//? Напишите функцию trimArray(arr, start, end), которая принимает массив и два индекса (start и end), а затем возвращает новый массив, содержащий элементы исходного массива с индексами от start до end, включительно.
+// const arrayToTrim = [1, 2, 3, 4, 5];
+// function trimArray(arr, start, end) {
+//     return arr.slice(start, end + 1)
+// }
+// const trimmedArray = trimArray(arrayToTrim, 1, 3);
+// console.log(trimmedArray);// Ожидаемый результат: [2, 3, 4]
+
+//? Напишите функцию isArraySorted(arr), которая принимает массив чисел и возвращает true, если элементы массива упорядочены по возрастанию или убыванию, и false в противном случае.
+// const ascendingArray = [1, 2, 3, 4, 5];
+// const descendingArray = [5, 4, 3, 2, 1];
+// const unsortedArray = [3, 1, 5, 2, 4];
+// function isArraySorted(arr) {
+//      // Проверка для возрастающего порядка
+//   const isAscending = arr.every((element, index) => index === 0 || element >= arr[index - 1]);
+
+//   // Проверка для убывающего порядка
+//   const isDescending = arr.every((element, index) => index === 0 || element <= arr[index - 1]);
+
+//   // Возвращаем результат (true, если упорядочено, иначе false)
+//   return isAscending || isDescending;
+// }
+// console.log(isArraySorted(ascendingArray));// Ожидаемый результат: true
+
+// console.log(isArraySorted(descendingArray)); // Ожидаемый результат: true
+
+// console.log(isArraySorted(unsortedArray)); // Ожидаемый результат: false
+
+//? Напишите функцию groupByWordLength(words), которая принимает массив слов и возвращает объект, где ключи - длины слов, а значения - массивы слов с соответствующей длиной.
+// function groupByWordLength(words) {
+//     let obj = {}
+//     words.forEach(word => {
+//         if (obj.hasOwnProperty(word.length)) {
+//             obj[word.length].push(word)
+//         } else {
+//             obj[word.length] = [word]
+//         }
+//     });
+//     return obj
+// }
+// const wordsToGroup = ['apple', 'banana', 'pear', 'kiwi', 'grape'];
+// const groupedByLength = groupByWordLength(wordsToGroup);
+// console.log(groupedByLength); // Ожидаемый результат: { '4': ['pear', 'kiwi'], '5': ['apple', 'grape'], '6': ['banana'] }
+
+//?
+const stringToSort = 'tree';
+function sortedStringByFrequency(str) {
+    return str.slice('')
+}
+const sortedStringByFrequency = sortStringByFrequency(stringToSort);
+console.log(sortedStringByFrequency);
+// Ожидаемый результат: 'eert'
