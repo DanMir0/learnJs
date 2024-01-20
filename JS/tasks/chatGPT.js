@@ -447,11 +447,78 @@
 // const groupedByLength = groupByWordLength(wordsToGroup);
 // console.log(groupedByLength); // Ожидаемый результат: { '4': ['pear', 'kiwi'], '5': ['apple', 'grape'], '6': ['banana'] }
 
+//? Напишите функцию extractNumbers(arr), которая принимает массив элементов различных типов и возвращает новый массив, содержащий только числовые значения.
+// const mixedArray = [1, 'apple', 2, 'banana', 3, 'kiwi'];
+// function extractNumbers(arr) {
+//     return arr.filter(el => typeof el === 'number')
+// }
+// const numbersOnly = extractNumbers(mixedArray);
+// console.log(numbersOnly); // Ожидаемый результат: [1, 2, 3]
+
+//? Напишите функцию findMostFrequentElement(arr), которая принимает массив элементов и возвращает элемент, который встречается наиболее часто. Если есть несколько таких элементов, верните любой из них.
+// const arrayWithFrequentElement = [2, 3, 2, 5, 3, 7, 2, 3];
+// function findMostFrequentElement(arr) {
+//     const a = arr.reduce((acc, el) => {
+//         acc[el] = (acc[el] || 0) + 1;
+//         return acc
+//     }, {})
+
+//     const sorted = Object.entries(a).sort((a, b) => b[1] - a[1]);
+//     return sorted[0][0];
+// }
+// const mostFrequentElement = findMostFrequentElement(arrayWithFrequentElement);
+// console.log(mostFrequentElement);// Ожидаемый результат: 2 (или 3, так как они встречаются одинаковое количество раз)
+
+//? Напишите функцию splitByParity(arr), которая принимает массив чисел и возвращает новый массив, содержащий два подмассива: один с четными числами, другой - с нечетными. Подмассивы должны быть упорядочены по возрастанию.
+// const numbersToSplit = [1, 4, 2, 7, 8, 5];
+// function splitByParity(arr) {
+//     const positiveArr = []
+//     const negativeArr = []
+//     arr.filter(el => el % 2 === 0 ? positiveArr.push(el) : negativeArr.push(el))
+//     return [positiveArr, negativeArr]
+// }
+// const splittedByParity = splitByParity(numbersToSplit);
+// console.log(splittedByParity); // Ожидаемый результат: [[2, 4, 8], [1, 5, 7]]
+
+//? Напишите функцию removeSubstring(str, substring), которая принимает строку и подстроку, а затем возвращает новую строку, из которой удалены все вхождения подстроки.
+// const originalString = 'apple orange apple kiwi';
+// const substringToRemove = 'apple';
+// function removeSubstring(str, word) {
+//     return str.split(' ').filter(el => el !== word)
+// }
+// const stringWithoutSubstring = removeSubstring(originalString, substringToRemove);
+// console.log(stringWithoutSubstring); // Ожидаемый результат: ' orange  kiwi'
+
+//? Напишите функцию sortStringByWordFrequency(str), которая принимает строку и возвращает новую строку, отсортированную по убыванию частоты каждого слова.
+// const stringToSortByFrequency = 'apple banana apple orange banana kiwi apple';
+// function sortStringByWordFrequency(str) {
+//     const arrWords = str.split(' ')
+//     return arrWords.sort()
+// }
+// const sortedStringByWordFrequency = sortStringByWordFrequency(stringToSortByFrequency);
+// console.log(sortedStringByWordFrequency); // Ожидаемый результат: 'apple apple apple banana banana kiwi orange'
+
 //?
-const stringToSort = 'tree';
-function sortedStringByFrequency(str) {
-    return str.slice('')
+// function sumOfEvenNumbers(num) {
+//     let res = 0
+//     for (let i = 0; i <= num; i+=2) {
+//         res += i
+//     }
+//     return res
+// }
+// const result = sumOfEvenNumbers(8);
+// console.log(result); // Ожидаемый результат: 20 (2 + 4 + 6 + 8)
+
+//? Напишите алгоритм для поиска максимального элемента в массиве целых чисел.
+const numbers = [4, 8, 2, 10, 5, 4];
+function findMaxElement(arr) {
+    let max = arr[0];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > max) {
+        max = arr[i]
+    } 
+  }
+  return max
 }
-const sortedStringByFrequency = sortStringByFrequency(stringToSort);
-console.log(sortedStringByFrequency);
-// Ожидаемый результат: 'eert'
+const maxNumber = findMaxElement(numbers);
+console.log(maxNumber); // Ожидаемый результат: 10
