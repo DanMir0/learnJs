@@ -510,15 +510,40 @@
 // console.log(result); // Ожидаемый результат: 20 (2 + 4 + 6 + 8)
 
 //? Напишите алгоритм для поиска максимального элемента в массиве целых чисел.
-const numbers = [4, 8, 2, 10, 5, 4];
-function findMaxElement(arr) {
-    let max = arr[0];
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] > max) {
-        max = arr[i]
-    } 
+// const numbers = [4, 8, 2, 10, 5, 4];
+// function findMaxElement(arr) {
+//     let max = arr[0];
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] > max) {
+//         max = arr[i]
+//     } 
+//   }
+//   return max
+// }
+// const maxNumber = findMaxElement(numbers);
+// console.log(maxNumber); // Ожидаемый результат: 10
+
+//? является ли число простым
+// function isPrimeNumber(num) {
+//   if (num < 0) {
+//     console.log('Enter a positive number');
+//   }
+//   for (let i = 2; i < num; i++) {
+//     if (num % i == 0) {
+//       return false
+//     }
+//   }
+//   return true
+// }
+
+// console.log(isPrimeNumber(7));
+// console.log(isPrimeNumber(12));
+
+//? factorial
+function factorial(num) {
+  if (num === 0 || num ===1) {
+    return 1
   }
-  return max
+  return num * factorial(num - 1)
 }
-const maxNumber = findMaxElement(numbers);
-console.log(maxNumber); // Ожидаемый результат: 10
+console.log(factorial(5));
