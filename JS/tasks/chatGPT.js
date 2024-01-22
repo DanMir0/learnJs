@@ -540,10 +540,72 @@
 // console.log(isPrimeNumber(12));
 
 //? factorial
-function factorial(num) {
-  if (num === 0 || num ===1) {
-    return 1
-  }
-  return num * factorial(num - 1)
-}
-console.log(factorial(5));
+// function factorial(num) {
+//   if (num === 0 || num ===1) {
+//     return 1
+//   }
+//   return num * factorial(num - 1)
+// }
+// console.log(factorial(5));
+
+//? Напишите функцию counter, которая возвращает другую функцию. Вызов возвращенной функции должен увеличивать счетчик на 1. Каждый экземпляр counter должен иметь свой собственный счетчик.
+// function counter() {
+//   let res = 0
+//   return function() {
+//     return res += 1
+//   }
+// }
+
+// const counterInstance1 = counter();
+// const counterInstance2 = counter();
+// console.log(counterInstance1()); // Ожидаемый результат: 1
+// console.log(counterInstance1()); // Ожидаемый результат: 2
+// console.log(counterInstance2()); // Ожидаемый результат: 1
+
+//? Реализуйте функцию divideNumbers, которая принимает два числа в качестве аргументов и возвращает результат их деления. Однако, если делитель равен 0, функция должна выбрасывать исключение с соответствующим сообщением.
+// function divideNumbers(num1, num2) {
+//   if (num2 === 0 || num1 === 0) {
+//     throw  new Error("Cannot divide by zero")
+//   } else {
+//     return num1 / num2
+//   }
+// }
+// try {
+//   const result1 = divideNumbers(30, 2);
+//   console.log(result1); // Ожидаемый результат: 5
+
+//   const result2 = divideNumbers(8, 0); // Вызовет ошибку
+// } catch (error) {
+//   console.error(error.message); // Ожидаемый результат: "Cannot divide by zero"
+// }
+
+//? Описание: Дан массив объектов, представляющих студентов. Каждый объект содержит поля name (строка) и grades (массив чисел). Используя методы filter и map, создайте новый массив, включающий только имена студентов, у которых средний балл по оценкам выше 80.
+// const students = [
+//   { name: "Alice", grades: [90, 85, 88] },
+//   { name: "Bob", grades: [15, 82, 95] },
+//   { name: "Charlie", grades: [85, 92, 89] }
+// ];
+
+// const highScorers = students
+// .filter(student => student.grades.reduce((acc, grade) =>  acc + grade, 0) / student.grades.length > 80)
+// .map(student => student.name)
+// console.log(highScorers); // Ожидаемый результат: ["Alice", "Charlie"]
+
+//? Описание: Напишите функцию sumEvenNumbers, которая принимает массив чисел и возвращает сумму четных чисел. Используйте метод reduce для решения задачи.
+// function sumEvenNumbers(arr) {
+//   return arr.reduce((acc, el) => el % 2 === 0 ? acc + el : acc, 0)
+// }
+// const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+// const sumEven = sumEvenNumbers(numbers);
+// console.log(sumEven); // Ожидаемый результат: 30 (2 + 4 + 6 + 8 + 10)
+
+//? Описание: Дан массив чисел. Напишите функцию squareNumbers, которая принимает этот массив и возвращает новый массив, в котором каждое число возведено в квадрат. Используйте метод forEach.
+// function squareNumbers(arr) {
+//   let newArr = []
+//    arr.forEach(num => {
+//    newArr.push(num * num)
+//   });
+//   return newArr
+// }
+
+// console.log(squareNumbers([1, 2, 3, 4, 5])); // Ожидаемый результат: [1, 4, 9, 16, 25]
