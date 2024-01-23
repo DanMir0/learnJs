@@ -609,3 +609,67 @@
 // }
 
 // console.log(squareNumbers([1, 2, 3, 4, 5])); // Ожидаемый результат: [1, 4, 9, 16, 25]
+
+//? Дан объект, представляющий информацию о книге. Напишите функцию isBookAvailable, которая принимает объект книги и возвращает true, если количество экземпляров книги больше 0, и false в противном случае.
+// const book = {
+//     title: "The Catcher in the Rye",
+//     author: "J.D. Salinger",
+//     availableCopies: 3
+//   };
+// function isBookAvailable(book) {
+//     return book.availableCopies > 0
+// }
+//   console.log(isBookAvailable(book)); // Ожидаемый результат: true
+
+//? Дан массив чисел. Напишите функцию doubleAndFilterEvenNumbers, которая удваивает значения четных чисел и возвращает новый массив, содержащий только положительные значения.
+// const numbers = [1, 2, 3, 4, 5, 6];
+// function doubleAndFilterEvenNumbers(arr) { 
+//     return arr.filter(num => num % 2 === 0).map(num => num *= 2)
+// }
+// const result = doubleAndFilterEvenNumbers(numbers);
+// console.log(result); // Ожидаемый результат: [4, 8, 12]
+
+//? Описание: Дан массив объектов, представляющих продукты в корзине покупок. Каждый объект содержит поля name (строка) и price (число). Напишите функцию calculateTotalPrice, которая принимает массив продуктов и возвращает общую стоимость покупок.
+// const products = [
+//     { name: "Apple", price: 2.5 },
+//     { name: "Banana", price: 1.5 },
+//     { name: "Orange", price: 3 }
+//   ];
+//   function calculateTotalPrice(products) {
+//     return products.reduce((acc, product) => acc + product.price, 0)
+//   }
+//   const totalPrice = calculateTotalPrice(products);
+//   console.log(totalPrice); // Ожидаемый результат: 7
+
+//? Описание: Напишите функцию compose, которая принимает массив функций и возвращает новую функцию. Эта новая функция должна применять все функции из массива поочередно, начиная с последней, к переданному ей аргументу.
+// const addTwo = x => x + 2;
+// const multiplyByThree = x => x * 3;
+// const square = x => x ** 2;
+// function compose(arrFunc) {
+//  return (val) => {
+//     let res = val;
+//     for (let i = arrFunc.length - 1; i >= 0; i--) {
+//         res = arrFunc[i](res)
+//     }
+//     return res
+//  }
+// }
+// const composedFunction = compose([square, multiplyByThree, addTwo]);
+// console.log(composedFunction(5)); // Ожидаемый результат: 411 (сначала 5 + 2, затем * 3, затем ** 2)
+
+//? Описание: Дан массив чисел. Напишите функцию findLongestIncreasingSubarray, которая находит самый длинный возрастающий подмассив (последовательность чисел) и возвращает его длину. Подмассив должен быть строго возрастающим.
+const numbers = [1, 3, 2, 1, 4, 7, 8, 10];
+function findLongestIncreasingSubarray(arr) {
+    return arr.reduce((acc, num, i, array) => {
+        if (i > 0 && num > array[i - 1]) {
+            acc.currentLength += 1
+
+            acc.maxLength = Math.max(acc.maxLength, acc.currentLength)
+        } else {
+            acc.currentLength = 1
+        }
+        return acc
+    }, {currentLength: 1, maxLength: 1}).maxLength
+}
+const length = findLongestIncreasingSubarray(numbers);
+console.log(length); // Ожидаемый результат: 5 (последовательность: 2, 4, 7, 5, 10)
