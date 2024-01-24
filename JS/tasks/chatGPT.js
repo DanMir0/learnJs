@@ -658,18 +658,90 @@
 // console.log(composedFunction(5)); // Ожидаемый результат: 411 (сначала 5 + 2, затем * 3, затем ** 2)
 
 //? Описание: Дан массив чисел. Напишите функцию findLongestIncreasingSubarray, которая находит самый длинный возрастающий подмассив (последовательность чисел) и возвращает его длину. Подмассив должен быть строго возрастающим.
-const numbers = [1, 3, 2, 1, 4, 7, 8, 10];
-function findLongestIncreasingSubarray(arr) {
-    return arr.reduce((acc, num, i, array) => {
-        if (i > 0 && num > array[i - 1]) {
-            acc.currentLength += 1
+// const numbers = [1, 3, 2, 1, 4, 7, 8, 10];
+// function findLongestIncreasingSubarray(arr) {
+//     return arr.reduce((acc, num, i, array) => {
+//         if (i > 0 && num > array[i - 1]) {
+//             acc.currentLength += 1
 
-            acc.maxLength = Math.max(acc.maxLength, acc.currentLength)
-        } else {
-            acc.currentLength = 1
-        }
-        return acc
-    }, {currentLength: 1, maxLength: 1}).maxLength
+//             acc.maxLength = Math.max(acc.maxLength, acc.currentLength)
+//         } else {
+//             acc.currentLength = 1
+//         }
+//         return acc
+//     }, {currentLength: 1, maxLength: 1}).maxLength
+// }
+// const length = findLongestIncreasingSubarray(numbers);
+// console.log(length); // Ожидаемый результат: 5 (последовательность: 2, 4, 7, 5, 10)
+
+//? Описание: Напишите функцию findUniqueElements, которая принимает массив объектов и возвращает новый массив, содержащий только уникальные объекты. Два объекта считаются уникальными, если все их свойства имеют разные значения.
+// const objects = [
+//     { id: 1, name: 'Alice' },
+//     { id: 2, name: 'Bob' },
+//     { id: 1, name: 'Alice' },
+//     { id: 3, name: 'Charlie' }
+//   ];
+//   function findUniqueElements(arr) {
+//     return arr.filter((currentObj, currentIndex, array) => {
+//       // Используем some для проверки, есть ли другие объекты с теми же свойствами
+//       return !array.some((otherObj, otherIndex) => {
+//         return (
+//           currentIndex !== otherIndex &&
+//           Object.keys(currentObj).every(
+//             (key) => currentObj[key] === otherObj[key]
+//           )
+//         );
+//       });
+//     });
+//   }
+//   const uniqueObjects = findUniqueElements(objects);
+// console.log(uniqueObjects);// Ожидаемый результат: [{ id: 1, name: 'Alice' }, { id: 2, name: 'Bob' }, { id: 3, name: 'Charlie' }]
+
+//? Описание: Дан массив строк. Напишите функцию filterAndSortStrings, которая фильтрует строки, содержащие букву 'a', и сортирует их в алфавитном порядке.
+// const strings = ['apple', 'banana', 'orange', 'grape', 'kiwi'];
+// function filterAndSortStrings(arr) {
+//     return arr.filter(word => word.includes('a')).sort()
+// }
+// const result = filterAndSortStrings(strings);
+// console.log(result); // Ожидаемый результат: ['apple', 'banana', 'grape', 'orange']
+
+//? Описание: Напишите функцию idGenerator, которая возвращает новую функцию-генератор уникальных идентификаторов. Каждый вызов генератора должен возвращать новый уникальный идентификатор.
+// function idGenerator() {
+//     let id = 0;
+//     return function() {
+//         id += 1;
+//         return `id_${id}`
+//     }
+// }
+// const generateId = idGenerator();
+// console.log(generateId()); // Ожидаемый результат: 'id_1'
+// console.log(generateId()); // Ожидаемый результат: 'id_2'
+
+//? Описание: Напишите функцию removeDuplicateNumbers, которая принимает массив чисел и возвращает новый массив, в котором удалены все дубликаты чисел.
+// function removeDuplicateNumbers(arr) {
+//    return arr.filter((el, index, array) => {
+//     return array.indexOf(el) === index
+//    })
+// }
+// const numbers = [1, 2, 3, 2, 4, 5, 3, 6];
+// const result = removeDuplicateNumbers(numbers);
+// console.log(result); // Ожидаемый результат: [1, 2, 3, 4, 5, 6]
+
+//? Описание: Дан массив целых чисел. Напишите функцию findMaxSumSubarray, которая находит подмассив (последовательность чисел) с максимальной суммой и возвращает эту сумму.
+const numbers = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
+function findMaxSumSubarray(arr) {
+    if (arr.length === 0) {
+        return 0
+    }
+
+    let currentSum = arr[0];
+    let maxSum = arr[0];
+
+    for (let i = 1; i < arr.length; i++) {
+        currentSum = Math.max(arr[i], currentSum + arr[i]);
+        maxSum = Math.max(maxSum, currentSum);
+    }
+    return maxSum
 }
-const length = findLongestIncreasingSubarray(numbers);
-console.log(length); // Ожидаемый результат: 5 (последовательность: 2, 4, 7, 5, 10)
+const maxSum = findMaxSumSubarray(numbers);
+console.log(maxSum); // Ожидаемый результат: 6 (подмассив: [4, -1, 2, 1])
