@@ -63,7 +63,8 @@ export default {
             sortOptions: [
                 {value: 'title', name: 'По названию'},
                 {value: 'body', name: 'По описанию'},
-            ],      
+            ],
+            
         }
     },
     methods: {

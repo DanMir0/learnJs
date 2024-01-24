@@ -5,8 +5,10 @@ import LearnPage from "./pages/LearnPage.vue";
 </script>
 
 <template>
+<div class="app">
+    <learn-page></learn-page>
+</div>
 
-<learn-page></learn-page>
 </template>
 
 <style>
@@ -14,5 +16,9 @@ import LearnPage from "./pages/LearnPage.vue";
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+.app {
+    background-color: #F8F8FF
 }
 </style>
