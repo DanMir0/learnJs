@@ -728,20 +728,102 @@
 // console.log(result); // Ожидаемый результат: [1, 2, 3, 4, 5, 6]
 
 //? Описание: Дан массив целых чисел. Напишите функцию findMaxSumSubarray, которая находит подмассив (последовательность чисел) с максимальной суммой и возвращает эту сумму.
-const numbers = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
-function findMaxSumSubarray(arr) {
-    if (arr.length === 0) {
-        return 0
-    }
+// const numbers = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
+// function findMaxSumSubarray(arr) {
+//     if (arr.length === 0) {
+//         return 0
+//     }
 
-    let currentSum = arr[0];
-    let maxSum = arr[0];
+//     let currentSum = arr[0];
+//     let maxSum = arr[0];
 
-    for (let i = 1; i < arr.length; i++) {
-        currentSum = Math.max(arr[i], currentSum + arr[i]);
-        maxSum = Math.max(maxSum, currentSum);
-    }
-    return maxSum
-}
-const maxSum = findMaxSumSubarray(numbers);
-console.log(maxSum); // Ожидаемый результат: 6 (подмассив: [4, -1, 2, 1])
+//     for (let i = 1; i < arr.length; i++) {
+//         currentSum = Math.max(arr[i], currentSum + arr[i]);
+//         maxSum = Math.max(maxSum, currentSum);
+//     }
+//     return maxSum
+// }
+// const maxSum = findMaxSumSubarray(numbers);
+// console.log(maxSum); // Ожидаемый результат: 6 (подмассив: [4, -1, 2, 1])
+
+//? Напишите функцию findFirstUniqueCharacter, которая принимает строку и возвращает первый уникальный символ в этой строке. Если такого символа нет, верните -1.
+// const str = "leetcode";
+// function findFirstUniqueCharacter(str) {
+//     let count = {}
+//     for (const char of str) {
+//         count[char] = (count[char] || 0) + 1
+//     }
+//     for (const char of str) {
+//         if (count[char] === 1) {
+//             return char
+//         }
+//     }
+//     return char -1
+// }
+// const result = findFirstUniqueCharacter(str);
+// console.log(result); // Ожидаемый результат: 'l'
+
+//? Описание: Дан массив чисел и целевое число. Напишите функцию findTwoNumbers, которая находит два числа в массиве, сумма которых равна целевому числу. Верните индексы этих чисел.
+// const numbers = [2, 5, 3, 6, 11, 15];
+// const target = 9;
+// function findTwoNumbers(nums, target) {
+//  const numIndices = new Map()
+
+//  for (let i = 0; i < nums.length; i++) {
+//     const complement = target - nums[i]
+//     if (numIndices.has(complement)) {
+//         return [numIndices.get(complement), i];
+//     }
+//     numIndices.set(nums[i], i)
+//  }
+//  return []
+// }
+// const indices = findTwoNumbers(numbers, target);
+// console.log(indices); // Ожидаемый результат: [0, 1] (так как 2 + 7 = 9)
+
+//? Описание: Напишите функцию reverseString, которая принимает строку и возвращает ее в обратном порядке.
+// const str = "hello";
+// function reverseString(str) {
+//     let reveStr = ''
+//     for (let i = str.length - 1; i >= 0; i--) {
+//         reveStr += str[i]
+//     }
+//     return reveStr
+// // return ste.split('').reverse().join('')
+// }
+// const reversed = reverseString(str);
+// console.log(reversed); // Ожидаемый результат: 'olleh'
+
+//? Напишите функцию isPalindrome, которая принимает строку и возвращает true, если строка является палиндромом, и false в противном случае. (Палиндром - это строка, которая читается одинаково вперед и назад, игнорируя пробелы, знаки препинания и регистр.)
+// const str = "A man, a plan, a sd sacanal, Panama";
+// function isPalindrome(str) {
+//   let newStr = ''
+//   for (let i = 0; i < str.length; i++) {
+//     if (str[i] !== ' ' && str[i] !== ',') {
+//         newStr += str[i]
+//     }
+//     continue
+//   }
+//   let reverseStr = ''
+//   for (let i = newStr.length - 1; i >= 0; i--) {
+//     reverseStr += newStr[i]
+//   }
+//   if (reverseStr.toLowerCase() === newStr.toLowerCase()) {
+//     return true
+//   }
+//   return false
+//// const cleanStr = str.toLwerCase().replace(/[^a-zA-Z0-9]/g, '')
+//// const reversedStr = cleanStr.split('').reverse().join()
+//// return cleanStr === reversedStr
+// }
+// const result = isPalindrome(str);
+// console.log(result); // Ожидаемый результат: true
+
+//? Описание: Напишите функцию mergeArrays, которая принимает два отсортированных массива и возвращает новый массив, представляющий собой объединение этих массивов в отсортированном порядке.
+// const arr1 = [1, 3, 5];
+// const arr2 = [2, 4, 6];
+// function mergeArrays(arr1, arr2) {
+//     return arr1.concat(arr2).sort((a,b) => a - b)
+// }
+// const merged = mergeArrays(arr1, arr2);
+// console.log(merged); // Ожидаемый результат: [1, 2, 3, 4, 5, 6]
