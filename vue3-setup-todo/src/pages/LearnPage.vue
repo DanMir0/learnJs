@@ -1,9 +1,7 @@
 <script setup>
 import axios from 'axios'
-import { onMounted, ref, watch, watchEffect } from 'vue'
+import { onMounted, ref } from 'vue'
 import PostsList from "@/components/PostsList"
-import MyInput from "@/components/UI/MyInput.vue"
-import MyButton from "@/components/UI/MyButton.vue"
 
 const posts = ref([])
 const title = ref('')
@@ -38,13 +36,16 @@ const searchedAndSortedPosts = () => {
    return sortedPosts.filter(post => post.title.toLowerCase().includes(searchQuery.value.toLowerCase())) 
 }
 
-function createPost() {
+const createPost = async () => {
     if (title.value === '') {
         return alert('Title is empty')
     }
     else {
-        posts.value.push({ id: Date.now(), title: title.value, body: body.value })
-        alert('Post add')
+       posts.value.push({
+        id: Date.now(),
+        title: title.value,
+        body: body.value
+       })
     }
 }
 
@@ -65,9 +66,12 @@ function nextPage() {
     return page.value += 1;
 }
 
-watchEffect(() => {
-    getPosts()
-})
+function removePost(postDel) {
+posts.value =  posts.value.filter(post => post.id !== postDel.id)
+}
+
+onMounted(getPosts)
+
 </script>
 
 <template>
@@ -87,7 +91,7 @@ watchEffect(() => {
             <option v-for="option in selectOptions" :value="option.value" :key="option.value">{{ option.name }}</option>
         </select>
       </div>
-      <posts-list :posts="searchedAndSortedPosts()"></posts-list>
+      <posts-list :posts="searchedAndSortedPosts()" @remove="removePost"></posts-list>
     </div>
     <div class="pagination">
         <ul class="pagination__pages">

@@ -10,6 +10,7 @@ const props = defineProps({
         <h3>{{ post.id }}</h3>
         <h2 class="post__title">Title: {{ post.title }}</h2>
         <p>Body: {{ post.body }}</p>
+        <my-button @click="$emit('remove', post)">Delete</my-button>
     </div>
 </template>
 
