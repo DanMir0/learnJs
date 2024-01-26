@@ -827,3 +827,58 @@
 // }
 // const merged = mergeArrays(arr1, arr2);
 // console.log(merged); // Ожидаемый результат: [1, 2, 3, 4, 5, 6]
+
+//? Описание: Напишите функцию sortString, которая принимает строку из букв в нижнем регистре и сортирует ее в лексикографическом порядке.
+// const str = "javascript";
+// function sortString(str) {
+//     return str.split('').sort().join('')
+// }
+// const result = sortString(str);
+// console.log(result); // Ожидаемый результат: 'aacijprstv'
+
+//? Описание: Напишите функцию findMaxElement, которая принимает массив чисел и возвращает максимальный элемент.
+// const numbers = [5, 2, 8, 1, 9];
+// function findMaxElement(arr) {
+//     return Math.max(...arr)
+// }
+// const maxElement = findMaxElement(numbers);
+// console.log(maxElement); // Ожидаемый результат: 9
+ 
+//? Описание: Напишите функцию isEven, которая принимает число и возвращает true, если число четное, и false в противном случае.
+// const number = 10;
+// function isEven(num) {
+//     if (num % 2 === 0) return true
+//     return false
+// }
+// const result = isEven(number);
+// console.log(result); // Ожидаемый результат: false
+
+//? Описание: Напишите функцию truncateString, которая принимает строку и число n, и обрезает строку до длины n. Если строка была обрезана, добавьте к концу строки троеточие ("...").
+// const inputStr = "Hello, World!";
+// const maxLength = 5;
+// function truncateString(str, maxLength) {
+//     // return str.split('').splice(0, maxLength).join('').concat('...')
+//     if (str.length <= maxLength) {
+//         return str
+//     } else {
+//         return str.slice(0, maxLength) + '...'
+//     }
+// }
+// const truncatedStr = truncateString(inputStr, maxLength);
+// console.log(truncatedStr); // Ожидаемый результат: 'Hello...'
+
+//? Описание: Напишите функцию removeDuplicates, которая принимает массив чисел и возвращает новый массив без повторяющихся элементов.
+const numbers = [1, 2, 3, 2, 4, 5, 3, 6];
+function removeDuplicates(arr) {
+    // let result = []
+    // let sortArr = arr.sort((a,b) => a - b)
+    // for (let i = 0; i < sortArr.length; i++) {
+    //     if (sortArr[i] !== sortArr[i + 1]) {
+    //         result.push(sortArr[i])
+    //     }
+    // }
+    // return result
+    return Array.from(new Set(arr));
+}
+const uniqueNumbers = removeDuplicates(numbers);
+console.log(uniqueNumbers); // Ожидаемый результат: [1, 2, 3, 4, 5, 6]
