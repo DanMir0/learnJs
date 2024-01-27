@@ -77,12 +77,7 @@ onMounted(getPosts)
 <template>
     <div class="container">
         <div style="display: flex; justify-content: center">
-            <form class="form">
-                <h2 style="margin-bottom: 25px">Create post</h2>
-                <my-input style="margin-bottom: 10px" v-model.trim="title" placeholder="title"/>
-                <my-input v-model.trim="body" placeholder="body"/>
-                <my-button style="margin-top: 20px" @click.prevent="createPost">Add post</my-button>
-            </form>
+       
         </div>
       <div class="menu">
         <my-input v-model="searchQuery" placeholder="search"></my-input>
@@ -128,17 +123,6 @@ onMounted(getPosts)
     width: 100%;
     max-width: 1200px;
     padding: 20px;
-}
-
-.form {
-    width: 50%;
-    border-radius: 33px;
-    margin: 20px 0;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #DCDCDC;
 }
 
 .menu {

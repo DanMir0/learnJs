@@ -1,14 +1,11 @@
 <script setup>
-import LearnPage from "./pages/LearnPage.vue";
-
-
 </script>
 
 <template>
-<div class="app">
-    <learn-page></learn-page>
-</div>
-
+    <my-navbar></my-navbar>
+    <div class="app">
+        <router-view></router-view>
+    </div>
 </template>
 
 <style>
