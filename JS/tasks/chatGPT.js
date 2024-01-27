@@ -868,17 +868,77 @@
 // console.log(truncatedStr); // Ожидаемый результат: 'Hello...'
 
 //? Описание: Напишите функцию removeDuplicates, которая принимает массив чисел и возвращает новый массив без повторяющихся элементов.
-const numbers = [1, 2, 3, 2, 4, 5, 3, 6];
-function removeDuplicates(arr) {
-    // let result = []
-    // let sortArr = arr.sort((a,b) => a - b)
-    // for (let i = 0; i < sortArr.length; i++) {
-    //     if (sortArr[i] !== sortArr[i + 1]) {
-    //         result.push(sortArr[i])
-    //     }
-    // }
-    // return result
-    return Array.from(new Set(arr));
+// const numbers = [1, 2, 3, 2, 4, 5, 3, 6];
+// function removeDuplicates(arr) {
+//     // let result = []
+//     // let sortArr = arr.sort((a,b) => a - b)
+//     // for (let i = 0; i < sortArr.length; i++) {
+//     //     if (sortArr[i] !== sortArr[i + 1]) {
+//     //         result.push(sortArr[i])
+//     //     }
+//     // }
+//     // return result
+//     return Array.from(new Set(arr));
+// }
+// const uniqueNumbers = removeDuplicates(numbers);
+// console.log(uniqueNumbers); // Ожидаемый результат: [1, 2, 3, 4, 5, 6]
+
+//? Описание: Напишите функцию findSubstring, которая принимает строку и подстроку, и возвращает индекс первого вхождения подстроки в строке. Если подстрока не найдена, верните -1.
+// const mainString = "programming";
+// const substring = "gram";
+// function findSubstring(str, find) {
+//     return str.indexOf(find)
+// }
+// const result = findSubstring(mainString, substring);
+// console.log(result); // Ожидаемый результат: 3
+
+//? Описание: Напишите функцию sumNumbers, которая принимает число N и возвращает сумму всех целых чисел от 1 до N.
+// const N = 5;
+// function sumNumbers(n) {
+//     if (n > 0) {
+//         return n + sumNumbers(n-1)
+//     } else {
+//         return n
+//     }
+// }
+// const result = sumNumbers(N);
+// console.log(result); // Ожидаемый результат: 15 (1 + 2 + 3 + 4 + 5)
+
+//? Описание: Напишите функцию findMinNumber, которая принимает массив чисел и возвращает минимальное число.
+// const numbers = [5, 2, 8, 1, 9];
+// function findMinNumber(arr) {
+//     return Math.min(...arr)
+// }
+// const minNumber = findMinNumber(numbers);
+// console.log(minNumber); // Ожидаемый результат: 1
+
+//? Описание: Напишите функцию sortColors, которая принимает массив строк, представляющих цвета ("red", "green", "blue") и сортирует их в порядке: сначала идут красные, затем зеленые, затем синие.
+// const colors = ["blue", "green", "red", "green", "blue", "red"];
+// function sortColors(colors) {
+//     return colors.sort().reverse()
+// const colorOrder = { "red": 0, "green": 1, "blue": 2}
+// return colors.sort((a,b) => colorOrder[a] - colorOrder[b])
+// }
+// const sortedColors = sortColors(colors);
+// console.log(sortedColors); // Ожидаемый результат: ["red", "red", "green", "green", "blue", "blue"]
+
+//? Описание: Напишите функцию groupElementsByCount, которая принимает массив элементов и возвращает новый массив, где элементы сгруппированы по количеству их вхождений в исходном массиве. Каждый элемент нового массива - объект с полями value (значение элемента) и count (количество вхождений).
+const elements = [1, 2, 1, 3, 2, 4, 2, 5, 1];
+function groupElementsByCount(elements) {
+    const groupedArray = [];
+
+    elements.forEach((element) => {
+      const existingElement = groupedArray.find((grouped) => grouped.value === element);
+  
+      if (existingElement) {
+        existingElement.count++;
+      } else {
+        groupedArray.push({ value: element, count: 1 });
+      }
+    });
+  
+    return groupedArray;
 }
-const uniqueNumbers = removeDuplicates(numbers);
-console.log(uniqueNumbers); // Ожидаемый результат: [1, 2, 3, 4, 5, 6]
+const groupedElements = groupElementsByCount(elements);
+console.log(groupedElements);// Ожидаемый результат: [{ value: 1, count: 3 }, { value: 2, count: 3 }, { value: 3, count: 1 }, { value: 4, count: 1 }, { value: 5, count: 1 }]
+
