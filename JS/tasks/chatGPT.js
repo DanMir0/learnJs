@@ -923,22 +923,98 @@
 // console.log(sortedColors); // Ожидаемый результат: ["red", "red", "green", "green", "blue", "blue"]
 
 //? Описание: Напишите функцию groupElementsByCount, которая принимает массив элементов и возвращает новый массив, где элементы сгруппированы по количеству их вхождений в исходном массиве. Каждый элемент нового массива - объект с полями value (значение элемента) и count (количество вхождений).
-const elements = [1, 2, 1, 3, 2, 4, 2, 5, 1];
-function groupElementsByCount(elements) {
-    const groupedArray = [];
+// const elements = [1, 2, 1, 3, 2, 4, 2, 5, 1];
+// function groupElementsByCount(elements) {
+//     const groupedArray = [];
 
-    elements.forEach((element) => {
-      const existingElement = groupedArray.find((grouped) => grouped.value === element);
+//     elements.forEach((element) => {
+//       const existingElement = groupedArray.find((grouped) => grouped.value === element);
   
-      if (existingElement) {
-        existingElement.count++;
-      } else {
-        groupedArray.push({ value: element, count: 1 });
-      }
-    });
+//       if (existingElement) {
+//         existingElement.count++;
+//       } else {
+//         groupedArray.push({ value: element, count: 1 });
+//       }
+//     });
   
-    return groupedArray;
-}
-const groupedElements = groupElementsByCount(elements);
-console.log(groupedElements);// Ожидаемый результат: [{ value: 1, count: 3 }, { value: 2, count: 3 }, { value: 3, count: 1 }, { value: 4, count: 1 }, { value: 5, count: 1 }]
+//     return groupedArray;
+// }
+// const groupedElements = groupElementsByCount(elements);
+// console.log(groupedElements);// Ожидаемый результат: [{ value: 1, count: 3 }, { value: 2, count: 3 }, { value: 3, count: 1 }, { value: 4, count: 1 }, { value: 5, count: 1 }]
+
+//? Описание: Напишите функцию reverseStringWithoutDigitsChange, которая принимает строку, состоящую из букв и цифр, и возвращает строку, в которой буквы обращены, а цифры остались на своих местах.
+// const str = "a1b2c3";
+// function reverseStringWithoutDigitsChange(str) {
+//   const letters = str.match(/[a-zA-Z]/g);
+
+//   if (!letters) {
+//     return str;
+//   }
+
+//   let reversedStr = "";
+//   let letterIndex = 0;
+
+//   for (let i = 0; i < str.length; i++) {
+//     if (/[a-zA-Z]/.test(str[i])) {
+//       reversedStr += letters[letters.length - 1 - letterIndex];
+//       letterIndex++;
+//     } else {
+//       reversedStr += str[i];
+//     }
+//   }
+
+//   return reversedStr;
+// }
+// const result = reverseStringWithoutDigitsChange(str);
+// console.log(result); // Ожидаемый результат: "c3b2a1"
+
+//? Напишите функцию countSubstrings, которая принимает строку и подстроку, и возвращает количество вхождений подстроки в строке.
+// const mainString = "ababab";
+// const substring = "ab";
+// function countSubstrings(mainString, substring) {
+//   if (!mainString || !substring) {
+//     return 0
+//   }
+//   let count = 0
+//   let index = mainString.indexOf(substring)
+
+//   while (index !== - 1) {
+//     count++
+//     index = mainString.indexOf(substring, index + 1)
+//   }
+//   return count
+// }
+// const result = countSubstrings(mainString, substring);
+// console.log(result); // Ожидаемый результат: 3
+
+// const arr1 = [1, 2, 3];
+// const arr2 = [2, 3, 4];
+// function getUniqueElements(arr1, arr2) {
+//  return [...new Set(arr1.concat(arr2))]
+// }
+// const result = getUniqueElements(arr1, arr2);
+// console.log(result); // Ожидаемый результат: [1, 2, 3, 4]
+
+//? Описание: Напишите функцию maxDifference, которая принимает массив чисел и возвращает максимальную разницу между двумя элементами массива, где больший элемент находится после меньшего.
+// const numbers = [2, 8, 3, 10, 5, 6, 12, 50];
+// function maxDifference(numbers) {
+//   let res = 0
+//   let prevRes = 0
+//   for (let i = 1; i < numbers.length; i++) {
+//     if (numbers[i] > numbers[i - 1]) {
+//       res = numbers[i] - numbers[i - 1]
+//     } else {
+//       res = numbers[i - 1] - numbers[i] 
+//     }
+
+//     if (prevRes > res) {
+//       res = prevRes
+//     }
+
+//     prevRes = res
+//   }
+//   return res
+// }
+// const result = maxDifference(numbers);
+// console.log(result); // Ожидаемый результат: 7 (10 - 3)
 
