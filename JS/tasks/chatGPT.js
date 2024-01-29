@@ -1018,3 +1018,54 @@
 // const result = maxDifference(numbers);
 // console.log(result); // Ожидаемый результат: 7 (10 - 3)
 
+//? Описание: Напишите функцию для глубокого копирования объекта, учитывая вложенные объекты и массивы.
+// const original = { a: 1, b: { c: 2 }, d: [3, 4] };
+// function deepCopy(obj) {
+//     if (typeof  obj !== 'object') {
+//         return obj
+//     }
+//
+//     if (Array.isArray(obj)) {
+//         return obj.map(deepCopy);
+//     }
+//     const result = {};
+//     for (const key in obj) {
+//         if (obj.hasOwnProperty(key)) {
+//             result[key] = deepCopy(obj[key])
+//         }
+//     }
+//     return result
+// }
+// const copy = deepCopy(original);
+// copy.b.c = 5;
+// console.log(original.b.c); // 2
+
+
+// const objectsArray = [{ value: 5 }, { value: 2 }, { value: 8 }];
+// function sortByValue(arr) {
+//     return arr.sort((a, b) => a.value - b.value)
+// }
+// sortByValue(objectsArray);
+// console.log(objectsArray); // [{ value: 2 }, { value: 5 }, { value: 8 }]
+
+//?Описание: Напишите функцию, которая обрезает строку до заданной длины и добавляет многоточие ("..."), если строка была обрезана.
+// function truncateString(str, num) {
+//     return str.slice(0, num) + '...'
+// }
+// console.log(truncateString("Lorem ipsum dolor sit amet", 10)) // "Lorem ipsu..."
+// console.log(truncateString("A quick brown fox", 15)); // "A quick brown..."
+
+//? Описание: Напишите функцию, которая принимает несколько массивов и объединяет их в один массив, удаляя дубликаты.
+function mergeArrays(...arr) {
+    let newArr = []
+    arr.forEach((els) => {
+        els.forEach(el=>{
+            if (!newArr.includes(el)) {
+                newArr.push(el)
+            }
+        })
+    })
+    return newArr
+}
+console.log(mergeArrays([1, 2, 3], [3, 4, 5], [5, 6, 7]))
+console.log(mergeArrays(["apple", "orange"], ["banana", "apple"]))
