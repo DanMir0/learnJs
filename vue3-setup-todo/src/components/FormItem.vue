@@ -10,6 +10,7 @@ const emit = defineEmits(['create', 'close'])
 function createPost() {
     emit('create', {
         id: Date.now(),
+        done: false,
         title: title.value,
         body: body.value
     })
@@ -41,12 +42,6 @@ function createPost() {
             CLose
             </my-button>
         </div>
-        
-        <!-- <my-input  v-model.trim="title" placeholder="title" />
-        <my-input v-model.trim="body" placeholder="body" />
-        <my-button @click.prevent="createPost">Add post</my-button>
-       
-         -->
     </form>
     </div>
 </template>

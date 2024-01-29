@@ -37,7 +37,7 @@ function onLeave(el, done) {
         @enter="onEnter"
         @leave="onLeave"
         >
-            <post-item :post="post" v-for="post in posts" :key="post.id" @remove="$emit('remove', post)"></post-item>
+            <post-item :post="post" v-for="post in posts" :key="post.id" @addToDone="$emit('addToDone', post)" @remove="$emit('remove', post.id)"></post-item>
         </transition-group>
     </div>
     <div v-else>
