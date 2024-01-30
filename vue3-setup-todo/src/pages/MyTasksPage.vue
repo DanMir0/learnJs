@@ -2,11 +2,16 @@
 
 import FormItem from "@/components/FormItem.vue"
 import PostsList from "@/components/PostsList.vue"
-import {onMounted, ref} from "vue"
+import {computed, onMounted, ref, watch} from "vue"
 import MyButton from "@/components/UI/MyButton.vue";
 
 const showModal = ref(false)
 const tasks = ref([])
+const selectedState = ref({
+    all: true,
+    done: false,
+    undone: false
+})
 const createTask = (task) => {
     tasks.value.push(task)
     showModal.value = false
@@ -40,9 +45,38 @@ const loadTasksFromLocalStorage = () => {
     }
 }
 
+const showDoneTasks = () => {
+    selectedState.value.all = false;
+    selectedState.value.done = true;
+    selectedState.value.undone = false;
+}
+const showAllTasks = () => {
+    selectedState.value.all = true;
+    selectedState.value.done = false;
+    selectedState.value.undone = false;
+}
+
+const showUnDoneTasks = () => {
+    selectedState.value.all = false;
+    selectedState.value.done = false;
+    selectedState.value.undone = true;
+    console.log(selectedState)
+}
+
+const showTasks = computed(() => {
+    if (selectedState.value.all) {
+        return  tasks.value
+    } else if (selectedState.value.done) {
+        return [...tasks.value].filter(task => task.done === true)
+    } else if (selectedState.value.undone) {
+        return [...tasks.value].filter(task => task.done !== true)
+    }
+    return tasks.value
+})
 onMounted(() =>{
     loadTasksFromLocalStorage()
 })
+
 
 window.addEventListener('beforeunload', saveTasksToLocalStorage)
 </script>
@@ -51,12 +85,13 @@ window.addEventListener('beforeunload', saveTasksToLocalStorage)
     <div class="container">
         <div class="menu">
           <my-button @click="showModal = true">Create task</my-button>
+            <div class="menu__show-tasks">
+                <my-button @click="showDoneTasks">Done tasks</my-button>
+                <my-button @click="showAllTasks">All tasks</my-button>
+                <my-button @click="showUnDoneTasks">Undone tasks</my-button>
+            </div>
         </div>
-      <div>
-        <posts-list :posts="tasks" @addToDone="addToDoneTasks" @remove="removeTask"></posts-list>
-      </div>
-
-
+        <posts-list :posts="showTasks" @addToDone="addToDoneTasks" @remove="removeTask"></posts-list>
     </div>
         <form-item :show="showModal" @create="createTask" @close="showModal = false"></form-item>
 </template>
@@ -68,4 +103,14 @@ window.addEventListener('beforeunload', saveTasksToLocalStorage)
     max-width: 1200px;
     padding: 20px;
 }
+.menu {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.menu__show-tasks {
+    display: flex;
+    gap: 10px;
+}
+
 </style>
