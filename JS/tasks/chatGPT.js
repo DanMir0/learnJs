@@ -1056,16 +1056,60 @@
 // console.log(truncateString("A quick brown fox", 15)); // "A quick brown..."
 
 //? Описание: Напишите функцию, которая принимает несколько массивов и объединяет их в один массив, удаляя дубликаты.
-function mergeArrays(...arr) {
-    let newArr = []
-    arr.forEach((els) => {
-        els.forEach(el=>{
-            if (!newArr.includes(el)) {
-                newArr.push(el)
-            }
-        })
-    })
-    return newArr
+// function mergeArrays(...arr) {
+//     let newArr = []
+//     arr.forEach((els) => {
+//         els.forEach(el=>{
+//             if (!newArr.includes(el)) {
+//                 newArr.push(el)
+//             }
+//         })
+//     })
+//     return newArr
+// }
+// console.log(mergeArrays([1, 2, 3], [3, 4, 5], [5, 6, 7]))
+// console.log(mergeArrays(["apple", "orange"], ["banana", "apple"]))
+
+//Описание: У вас есть массив чисел от 1 до N, за исключением одного числа. Напишите функцию для нахождения пропущенного числа.
+// function findMissingNumber(arr) {
+//     const n = arr.length + 1; // Одно число пропущено, поэтому увеличиваем длину массива на 1
+//     const expectedSum = (n * (n + 1)) / 2; // Сумма чисел от 1 до N по формуле
+//     const actualSum = arr.reduce((sum, num) => sum + num, 0); // Сумма чисел в массиве
+//
+//     return expectedSum - actualSum;
+// }
+// console.log(findMissingNumber([1, 2, 4, 5])) // 3
+// console.log(findMissingNumber([10, 8, 7, 6, 5, 4, 3, 2, 1]))
+
+//  Напишите функцию, которая возвращает массив уникальных слов из заданной строки, игнорируя регистр букв.
+// function uniqueWords(str) {
+//     let arr = str.split(' ').map(word => word.toLowerCase())
+//     return [... new Set(arr)]
+// }
+// console.log(uniqueWords("The quick brown fox Fox Fox"))
+// console.log(uniqueWords("Hello hello world World"))
+
+//? Описание: Напишите функцию для инвертирования связанного списка
+// function reverseLinkedList(arr) {
+//     return arr.reverse()
+// }
+// const reversedList = reverseLinkedList([1, 2, 3, 4, 5]);
+// console.log(reversedList); // 5 -> 4 -> 3 -> 2 -> 1
+
+//? Напишите функцию, которая принимает строку и возвращает ее "сжатую" версию. Если последовательные символы повторяются, замените их числом, обозначающим количество повторений. Если сжатая строка не короче оригинала, верните исходную строку.
+function compressString(str) {
+    let compressed = '';
+    let count = 1;
+    for (let i =0; i <str.length; i++) {
+        if (str[i] === str[i+1]) {
+            count++
+        } else {
+            compressed += str[i] + (count > 1 ? count : '')
+            count = 1
+        }
+
+    }
+    return compressed.length < str.length ? compressed : str
 }
-console.log(mergeArrays([1, 2, 3], [3, 4, 5], [5, 6, 7]))
-console.log(mergeArrays(["apple", "orange"], ["banana", "apple"]))
+console.log(compressString("aabcccccaaa"))
+console.log(compressString("abcde"))
