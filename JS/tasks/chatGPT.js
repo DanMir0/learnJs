@@ -1097,19 +1097,87 @@
 // console.log(reversedList); // 5 -> 4 -> 3 -> 2 -> 1
 
 //? Напишите функцию, которая принимает строку и возвращает ее "сжатую" версию. Если последовательные символы повторяются, замените их числом, обозначающим количество повторений. Если сжатая строка не короче оригинала, верните исходную строку.
-function compressString(str) {
-    let compressed = '';
-    let count = 1;
-    for (let i =0; i <str.length; i++) {
-        if (str[i] === str[i+1]) {
-            count++
-        } else {
-            compressed += str[i] + (count > 1 ? count : '')
-            count = 1
-        }
+// function compressString(str) {
+//     let compressed = '';
+//     let count = 1;
+//     for (let i =0; i <str.length; i++) {
+//         if (str[i] === str[i+1]) {
+//             count++
+//         } else {
+//             compressed += str[i] + (count > 1 ? count : '')
+//             count = 1
+//         }
+//
+//     }
+//     return compressed.length < str.length ? compressed : str
+// }
+// console.log(compressString("aabcccccaaa"))
+// console.log(compressString("abcde"))
 
-    }
-    return compressed.length < str.length ? compressed : str
-}
-console.log(compressString("aabcccccaaa"))
-console.log(compressString("abcde"))
+//? Описание: Напишите функцию, которая принимает строку и возвращает количество гласных букв в ней (a, e, i, o, u).
+// function countVowels(str) {
+//     let vowels = ['a', 'e', 'i', 'o', 'u']
+//     let count = 0;
+//     for (let i = 0; i < str.length; i++) {
+//        if(vowels.includes(str[i])) {
+//            count++
+//        }
+//     }
+//     return count
+// }
+//
+// console.log(countVowels('Hello ii u ass World'));
+
+//? Описание: Напишите функцию, которая принимает массив чисел и возвращает новый массив, содержащий те же числа, но отсортированные по убыванию.
+// function sortDescending(numbers) {
+//     return numbers.sort((a, b) => b - a).map(number => number)
+// }
+// console.log(sortDescending([3, 1, 7, 4, 2])); // [7, 4, 3, 2, 1]
+
+//? Описание: Напишите функцию, которая принимает другую функцию и возвращает новую функцию с механизмом кэширования. Если функция вызывается с теми же аргументами, что и ранее, она должна возвращать закэшированный результат, а не вычислять его заново.
+// function cacheFunction(f) {
+//     const cashe = {}
+//     return function (...args) {
+//         const key = JSON.stringify(args)
+//
+//         if (key in cashe) {
+//             console.log('Fetching result from cache')
+//             return cashe[key]
+//         }
+//         console.log('Calculating result');
+//         const result = f(...args)
+//         cashe[key] = result
+//         return result
+//     }
+// }
+// const cachedSum = cacheFunction((a, b) => a + b);
+// console.log(cachedSum(2, 3)); // должно вычислиться
+// console.log(cachedSum(2, 3)); // должно взяться из кэша
+
+//? Описание: Используя Promises или async/await, напишите функцию, которая делает два асинхронных запроса к серверам API и возвращает результат их обработки (например, сумму двух значений).
+// function fetchDataFromAPI1() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve(5)
+//         }, 1000)
+//     })
+// }
+// function fetchDataFromAPI2() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve(10)
+//         }, 1500)
+//     })
+// }
+// function  processResult(data1, data2) {
+//     return data1 + data2
+// }
+// async function fetchDataAndProcess() {
+//     const data1 = await fetchDataFromAPI1();
+//     const data2 = await fetchDataFromAPI2();
+//     return processResult(data1, data2);
+// }
+//
+// fetchDataAndProcess().then((result) => {
+//     console.log('Обработанный результат', result)
+// })
