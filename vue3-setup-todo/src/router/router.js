@@ -1,6 +1,7 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import LearnPage from '@/pages/LearnPage'
 import MyTasksPage from '@/pages/MyTasksPage'
+import TasksByMonthPage from "@/pages/TasksByMonthPage.vue";
 
 const routes = [
     {
@@ -10,6 +11,10 @@ const routes = [
     {
         path: '/my-tasks',
         component: MyTasksPage
+    },
+    {
+        path: '/tasks-by-month',
+        component: TasksByMonthPage
     }
 ]
 

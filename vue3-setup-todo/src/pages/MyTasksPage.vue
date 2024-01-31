@@ -1,9 +1,7 @@
 <script setup>
-
 import FormItem from "@/components/FormItem.vue"
 import PostsList from "@/components/PostsList.vue"
 import {computed, onMounted, ref, watch} from "vue"
-import MyButton from "@/components/UI/MyButton.vue";
 
 const showModal = ref(false)
 const tasks = ref([])
@@ -12,10 +10,10 @@ const selectedState = ref({
     done: false,
     undone: false
 })
+const searchQuery = ref('')
 const createTask = (task) => {
     tasks.value.push(task)
     showModal.value = false
-    saveTasksToLocalStorage()
 }
 
 const removeTask = (id) => {
@@ -45,6 +43,11 @@ const loadTasksFromLocalStorage = () => {
     }
 }
 
+const searchedTask = () => {
+    let sortedTask = getSortedPosts()
+    let searchedAndSort = sortedTask.filter(task => task['title'].toLowerCase().includes(searchQuery.value.toLowerCase()))
+    return searchedAndSort
+}
 const showDoneTasks = () => {
     selectedState.value.all = false;
     selectedState.value.done = true;
@@ -64,32 +67,41 @@ const showUnDoneTasks = () => {
 }
 
 const showTasks = computed(() => {
+    let newTasks = searchedTask()
     if (selectedState.value.all) {
-        return  tasks.value
+        return  newTasks
     } else if (selectedState.value.done) {
-        return [...tasks.value].filter(task => task.done === true)
+        return [...newTasks].filter(task => task.done === true)
     } else if (selectedState.value.undone) {
-        return [...tasks.value].filter(task => task.done !== true)
+        return [...newTasks].filter(task => task.done !== true)
     }
-    return tasks.value
+    return newTasks
 })
+
 onMounted(() =>{
     loadTasksFromLocalStorage()
 })
 
-
+const getSortedPosts = (selectedSort) => {
+    const sortTasks = tasks.value.sort((prevTask, nextTask) => prevTask[selectedSort]?.localeCompare(nextTask[selectedSort]))
+    return sortTasks
+}
 window.addEventListener('beforeunload', saveTasksToLocalStorage)
 </script>
 
 <template>
-    <div class="container">
+    <div>
         <div class="menu">
           <my-button @click="showModal = true">Create task</my-button>
+            <div class="block__search">
+                <my-input class="search" v-model="searchQuery" placeholder="Search..."></my-input>
+            </div>
             <div class="menu__show-tasks">
                 <my-button @click="showDoneTasks">Done tasks</my-button>
                 <my-button @click="showAllTasks">All tasks</my-button>
                 <my-button @click="showUnDoneTasks">Undone tasks</my-button>
             </div>
+          <my-select @change="getSortedPosts"></my-select>
         </div>
         <posts-list :posts="showTasks" @addToDone="addToDoneTasks" @remove="removeTask"></posts-list>
     </div>
@@ -97,20 +109,25 @@ window.addEventListener('beforeunload', saveTasksToLocalStorage)
 </template>
 
 <style scoped>
-.container {
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1200px;
-    padding: 20px;
-}
 .menu {
-    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid turquoise;
+    border-radius: 20px;
+    margin: 20px;
     display: flex;
     justify-content: space-between;
+    background-color: azure;
 }
 .menu__show-tasks {
     display: flex;
     gap: 10px;
 }
-
+.block__search {
+    max-width: 350px;
+    width: 100%;
+}
+.search {
+    padding: 15px;
+    width: 100%;
+}
 </style>

@@ -4,17 +4,11 @@ import { onMounted, ref } from 'vue'
 import PostsList from "@/components/PostsList"
 
 const posts = ref([])
-const title = ref('')
-const body = ref('')
 const searchQuery = ref('')
-const selectOptions = ref([
-    { value: 'title', name: 'Sort by title'},
-    { value: 'body', name: 'Sort by body'},
-])
-const selectedSort = ref('')
 const page = ref(1)
 const totalPages = ref(1)
 const limit = ref(10)
+const showModal = ref(false)
 
 const getPosts = async () => {
     try {
@@ -36,21 +30,14 @@ const searchedAndSortedPosts = () => {
    return sortedPosts.filter(post => post.title.toLowerCase().includes(searchQuery.value.toLowerCase())) 
 }
 
-const createPost = async () => {
-    if (title.value === '') {
-        return alert('Title is empty')
-    }
-    else {
-       posts.value.push({
-        id: Date.now(),
-        title: title.value,
-        body: body.value
-       })
-    }
+const createPost = (post) => {
+    posts.value.push(post);
+    showModal.value = false
 }
 
-function getSortedPosts() {
-   return [...posts.value].sort((post1, post2) => post1[selectedSort.value]?.localeCompare(post2[selectedSort.value]))
+function getSortedPosts(selectedSort) {
+  const  sortedPosts = posts.value.sort((post1, post2) => post1[selectedSort]?.localeCompare(post2[selectedSort]))
+    return sortedPosts
 }
 
 function changePage(pageNumber) {
@@ -76,15 +63,10 @@ onMounted(getPosts)
 
 <template>
     <div class="container">
-        <div style="display: flex; justify-content: center">
-       
-        </div>
       <div class="menu">
         <my-input v-model="searchQuery" placeholder="search"></my-input>
-        <select v-model="selectedSort" class="select">
-            <option disabled value="">Select sort...</option>
-            <option v-for="option in selectOptions" :value="option.value" :key="option.value">{{ option.name }}</option>
-        </select>
+        <my-select @change="getSortedPosts"></my-select>
+          <my-button @click="showModal = true">Create post</my-button>
       </div>
       <posts-list :posts="searchedAndSortedPosts()" @remove="removePost"></posts-list>
     </div>
@@ -115,6 +97,7 @@ onMounted(getPosts)
             </li>
         </ul>
     </div>
+    <form-item :show="showModal" @create="createPost" @close="showModal = false"></form-item>
 </template>
 
 <style scoped>
@@ -151,8 +134,4 @@ onMounted(getPosts)
     border: 2px solid teal;
 }
 
-.select {
-    border-radius: 30px;
-    padding: 15px;
-}
 </style>

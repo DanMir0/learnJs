@@ -4,7 +4,9 @@
 <template>
     <my-navbar></my-navbar>
     <div class="app">
-        <router-view></router-view>
+        <div class="container">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
@@ -17,5 +19,11 @@
 
 .app {
     background-color: #F8F8FF
+}
+.container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
 }
 </style>

@@ -10,11 +10,14 @@
         <nav class="menu">
            <ul class="list">
                 <li> 
-                    <router-link style="text-decoration: none;" to="/">Learn vue</router-link>
+                    <router-link to="/">Learn vue</router-link>
                 </li>
                 <li>
-                    <router-link style="text-decoration: none;" to="/my-tasks"> My tasks</router-link>
+                    <router-link to="/my-tasks"> My tasks</router-link>
                 </li>
+               <li>
+                   <router-link to="/tasks-by-month"> My tasks by month</router-link>
+               </li>
            </ul>
         </nav>
     </div>
@@ -46,5 +49,8 @@ li {
 }
 li:hover {
     opacity: 0.5;
+}
+a {
+    text-decoration: none;
 }
 </style>
