@@ -1181,3 +1181,61 @@
 // fetchDataAndProcess().then((result) => {
 //     console.log('Обработанный результат', result)
 // })
+
+//? Описание: Напишите функцию, которая проверяет, является ли строка палиндромом (читается одинаково вперед и назад, игнорируя пробелы, знаки препинания и регистр).
+// function isPalindrome(str) {
+//     let regex = /[.,\s]/g;
+//     let reverseStr = str.replace(regex, '').toLowerCase().split('').reverse().join('')
+//     let newStr = str.replace(regex,'').toLowerCase()
+//     return reverseStr === newStr
+// }
+// console.log(isPalindrome('A man, a plan, a canal, Panama')); //true
+
+//Описание: Напишите функцию, которая принимает массив и возвращает новый массив, содержащий только уникальные элементы (без повторений).
+// function findUniqueElements(arr) {
+//     return [...new Set(arr)]
+// }
+// console.log(findUniqueElements([1, 2, 3, 4, 2, 1, 5])) // [1, 2, 3, 4, 5]
+
+//? Описание: Напишите функцию, которая генерирует случайный пароль заданной длины. Пароль должен содержать буквы (в верхнем и нижнем регистре) и цифры.
+// function generateRandomPassword(numLength) {
+//     let reg = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+//     let pass = ''
+//     for (let i = 0; i < numLength; i++) {
+//         let randomNumber = Math.floor(Math.random() * reg.length)
+//         pass += reg[randomNumber]
+//     }
+//     return pass
+// }
+// console.log(generateRandomPassword(8))
+
+//? Описание: Напишите функцию, которая принимает число n и возвращает сумму факториалов всех чисел от 1 до n.
+// function sumFactorials(n) {
+//     function  factorial(num) {
+//         if (num === 1 || num === 0) {
+//             return 1
+//         } else {
+//             return num * factorial(num-1)
+//         }
+//     }
+//     let sum = 0;
+//     for (let i = 1; i <= n; i++) {
+//         sum += factorial(i)
+//     }
+//     return sum
+// }
+// console.log(sumFactorials(4)) //33
+
+//? Описание: Напишите функцию, которая принимает число и возвращает true, если оно является простым числом, и false в противном случае.
+function isPrime(num) {
+    for (let i = 2; i<=num; i++) {
+        if (num % i === 0) {
+            if (i === num && num % i ===0) {
+                return true
+            }
+                return false
+        }
+    }
+}
+
+console.log(isPrime(50)) // true
