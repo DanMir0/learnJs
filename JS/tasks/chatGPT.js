@@ -1227,15 +1227,46 @@
 // console.log(sumFactorials(4)) //33
 
 //? Описание: Напишите функцию, которая принимает число и возвращает true, если оно является простым числом, и false в противном случае.
-function isPrime(num) {
-    for (let i = 2; i<=num; i++) {
-        if (num % i === 0) {
-            if (i === num && num % i ===0) {
-                return true
-            }
-                return false
-        }
-    }
-}
+// function isPrime(num) {
+//     for (let i = 2; i<=num; i++) {
+//         if (num % i === 0) {
+//             if (i === num && num % i ===0) {
+//                 return true
+//             }
+//                 return false
+//         }
+//     }
+// }
+//
+// console.log(isPrime(50)) // true
+//?Описание: Напишите функцию, которая принимает массив, содержащий вложенные массивы, и возвращает новый массив с раскрытыми элементами вложенных массивов.
+// function flattenNestedArrays(arr) {
+//    return arr.reduce((result, current) => {
+//        return result.concat(Array.isArray(current) ? flattenNestedArrays(current) : current)
+//    }, [])
+// }
+// console.log(flattenNestedArrays([1, [2, 3], [4, [5, 6]]])) //[1, 2, 3, 4, 5, 6]
 
-console.log(isPrime(50)) // true
+// Описание: Напишите функцию, которая принимает строку и число n, и возвращает новую строку, обрезанную до n слов (если в строке больше слов).
+// function truncateString(str, num) {
+//     return  str.split(' ').slice(0,num).join(' ')
+// }
+// console.log(truncateString('Lorem ipsum dolor sit amet consectetur adipiscing elit', 5))
+
+//Описание: Напишите функцию, которая принимает два числа (минимальное и максимальное) и возвращает случайное целое число включительно в этом диапазоне.
+// function getRandomNumber(min, max) {
+//     return Math.floor(Math.random() * (max-min) + min)
+// }
+// console.log(getRandomNumber(1, 10))
+
+//?Описание: Напишите функцию, которая принимает два массива и возвращает новый массив, содержащий уникальные элементы из обоих массивов.
+// function mergeArrays(arr1, arr2) {
+//     return console.log([...new Set(arr1.concat(arr2))])
+// }
+// mergeArrays([1, 2, 3], [3, 4, 5]);
+
+//? Описание: Напишите функцию, которая принимает аргумент и возвращает его тип данных (например, "number", "string", "object" и т.д.).
+// function getDataType(val) {
+//   return typeof val
+// }
+// console.log(getDataType(42))
