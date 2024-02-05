@@ -1270,3 +1270,74 @@
 //   return typeof val
 // }
 // console.log(getDataType(42))
+
+//? Описание: Напишите функцию, которая принимает массив чисел и возвращает максимальное значение.
+// function findMaxValue(arr) {
+//     return console.log(Math.max(...arr))
+// }
+// findMaxValue([3, 7, 2, 9, 1]);
+
+//? Описание: Напишите функцию, которая сравнивает два объекта и возвращает true, если они идентичны (имеют одни и те же ключи и значения), и false в противном случае.
+// function areObjectsEqual(obj1, obj2) {
+//     const keys1 = Object.keys(obj1);
+//     const keys2 = Object.keys(obj2);
+//     if (keys1.length !== keys2.length) return false
+//     return keys1.every(key => {
+//         const val1 = obj1[key];
+//         const val2 = obj2[key];
+//         if (typeof val1 === 'object' && typeof val2 === 'object') {
+//             return areObjectsEqual(val1, val2)
+//         }
+//         return val1 === val2
+//     })
+// }
+// const obj1 = { a: 1, b: {n: 4}, c: 3 };
+// const obj2 = { a: 1, b: {n: 4}, c: 3 };
+// console.log(areObjectsEqual(obj1, obj2))
+
+//? Описание: Напишите функцию, которая принимает число n и возвращает сумму всех чисел Фибоначчи до или равно n.
+// function sumFibonacciNumbers(n) {
+//     let sum = 0;
+//     let fibPrev = 0;
+//     let fibCurr = 1;
+//
+//     while (fibCurr <= n) {
+//         if (fibCurr % 2 !== 0) {
+//             // Учитываем только нечетные числа Фибоначчи
+//             sum += fibCurr;
+//         }
+//
+//         const temp = fibPrev + fibCurr;
+//         fibPrev = fibCurr;
+//         fibCurr = temp;
+//     }
+//
+//     return sum;
+// }
+// console.log(sumFibonacciNumbers(10)) // 23 // 1 + 1 + 2 + 3 + 5 + 8 = 23
+
+//? Условие: Напиши функцию filterNumbers(arr, min, max), которая принимает массив чисел и возвращает новый массив, содержащий только те числа, которые находятся в пределах от min до max.
+// function filterNumbers(arr, minV, maxV) {
+//     let newArr = []
+//     for (let i = 0; i < arr.length; i++) {
+//         if (arr[i] >= minV && arr[i] <= maxV) {
+//             newArr.push(arr[i])
+//         }
+//     }
+//     return console.log(newArr)
+//return arr.filter(num => num >= minV && num <= maxV)
+// }
+// filterNumbers([5, 10, 3, 8, 15], 6, 12); //[10, 8]
+
+//? Условие: Напиши функцию hasUniqueCharacters(str), которая проверяет, содержит ли заданная строка только уникальные символы (без повторений).
+function hasUniqueCharacters(str) {
+ const charSet = new Set();
+ for (const char of str) {
+     if (charSet.has(char)) {
+         return false
+     }
+     charSet.add(char)
+ }
+ return  true
+}
+console.log(hasUniqueCharacters("asabcdefg")) // true
