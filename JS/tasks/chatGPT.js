@@ -1330,14 +1330,93 @@
 // filterNumbers([5, 10, 3, 8, 15], 6, 12); //[10, 8]
 
 //? Условие: Напиши функцию hasUniqueCharacters(str), которая проверяет, содержит ли заданная строка только уникальные символы (без повторений).
-function hasUniqueCharacters(str) {
- const charSet = new Set();
- for (const char of str) {
-     if (charSet.has(char)) {
-         return false
+// function hasUniqueCharacters(str) {
+//  const charSet = new Set();
+//  for (const char of str) {
+//      if (charSet.has(char)) {
+//          return false
+//      }
+//      charSet.add(char)
+//  }
+//  return  true
+// }
+// console.log(hasUniqueCharacters("asabcdefg")) // true
+
+//? Условие: Напиши функцию generateUniqueId(), которая возвращает строку-уникальный идентификатор. Идентификатор должен быть достаточно случайным, чтобы вероятность повторения была крайне низкой.
+// function generateUniqueId() {
+//    const timestamp = Date.now().toString(36) // Преобразование временной метки в строку
+//     const randomStr = Math.random().toString(36).substr(2) // Генерация случайной строки
+//     const hash = Math.random().toString(36).substr(2) // Генерация случайного хэша
+//     return `${timestamp}-${randomStr}-${hash}`;
+// }
+// console.log(generateUniqueId()); // "2f5a1c3b-5ed8-43a9-86fb-6d2f0f012345"
+
+
+// var timeLimit = function(fn, t) {
+    
+//     return async function(...args) {
+//         return new Promise((resolve, reject) => {
+//          let timerId = setTimeout(() => {
+//                if (timerId < t) {
+//                     resolve(fn(...args))
+//                } else {
+//                 reject(new Error("Time Limit Exceeded."))
+//                } 
+               
+                 
+//                 t})
+//                 console.log(timerId);
+//         })
+        
+//     }
+// };
+
+
+//  const limited = timeLimit((t) => new Promise(res => setTimeout(res, t)), 100);
+//   limited(150).catch(console.log) // "Time Limit Exceeded" at t=100ms
+
+// function min(val1, val2) {
+//    return val1 > val2 ? val2 : val1 
+// }
+
+// console.log(min(0, -10));
+
+//? Рекурсия
+// function isEven(number) {
+//  if (number == 0) {
+//    return true
+//  } else if (number == 1) {
+//    return false
+//  } else if (number < 1) {
+//    return isEven(-number)
+//  } 
+//  else {
+//    return isEven(number - 2)
+//  }
+// }
+
+// console.log(isEven(50));
+// // → true
+// console.log(isEven(75));
+// // → false
+// console.log(isEven(-1));
+
+//? Символ номер N строки можно получить, добавив к ней .charAt(N) ( "строчка".charAt(5) ) – схожим образом с получением длины строки при помощи .length. Возвращаемое значение будет строковым, состоящим из одного символа (к примеру, "к"). У первого символа строки позиция 0, что означает, что у последнего символа позиция будет string.length - 1. Другими словами, у строки из двух символов длина 2, а позиции её символов будут 0 и 1.
+function countChar(string, ch) {
+   let counted = 0;
+   for (let i = 0; i < string.length; i++) {
+     if (string[i] == ch) {
+       counted += 1;
      }
-     charSet.add(char)
+   }
+   return counted;
  }
- return  true
-}
-console.log(hasUniqueCharacters("asabcdefg")) // true
+ 
+ function countBs(string) {
+   return countChar(string, "B");
+ }
+ 
+ console.log(countBs("BBC"));
+ // → 2
+ console.log(countChar("kakkerlak", "k"));
+ // → 4
