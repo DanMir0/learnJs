@@ -1402,21 +1402,47 @@
 // console.log(isEven(-1));
 
 //? Символ номер N строки можно получить, добавив к ней .charAt(N) ( "строчка".charAt(5) ) – схожим образом с получением длины строки при помощи .length. Возвращаемое значение будет строковым, состоящим из одного символа (к примеру, "к"). У первого символа строки позиция 0, что означает, что у последнего символа позиция будет string.length - 1. Другими словами, у строки из двух символов длина 2, а позиции её символов будут 0 и 1.
-function countChar(string, ch) {
-   let counted = 0;
-   for (let i = 0; i < string.length; i++) {
-     if (string[i] == ch) {
-       counted += 1;
-     }
-   }
-   return counted;
- }
+// function countChar(string, ch) {
+//    let counted = 0;
+//    for (let i = 0; i < string.length; i++) {
+//      if (string[i] == ch) {
+//        counted += 1;
+//      }
+//    }
+//    return counted;
+//  }
  
- function countBs(string) {
-   return countChar(string, "B");
- }
+//  function countBs(string) {
+//    return countChar(string, "B");
+//  }
  
- console.log(countBs("BBC"));
- // → 2
- console.log(countChar("kakkerlak", "k"));
- // → 4
+//  console.log(countBs("BBC"));
+//  // → 2
+//  console.log(countChar("kakkerlak", "k"));
+//  // → 4
+//? 
+function range(start, end, step = start < end ? 1 : -1) {
+  let array = [];
+ 
+  if (step > 0) {
+    for (let i = start; i <= end; i += step) array.push(i);
+  } else {
+    for (let i = start; i >= end; i += step) array.push(i);
+  }
+  
+
+
+  return array;
+}
+
+function sum(arr) {
+  let result = 0;
+  for (let num of arr) {
+    result += num;
+  }
+  return result;
+}
+
+
+console.log(range(1, 5, -1));
+// → [5, 4, 3, 2]
