@@ -1421,28 +1421,97 @@
 //  console.log(countChar("kakkerlak", "k"));
 //  // → 4
 //? 
-function range(start, end, step = start < end ? 1 : -1) {
-  let array = [];
- 
-  if (step > 0) {
-    for (let i = start; i <= end; i += step) array.push(i);
-  } else {
-    for (let i = start; i >= end; i += step) array.push(i);
+// function range(start, end, step = start < end ? 1 : -1) {
+//   let array = [];
+//
+//   if (step > 0) {
+//     for (let i = start; i <= end; i += step) array.push(i);
+//   } else {
+//     for (let i = start; i >= end; i += step) array.push(i);
+//   }
+//
+//
+//
+//   return array;
+// }
+//
+// function sum(arr) {
+//   let result = 0;
+//   for (let num of arr) {
+//     result += num;
+//   }
+//   return result;
+// }
+//
+//
+// console.log(range(1, 5, -1));
+// // → [5, 4, 3, 2]
+
+//?
+// function arrayToList(arr) {
+//   let list = null
+//   for (let i = arr.length - 1; i >= 0; i--) {
+//     list = {value: arr[i], rest: list};
+//   }
+//   return list
+// }
+//
+// function listToArray(list) {
+//   let array = []
+//   for (let node = list; node; node = node.rest) {
+//     array.push(node.value)
+//   }
+//   return array
+// }
+//
+// function prepend(value, list) {
+//   return {value: value, rest: list}
+// }
+//
+// function nth(list, element) {
+//  if (!list) {
+//    return undefined
+//  } else if(element === 0) {
+//    return list.value
+//  } else  {
+//    return nth(list.rest, element - 1)
+//  }
+// }
+//
+// // function nth(list, element) {
+// //   while (list !== null && element > 0) {
+// //
+// //     list = list.rest
+// //     element--
+// //   }
+// //   return list ? list.value : undefined;
+// // }
+//
+// console.log(listToArray(arrayToList([10,20])))
+// console.log(prepend(10, prepend(20, null)));
+// // → {value: 10, rest: {value: 20, rest: null}}
+// console.log(nth(arrayToList([10, 20, 30]), 2));
+// // → 20
+
+//? Глубокое сравнение
+function deepEqual(a, b) {
+  if (a === b) return true
+  if (a == null || typeof a != "object" ||
+      b == null || typeof b != "object") return false;
+ let keysA = Object.keys(a)
+  let keysB = Object.keys(b)
+
+  if (keysA.length !== keysB.length) return false
+
+  for (let key of keysA) {
+    if (!keysA.includes(key) || !deepEqual(a[key], b[key])) return false
   }
-  
-
-
-  return array;
+  return true
 }
-
-function sum(arr) {
-  let result = 0;
-  for (let num of arr) {
-    result += num;
-  }
-  return result;
-}
-
-
-console.log(range(1, 5, -1));
-// → [5, 4, 3, 2]
+var obj = {here: {is: "an"}, object: 2};
+console.log(deepEqual(obj, obj));
+// → true
+console.log(deepEqual(obj, {here: 1, object: 2}));
+// → false
+console.log(deepEqual(obj, {here: {is: "an"}, object: 2}));
+// → true
