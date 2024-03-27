@@ -1494,24 +1494,61 @@
 // // → 20
 
 //? Глубокое сравнение
-function deepEqual(a, b) {
-  if (a === b) return true
-  if (a == null || typeof a != "object" ||
-      b == null || typeof b != "object") return false;
- let keysA = Object.keys(a)
-  let keysB = Object.keys(b)
+// function deepEqual(a, b) {
+//   if (a === b) return true
+//   if (a == null || typeof a != "object" ||
+//       b == null || typeof b != "object") return false;
+//  let keysA = Object.keys(a)
+//   let keysB = Object.keys(b)
+//
+//   if (keysA.length !== keysB.length) return false
+//
+//   for (let key of keysA) {
+//     if (!keysA.includes(key) || !deepEqual(a[key], b[key])) return false
+//   }
+//   return true
+// }
+// var obj = {here: {is: "an"}, object: 2};
+// console.log(deepEqual(obj, obj));
+// // → true
+// console.log(deepEqual(obj, {here: 1, object: 2}));
+// // → false
+// console.log(deepEqual(obj, {here: {is: "an"}, object: 2}));
+// // → true
 
-  if (keysA.length !== keysB.length) return false
+//? Используйте метод reduce в комбинации с concat для свёртки массива массивов в один массив, у которого есть все элементы входных массивов.
+// var arrays = [[1, 2, 3], [4, 5], [6]];
+// function concatReduce(arr) {
+//     return arr.reduce((acc, currentArr) => {
+//        return  acc.concat(currentArr)
+//     }, [])
+// }
+//
+// console.log(concatReduce(arrays))
 
-  for (let key of keysA) {
-    if (!keysA.includes(key) || !deepEqual(a[key], b[key])) return false
-  }
-  return true
+//
+function every(arr, check) {
+    for (let element of arr) {
+        if (check(element)) {
+            return false
+        }
+    }
+    return  true
 }
-var obj = {here: {is: "an"}, object: 2};
-console.log(deepEqual(obj, obj));
+
+function some(arr, check) {
+    for (let element of arr) {
+        if (check(element)) {
+            return true
+        }
+    }
+    return false
+}
+console.log(every([NaN, NaN, NaN], isNaN));
 // → true
-console.log(deepEqual(obj, {here: 1, object: 2}));
+console.log(every([NaN, NaN, 4], isNaN));
 // → false
-console.log(deepEqual(obj, {here: {is: "an"}, object: 2}));
+console.log(some([NaN, 3, 4], isNaN));
 // → true
+console.log(some([2, 3, 4], isNaN));
+// → false
