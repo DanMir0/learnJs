@@ -1527,28 +1527,214 @@
 // console.log(concatReduce(arrays))
 
 //
-function every(arr, check) {
-    for (let element of arr) {
-        if (check(element)) {
-            return false
+// function every(arr, check) {
+//     for (let element of arr) {
+//         if (check(element)) {
+//             return false
+//         }
+//     }
+//     return  true
+// }
+
+// function some(arr, check) {
+//     for (let element of arr) {
+//         if (check(element)) {
+//             return true
+//         }
+//     }
+//     return false
+// }
+// console.log(every([NaN, NaN, NaN], isNaN));
+// // → true
+// console.log(every([NaN, NaN, 4], isNaN));
+// // → false
+// console.log(some([NaN, 3, 4], isNaN));
+// // → true
+// console.log(some([2, 3, 4], isNaN));
+// // → false
+
+//? Аналог forEach
+// function forEach(array, fn) {
+//     for (let i = 0; i < array.length; i++) {
+//      fn(array[i], i, array)
+//     }
+// }
+// function fn(el, index, array) {
+//     console.log(el)
+// }
+
+// console.log(forEach([1,2,3,4,5], fn));
+
+//? Аналог map
+// function map(array, callback) {
+//     let newArr = []
+//     for (let i = 0; i < array.length; i++) {
+//         newArr.push(callback(array[i], i, array))
+//     }
+//     return newArr
+// }
+
+// function callback(currentValue, index, array) {
+//     return currentValue * 2
+// }
+// console.log(map([1,2,3], callback));
+
+//? Аналог reduce
+// function reduce(array, fn, initital) { 
+//     const hasInitial = typeof initital !== 'undefined'
+//     let prev = hasInitial ? initital : array[0]
+
+//     for (let i = hasInitial ? 0 : 1; i < array.length; i++) {
+//         prev = fn(prev, array[i], i, array)
+//     }
+//     return prev
+  
+// }
+
+// function callback(acc, currentValue,  index, array) {
+//     return acc += currentValue
+// }
+
+// console.log(reduce([1,2,3], callback, 0));
+
+//? функция должна перебрать все свойства объекта, преобразовать их мена в  верхн регистр и вернуть в виде массива
+// function upperPros(obj) {
+//     // const arr = []
+
+//     // for (let key in obj) {
+//     //     arr.push(key.toUpperCase())
+//     // }
+//     // return arr
+
+//     return Object.keys(obj).map(key => key.toUpperCase())
+// }
+
+// const obj = {
+//     name: 'Valid',
+//     lastname: 'MS',
+// }
+// console.log(upperPros(obj));
+
+//? Функция должна принимать объект и вернуть Proxy для этого объекта
+//? Proxy должен перехватывать все попытки записи значений свойств и возводить это значение в квардрат
+// const obj = createProxy({})
+// obj.foo = 2
+// console.log(obj.foo);
+// function createProxy(obj) {
+//     return new Proxy(obj, {
+//         set(target, prop, val) {
+//             target[prop] = val ** 2
+//             return true
+//         }
+//     })
+// }
+
+//? 1.1 Функция принимает массив и фильтрущую функция и должна вернуть true или false
+//? Функция должна вернуть true только если fn вернула true для всех элементов массива
+//? 1.2 Необходимо выбрасывать исключения в случаях:
+//? -array не массив или пустой массив (с текстом "empty array")
+//? - fn не является функцией (с текстом fn is not a function)
+// console.log(isAllTrue([1,2,3,4,5], n => n < 10)); // true
+// console.log(isAllTrue([100,2,3,4,5], n => n < 10)); // false
+// function isAllTrue(arr, fn) {
+//     if(!Array.isArray(arr) || !arr.length) {
+//         return new Error('empty array')
+//     }
+//     if(typeof fn !== 'function') {
+//         return new Error('fn is not a function')
+//     }
+    
+//     for (let i = 0; i < arr.length; i++) {
+//        let isTrue = fn(arr[i], i, arr) 
+//        if (!isTrue) return false
+//     }
+//     return true
+// }
+// console.log(isAllTrue([1,2], 2)); // Err
+
+//? isSome
+// console.log(isAllTrue([10,2,30,40,50], n => n < 10)); // true
+// console.log(isAllTrue([100,40,30,40,50], n => n < 10)); // false
+// function isAllTrue(arr, fn) {
+//     if(!Array.isArray(arr) || !arr.length) {
+//         return new Error('empty array')
+//     }
+//     if(typeof fn !== 'function') {
+//         return new Error('fn is not a function')
+//     }
+    
+//     for (let i = 0; i < arr.length; i++) {
+//        let isTrue = fn(arr[i], i, arr) 
+//        if (isTrue) return true
+//     }
+//     return false
+// }
+
+//? Функция принимает заранее неизвестное количество аргументов, первым из которых является функция fn
+//? ФУнкция должна поочередно запустить fn для каждого переданного аргумента (кроме самой fn)
+//? ФУнкция должна вернуть массив аргументов, для которых fn Выбросила исключение
+//? Необходимо выбрасывать исключение fn- не является функцикй ('fn is not a function')
+// function returnBadArguments(fn, ...args) {
+//     if (typeof fn !== 'function') {
+//         return new Error('fn is not a function')
+//     }
+//     let bad = []
+//     for (let el in args) {
+//         try {
+//             fn(el)
+//         } catch {
+//             bad.push(el)
+//         }
+//     }
+//     return bad
+// }
+
+//? Функция иметт параметр number (по умолчанию 0)
+//? Функция должна вернуть объект, у которого должгл быть нсколько методов:
+// -sum - складывает number с переданными аргументами
+// -dif - вычитает
+// - div - делит. Результат делится на следующий аргумент (если передан) и т.д.
+// - mul умножает. Результат умножается на следующий аргумент (если передан) и т.д.
+//? Количество передаваемых в методоы неизвествено
+//? Необходимо выбрасывать исключение number не число, div является 0
+function calculator(number = 0) {
+    if (!Number.isFinite(number)) {
+        throw new Error ('number is not a number')
+    }
+
+    return {
+        sum(...args) {
+           let result = number
+           for (const arg of args) {
+            result += arg
+           }
+           return result
+        },
+        dif(...args) {
+            let result = number
+            for (const arg of args) {
+             result -= arg
+            }
+            return result
+        },
+        div(...args) {
+            let result = number
+           for (const arg of args) {
+            if (arg === 0) {
+                throw new Error('division by 0')
+            }
+            result /= arg
+           }
+           return result
+        },
+        mul(...args) {
+            let result = number
+            for (const arg of args) {
+             result *= arg
+            }
+            return result
         }
     }
-    return  true
 }
 
-function some(arr, check) {
-    for (let element of arr) {
-        if (check(element)) {
-            return true
-        }
-    }
-    return false
-}
-console.log(every([NaN, NaN, NaN], isNaN));
-// → true
-console.log(every([NaN, NaN, 4], isNaN));
-// → false
-console.log(some([NaN, 3, 4], isNaN));
-// → true
-console.log(some([2, 3, 4], isNaN));
-// → false
+console.log(calculator(6).div(2));
