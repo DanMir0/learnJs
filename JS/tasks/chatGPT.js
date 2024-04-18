@@ -1697,44 +1697,243 @@
 // - mul умножает. Результат умножается на следующий аргумент (если передан) и т.д.
 //? Количество передаваемых в методоы неизвествено
 //? Необходимо выбрасывать исключение number не число, div является 0
-function calculator(number = 0) {
-    if (!Number.isFinite(number)) {
-        throw new Error ('number is not a number')
-    }
+// function calculator(number = 0) {
+//     if (!Number.isFinite(number)) {
+//         throw new Error ('number is not a number')
+//     }
 
-    return {
-        sum(...args) {
-           let result = number
-           for (const arg of args) {
-            result += arg
-           }
-           return result
-        },
-        dif(...args) {
-            let result = number
-            for (const arg of args) {
-             result -= arg
-            }
-            return result
-        },
-        div(...args) {
-            let result = number
-           for (const arg of args) {
-            if (arg === 0) {
-                throw new Error('division by 0')
-            }
-            result /= arg
-           }
-           return result
-        },
-        mul(...args) {
-            let result = number
-            for (const arg of args) {
-             result *= arg
-            }
-            return result
-        }
-    }
+//     return {
+//         sum(...args) {
+//            let result = number
+//            for (const arg of args) {
+//             result += arg
+//            }
+//            return result
+//         },
+//         dif(...args) {
+//             let result = number
+//             for (const arg of args) {
+//              result -= arg
+//             }
+//             return result
+//         },
+//         div(...args) {
+//             let result = number
+//            for (const arg of args) {
+//             if (arg === 0) {
+//                 throw new Error('division by 0')
+//             }
+//             result /= arg
+//            }
+//            return result
+//         },
+//         mul(...args) {
+//             let result = number
+//             for (const arg of args) {
+//              result *= arg
+//             }
+//             return result
+//         }
+//     }
+// }
+
+// console.log(calculator(6).div(2));
+
+//? Функция должна создать элемент с тегом div
+//? В созданный элемент необходимо поместить текст переданный в параметре text
+// function createDivWithText(text) {
+//     const div = document.createElement('div')
+//     div.textContent = text
+//     return div
+// }
+// console.log(createDivWithText('hi'));
+
+//? Функция должна вставлять элемент, переданный в параметре what в начало элемента, переданного в параметре where
+// console.log(prepend(document.querySelector('#one'), document.querySelector('#two')));
+
+// function prepend(what, where) {
+//     where.insertBefore(what, where.firstElementChild)
+// }
+
+//? Функция должна перебрать все дочерние элементы узла, переданного в параметре where
+//? Функция должна вернуть массив, состоящий из тех дочерних элементов следующим соседом которым является элемент с тегом p
+// console.log(findAllPSibling(document.body));
+// function findAllPSibling(where) {
+//     const sibl = []
+
+//     for (let el of where.children) {
+//         if(el.nextElementSibling && el.nextElementSibling.tagName === 'P') {
+//            sibl.push(el)
+//         }
+//     }
+//     return sibl
+// }
+
+//? Функция представленная ниже, перебирает все дочерние узлы типа "элемент" внутри узла переданного в параметре where и возвращает массив из текстового содержимого найденых элементов
+//? Но похоже, что в код функции закралась ошибка и она рабботает не так как описана
+// function findError(where) {
+//     const result = []
+//     for (const child of where.children) {
+//         result.push(child.textContent)
+//     }
+//     return result
+// }
+// console.log(findError(document.body));
+
+//? Функция должна перебрать все дочерние узлы элемента переданного в параметре where и удалить из него все текстовые узлы
+//? Решать без рекурсии
+//? дерево должно иметь вид без привет и Loftschool
+// function deleteTextNodes(where) {
+// // for (let el of where.children)
+// //     el.textContent = ''
+// // }
+// for (let i = where.childNodes.length; i >= 0; i--) {
+//     const el = where.childNodes[i]
+
+//     if (el.nodeType === Node.TEXT_NODE) {
+//         where.removeChild(el)
+//     }
+// }
+// }
+// deleteTextNodes(document.body)
+
+//? Тоже самое только с рекурсией
+// function deleteTextNodes(where) {
+//     for (let i = where.childNodes.length; i >= 0; i--) {
+//     const el = where.childNodes[i]
+
+//     if (el.nodeType === Element.TEXT_NODE) {
+//         where.removeChild(el)
+//     } else if (el.nodeType === Element.ELEMENT_NODE) {
+//         deleteTextNodes(el)
+//     }
+// }
+// }
+
+//? Необходимо собрать статистику по всем узлам внутри элемента переданного в параметре root и вернуть ее в виде объектов
+//? Статистика должна содержать:
+// Количестве текстовых узлов
+// кол-во элементов каждого класса
+// кол-во элементов каждого тега
+// Для работы с классами использовать classList
+
+// function collectDomStat(root) {
+// const stat = {
+//     tags: {},
+//     classes: {},
+//     texts: 0,
+// }
+// function scan(root) {
+//     for (const child of root.childNodes) {
+//         if (child.nodeName === '#text') {
+//             stat.texts += 1
+//         } else if (child.nodeType === Node.ELEMENT_NODE) {
+//             if (child.tagName in stat.tags) {
+//                 stat.tags[child.tagName]++
+//             } else {
+//                 stat.tags[child.tagName] = 1
+//             }
+
+//             for (const className of child.classList) {
+//                 if (className in stat.classes) {
+//                     stat.classes[className]++
+//                 } else {
+//                     stat.classes[className] = 1
+//                 }
+//             }
+//             scan(child)
+//         }
+
+//     }
+// }
+// scan(root)
+// return stat
+// }
+
+// console.log(collectDomStat(document.body));
+// {
+//     tags: {DIV: 1, B: 2},
+//     classes: {some-class-1: 2, some-class-2: 1},
+//     textst: 3
+// }
+
+//? Функция должна возвращать промис, котороый должен быть завершен через указанное количество секунд
+// function delayPromise(seconds) {
+//     return new Promise((resolve) => setTimeout(() => resolve, seconds * 1000))
+// }
+
+// console.log(delayPromise(3));
+
+//? Функция должна вернуть Promise, котороый должен быть разрешен с массивом городов в качестве значений
+ //? Элементы полученного массива должны быть отсортрованиы по имение города
+//  function loadAndSortTowns() {
+//     return fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
+//     .then(res => res.json())
+//     .then(towns => towns.sort((a,b) => a.name.localeCompare(b.name)))
+//  }
+//  loadAndSortTowns().then(towns => console.log(towns))
+
+//? Список городов
+const loadingBlock = document.querySelector('#loading-block')
+const loadingFailed = document.querySelector('#loading-failed')
+const retryBtn = document.querySelector('#retry-button')
+const filterInput = document.querySelector('#filter-input')
+const filterResult = document.querySelector('#filter-result')
+const filterBlock = document.querySelector('#filter-block')
+
+loadingFailed.classList.add('hidden')
+filterBlock.classList.add('hidden')
+
+ function loadAndSortTowns() {
+    return fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
+    .then(res => res.json())
+    .then(towns => towns.sort((a,b) => a.name.localeCompare(b.name)))
+ }
+
+ function loadTowns() {
+  return loadAndSortTowns()
+ }
+
+let towns = []
+
+ async function tryLoadTowns() {
+   try {
+      towns = await loadTowns()
+      loadingBlock.classList.add('hidden')
+      loadingFailed.classList.add('hidden')
+      filterBlock.classList.remove('hidden')
+   } catch(e) {
+      loadingBlock.classList.add('hidden')
+      loadingFailed.classList.remove('hidden')
+   }
+ }
+
+function isMatching(chars, town) {
+   return town.toLowerCase().includes(chars.toLowerCase())
 }
 
-console.log(calculator(6).div(2));
+function filterTowns(chars) {
+   filterResult.textContent = ''
+
+   const fragment = document.createDocumentFragment()
+
+   for (let town of towns) {
+      if (chars && isMatching(chars, town.name)) {
+         const div = document.createElement('div')
+         div.textContent = town.name
+         fragment.append(div)
+      }
+   }
+   filterResult.append(fragment)
+}
+
+filterInput.addEventListener('input', function() {
+   filterTowns(this.value);
+})
+
+retryBtn.addEventListener('click', function () {
+   tryLoadTowns()
+})
+
+
+tryLoadTowns();
