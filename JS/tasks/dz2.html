@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie</title>
+
+    <style>
+        .filter {
+            display: flex;
+            align-items: center;
+        }
+        .form {
+            display: flex;
+            flex-direction: column;
+            max-width: 200px;
+            gap: 15px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+     
+    </style>
+</head>
+<body>
+    <div class="filter">
+        <h3>Поиск cookie:</h3>
+        <input id="filterInput" placeholder="Поиск" type="text">
+    </div>
+    <hr>
+    <form class="form" action="">
+        <h3>Добавить cookie:</h3>
+        <input id="nameCookie" type="text" placeholder="Имя cookie">
+        <input id="valueCookie" type="text" placeholder="Значение cookie">
+        <button id="addBtn">Добавить</button>
+    </form>
+    <hr>
+    <div class="container">
+        <h3>Доступные cookie:</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th>Значение</th>
+                    <th>удалить</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
+    <script src="dz2.js"></script>
+</body>
+</html>
