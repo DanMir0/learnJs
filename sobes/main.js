@@ -70,8 +70,27 @@
 // console.log(sumElem([1, 2, 3, 4, 5]));
 
 /* Задача 12 */
-function multiArr(arr) {
-    let newArr = arr.map(item => item * 2)
-    return newArr
+// function multiArr(arr) {
+//     let newArr = arr.map(item => item * 2)
+//     return newArr
+// }
+// console.log(multiArr([1,2,3]));
+
+/* Задача 13 */
+// let list = ["apple", "banana", "orange"]
+// console.log(list.includes("banana"));
+
+/* Задача 14 */
+// let str = "hello world";
+// let count = str.split("").reduce((acc, char) => char == 'l' ? acc + 1 : acc + 0, 0)
+// console.log(count);
+
+/* Задача 15 */
+let obj = { name: "Alex", age: 20 };
+let arrKey = []
+for (let key in obj) {
+    arrKey.push(key)
 }
-console.log(multiArr([1,2,3]));
+console.log(arrKey);
+
+/* Задача. Получаем минуты, нужно вывести часы и минуты в электронном цифорбате */
