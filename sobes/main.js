@@ -86,11 +86,25 @@
 // console.log(count);
 
 /* Задача 15 */
-let obj = { name: "Alex", age: 20 };
-let arrKey = []
-for (let key in obj) {
-    arrKey.push(key)
-}
-console.log(arrKey);
+// let obj = { name: "Alex", age: 20 };
+// let arrKey = []
+// for (let key in obj) {
+//     arrKey.push(key)
+// }
+// console.log(arrKey);
+
+/* Задача 16 */
+// let obj = { name: "Alex", age: 20 }
+
 
 /* Задача. Получаем минуты, нужно вывести часы и минуты в электронном цифорбате */
+function getHourseAndMinutes(mins) {
+    let hourse = Math.floor(mins / 60) % 24
+    let minutes = mins % 60
+    return `${hourse}ч ${minutes}м`
+}
+
+console.log(getHourseAndMinutes(1000));
+console.log(getHourseAndMinutes(2000));
+console.log(getHourseAndMinutes(13000));
+console.log(getHourseAndMinutes(1500));
