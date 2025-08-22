@@ -18,7 +18,7 @@
 
 /* Задача 4 */
 // function factorial(num) {
-//     if (num == 1) {
+//     if (num <= 1) {
 //         return num
 //     } else {
 //        return num * factorial( num - 1)
@@ -95,16 +95,48 @@
 
 /* Задача 16 */
 // let obj = { name: "Alex", age: 20 }
+// let arrValue = Object.values(obj)
+// console.log(arrValue);
+
+/* Задача 17 */
+// let obj = { name: "Alex", age: 20 }
+// let hasEmail = Object.keys(obj).includes('email')
+// console.log(hasEmail);
+
+/* Задача 18 */
+// let obj = { a: 1, b: 2 }
+// obj['c'] = 3
+// console.log(obj);
+
+/* Задача 19 */
+// let obj = { a: 1, b: 2, c: 3 }
+// delete obj['b']
+// console.log(obj);
+
+/* Задача 20 */
+function findMax(arr) {
+    // let max = arr[0]
+    // for (let i = 0; i < arr.length; i++) {
+    //     if (arr[i] > max) {
+    //         max = arr[i]
+    //     }
+    // }
+    // return max
+
+    /* второй способ */
+    return Math.max(...arr)
+}
+console.log(findMax([1,2,3]));
 
 
 /* Задача. Получаем минуты, нужно вывести часы и минуты в электронном цифорбате */
-function getHourseAndMinutes(mins) {
-    let hourse = Math.floor(mins / 60) % 24
-    let minutes = mins % 60
-    return `${hourse}ч ${minutes}м`
-}
+// function getHourseAndMinutes(mins) {
+//     let hourse = Math.floor(mins / 60) % 24
+//     let minutes = mins % 60
+//     return `${hourse}ч ${minutes}м`
+// }
 
-console.log(getHourseAndMinutes(1000));
-console.log(getHourseAndMinutes(2000));
-console.log(getHourseAndMinutes(13000));
-console.log(getHourseAndMinutes(1500));
+// console.log(getHourseAndMinutes(1000));
+// console.log(getHourseAndMinutes(2000));
+// console.log(getHourseAndMinutes(13000));
+// console.log(getHourseAndMinutes(1500));
