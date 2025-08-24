@@ -249,6 +249,49 @@
 // console.log(isPalindrom('Gag'));
 
 /* Задача 31 */
+// Array.prototype.customForEach = function(cbFunc, thisArg = undefined) {
+//     if (typeof cbFunc !== 'function') {
+//         throw new Error(`${cbFunc} должна быть функцией`)
+//     }
+
+//     for (let i = 0; i < this.length; i++) {
+//         cbFunc.call(thisArg, this[i], i, this)
+//     }
+// }
+
+// let myArr = [1,2,3]
+// myArr.customForEach((element, index, arr) => arr[index]  = element + 1)
+// console.log(myArr);
+
+
+// Array.prototype.customMap = function(cbFunc, thisArg = undefined) {
+//        if (typeof cbFunc !== 'function') {
+//         throw new Error(`${cbFunc} должна быть функцией`)
+//     }
+
+//     let innerArr = []
+
+//     for (let i = 0; i < this.length; i++) {
+//         innerArr[i] = cbFunc.call(thisArg, this[i], i, this)
+//     }
+
+//     return innerArr
+// } 
+
+// let myArr = [1,2,3]
+// let a = myArr.customMap(el => el * 10)
+// console.log(a);
+
+const obj = {
+    prop: 'Привет!'
+}
+
+obj.__proto__.toString = function() {
+    return this.prop
+}
+
+const el = document.getElementById('app')
+el.innerText = obj
 
 /* Задача. Получаем минуты, нужно вывести часы и минуты в электронном цифорбате */
 // function getHourseAndMinutes(mins) {
