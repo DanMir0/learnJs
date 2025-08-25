@@ -264,6 +264,142 @@
 // console.log(myArr);
 
 
+/* Задача 32 */
+// function debounce(cb, timeout = 0) {
+//    let prevTimeoutID;
+
+//    return (...args) => {
+//         clearTimeout(prevTimeoutID)
+//         prevTimeoutID = setTimeout(() => cb(...args), timeout)
+//    }
+// }
+
+/* Задача 33 */
+// function f(a) {
+//   console.log(a)
+// }
+
+// function throttle(callback, delay) {
+//     let timerId;
+ 
+//     return (...args) => {
+//         if (timerId) return
+
+//         timerId = setTimeout(() => {
+//             callback(...args) 
+
+//             clearTimeout(timerId)
+//             timer = null
+//         }, delay)
+//     }
+// }
+
+// let f1000 = throttle(f, 1000);
+
+// f1000(1); // показывает 1
+// f1000(2); // (ограничение, 1000 мс ещё нет)
+// f1000(3); // (ограничение, 1000 мс ещё нет)
+
+/* Задача 34 */
+// Я не понял что она делает и где нужна. Объясни ним как ее делать, зачем и как работает. А на будущее когда даешь задачи например напиши функцию once, то описывай конкретней пожалуйста что она должна делать и как работать.
+// function once(cbFunc) {
+//     let alreadyFun = false;
+//     return (...args) => {
+//         if (!alreadyFun) {
+//             alreadyFun = true;
+//             return cbFunc(...args)
+//         }
+//     }
+// }
+// let a = once(() => console.log('hi'))
+// a()
+// a()
+
+/* Задача 35 */
+// const memoize = (fn) => {
+//     let cache = {}
+
+//     return (n) => {
+//         if (cache[n] != undefined) {
+//             console.log(`<= Fetching: ${n} from cache`);
+//             return cache[n]
+//         } else {
+//             console.log(`=> Write: "${n}" in cache`);
+//             let result = fn(n)
+//             cache[n] = result
+//             return result
+//         }
+//     }
+// }
+
+// let myFunc = (x) => {
+//     return x
+// }
+// const myFuncMem = memoize(myFunc)
+// console.log(myFuncMem(4));
+// console.log(myFuncMem(4));
+// console.log(myFuncMem(2));
+// console.log(myFuncMem(1));
+
+/* Задача 36 */
+function deepClone(obj1, obj2) {
+
+}
+
+// const memoize2 = (fn) => {
+//     let cache = {}
+
+//     return (...n) => {
+//         if (cache[n[0]] != undefined) {
+//             console.log(`<= Fetching: ${n[0]} from cache`);
+//             return cache[n[0]]
+//         } else {
+//             console.log(`=> Write: "${n[0]}" in cache`);
+//             let result = fn(...n)
+//             cache[n[0]] = result
+//             return result
+//         }
+//     }
+// }
+
+// let myFunc2 = (x, y, z) => {
+//     return {x, y, z}
+// }
+// const myFuncMem2 = memoize2(myFunc2)
+// console.log(myFuncMem2(1, "Vasy"));
+// console.log(myFuncMem2(1, "Vasy"));
+// console.log(myFuncMem2(1, "aa"));
+// console.log(myFuncMem2(2, "Vasy"));
+
+// function debounce(callback, delay = 300, immediate = false) {
+//     let timeoutId;
+
+//     return function(...args) {
+//         const callNow = immediate && !timeoutId
+    
+//         clearTimeout(timeoutId);
+
+//         timeoutId = setTimeout(() => {
+//             timeoutId = null
+//             if (!immediate) callback(...args)
+//         }, delay)
+
+//         if (callNow) callback(...args)
+//     }
+// }
+
+// function debounce(callback, delay = 400) {
+//     let timerId;
+
+//     return (...args) => {
+//         clearTimeout(timerId)
+//         timerId = setTimeout(() => callback(...args), delay)
+//     }
+// }
+// const input = document.getElementById('search')
+// const devouncedSearch = debounce(ev => console.log("Ищу: ", ev.target.value), 1000)
+// input.addEventListener('input', devouncedSearch)
+
 // Array.prototype.customMap = function(cbFunc, thisArg = undefined) {
 //        if (typeof cbFunc !== 'function') {
 //         throw new Error(`${cbFunc} должна быть функцией`)
@@ -282,16 +418,16 @@
 // let a = myArr.customMap(el => el * 10)
 // console.log(a);
 
-const obj = {
-    prop: 'Привет!'
-}
+// const obj = {
+//     prop: 'Привет!'
+// }
 
-obj.__proto__.toString = function() {
-    return this.prop
-}
+// obj.__proto__.toString = function() {
+//     return this.prop
+// }
 
-const el = document.getElementById('app')
-el.innerText = obj
+// const el = document.getElementById('app')
+// el.innerText = obj
 
 /* Задача. Получаем минуты, нужно вывести часы и минуты в электронном цифорбате */
 // function getHourseAndMinutes(mins) {
