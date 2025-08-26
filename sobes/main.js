@@ -248,6 +248,8 @@
 // }
 // console.log(isPalindrom('Gag'));
 
+// Я не понял что она делает и где нужна функция once. Объясни ним как ее делать, зачем и как работает. А на будущее когда даешь задачи например напиши функцию once, то описывай конкретней пожалуйста что она должна делать и как работать.
+
 /* Задача 31 */
 // Array.prototype.customForEach = function(cbFunc, thisArg = undefined) {
 //     if (typeof cbFunc !== 'function') {
@@ -289,7 +291,7 @@
 //             callback(...args) 
 
 //             clearTimeout(timerId)
-//             timer = null
+//             timerId = null
 //         }, delay)
 //     }
 // }
@@ -301,7 +303,6 @@
 // f1000(3); // (ограничение, 1000 мс ещё нет)
 
 /* Задача 34 */
-// Я не понял что она делает и где нужна. Объясни ним как ее делать, зачем и как работает. А на будущее когда даешь задачи например напиши функцию once, то описывай конкретней пожалуйста что она должна делать и как работать.
 // function once(cbFunc) {
 //     let alreadyFun = false;
 //     return (...args) => {
@@ -342,9 +343,140 @@
 // console.log(myFuncMem(1));
 
 /* Задача 36 */
-function deepClone(obj1, obj2) {
+// function deepClone(obj) {
+//     let copyObj = structuredClone(obj)
+//     return copyObj
+// }
+// let obj = {
+//     name: 'Alex', 
+//     age: 22, 
+//     skills: {
+//         prog: ['html', 'css'],
+//         p: 'ss'
+// }}
+// let copyObj = deepClone(obj)
+// copyObj.skills.p = 'aa'
+// console.log('Ориг', obj);
+// console.log(`Копия`, copyObj);
 
-}
+// function deepClone(obj) {
+//     if (obj === null || typeof obj !== 'object') return obj
+
+//     if (Array.isArray(obj)) {
+//         return obj.map(item => deepClone(item))
+//     }
+
+//     let copy = {}
+//     for (let key in obj) {
+//         copy[key] = deepClone(obj[key])
+//     }
+//     return key
+// //     let copyObj = {}
+// //     for (let key in obj) {
+// //         if (typeof obj[key] == 'object') {
+// //            copyObj[key] = deepClone(obj[key])
+// //         } else {
+// //             copyObj[key] = obj[key]
+// //         }
+// //     }
+// //     return copyObj
+// }
+// let obj = {
+//     name: 'Alex', 
+//     age: 22, 
+//     skills: {
+//         prog: ['html', 'css'],
+//         p: {a: 'a', b: 'b'}
+// }}
+// let copyObj = deepClone(obj)
+// obj.skills.p.a = 'aa'
+// console.log('Ориг', obj);
+// console.log(`Копия`, copyObj);
+
+/* Задача 37 */
+// const sum = (a, b) => a + b;
+// const square = (x) => x * x;
+// const double = (x) => x * 2;
+
+// function compose(...func) {
+//   return func.reduceRight((prevFn, nextFn) => {
+//         return (...args) => nextFn(prevFn(...args))
+//     })
+// }
+
+// const process = compose(double, square, sum);
+
+// console.log(process(2, 3)); // (2 + 3) → 5 → 25 → 50
+
+/* Задача 38 */ //Дан массив промисов. Реализуй аналог Promise.all
+// let arrPromise = [
+// new Promise((resolve, reject) => setTimeout(() => resolve(1), 1000)),
+//   new Promise((resolve, reject) => setTimeout(() => reject(new Error("Ошибка!")), 2000)),
+//   new Promise((resolve, reject) => setTimeout(() => resolve(3), 3000))
+// ]
+
+// function all(arr) {
+//    return new Promise((resolve, reject) => {
+//     let result = []
+//     let completed = 0
+
+//     arr.forEach((promise, index) => {
+//         promise.then(value => {
+//             result[index] = value
+//             completed++
+
+//             if (completed === arr.length) {
+//                 resolve(result)
+//             }
+//         })
+//         .catch(err => reject(err))
+//     })
+//    })
+// }
+// all(arrPromise).then(res => console.log(res))
+
+/* Задача 39 */ 
+// function objFromQueryStr(obj) {
+//     let str = ''
+//     let count = 0
+//     for (let key in obj) {
+//         count++
+//         if (Object.keys(obj).length === count) {
+//             str += key + '='
+//              str += obj[key]
+//         } else {
+//             str += key + '='
+//             str += obj[key] + '&'
+//         }
+     
+//     }
+//     return str
+// }
+// let user = { name: "Alex", age: 20, sex: 'w' }
+// console.log(objFromQueryStr(user));
+
+// function objFromQueryStr(obj) {
+//     return Object.entries(obj).map(([key, value]) => `${key}=${value}`).join('&')
+// }
+
+// let user = { name: "Alex", age: 20, sex: 'w' }
+// console.log(objFromQueryStr(user));
+
+/* Задача 40 */ 
+// let str = 'name=Alex&age=20&sex=w'
+// function parseObjFromStr(str) {
+//     let obj = {}
+//     let keyValue = str.split('&');
+//     keyValue.forEach((item) => {
+//         obj[item.split('=')[0]] = item.split('=')[1]
+//     })
+
+//     return obj
+// }
+// console.log(parseObjFromStr(str));
+
+
+
 
 // const memoize2 = (fn) => {
 //     let cache = {}
