@@ -128,5 +128,85 @@
 // }
 // console.log(findMax([1,2,3]));
 
-// Я не понял что она делает и где нужна функция once. Объясни ним как ее делать, зачем и как работает. А на будущее когда даешь задачи например напиши функцию once, то описывай конкретней пожалуйста что она должна делать и как работать.
+function getStrLength(str) {
+  if (typeof str !== 'string') return
+  let count = 0
+  for (let i = 0; i < str.length; i++){
+    count++
+  }
+  return count
+}
+
+console.log(getStrLength("привет"))
+
+/*
+function double(arr) {
+  //return arr.map(elem => elem * 2)
+  let newArr =[]
+  arr.forEach(elem => {
+    newArr.push(elem * 2)
+  })
+  return newArr
+}
+console.log(double([1,2,3]))
+*/
+/*
+function isArrEval(arr) {
+  let result = true;
+  arr.forEach(elem => {
+    if (elem < 0) {
+      result = false
+    }
+  })
+  return result
+}
+console.log(isArrEval([1,-2,3]))
+*/
+/*
+function getCountOfVowels(str) {
+  let vowels = ["а","е","ё","и","о","у","ы","э","ю","я"]
+  let arrStr = str.toLowerCase().split('')
+  let count = 0
+  arrStr.forEach(char => {
+    if (vowels.includes(char)) {
+      count++
+    }
+  })
+  return count
+}
+console.log(getCountOfVowels("ПРивет, тебе нрАвится джАваскрипт?"))
+*/
+/*
+function reverseArr(arr) {
+  let reverseArr = []
+  
+  for (let i = arr.length-1; i >= 0; i--) {
+    reverseArr.push(arr[i])
+  }
+  return reverseArr
+}
+console.log(reverseArr([1,4,5]))
+*/
+/*
+function upperFirstLatter(str) {
+  if (typeof str !== 'string') {
+    throw new Error('Передайте строку!')
+  }
+  
+  return str.split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(" ")
+}
+console.log(upperFirstLatter("Privet, do you like JS?"))
+*/
+/*
+function sumSifr(number) {
+  let result = 0
+  let str = number.toString()
+  
+ for (let i =0; i < str.length; i++) {
+   result += +str[i]
+ }
+ return result 
+}
+console.log(sumSifr(23))
+*/
 
