@@ -128,17 +128,19 @@
 // }
 // console.log(findMax([1,2,3]));
 
-function getStrLength(str) {
-  if (typeof str !== 'string') return
-  let count = 0
-  for (let i = 0; i < str.length; i++){
-    count++
-  }
-  return count
-}
+/* Задача 41 */
+// function getStrLength(str) {
+//   if (typeof str !== 'string') return
+//   let count = 0
+//   for (let i = 0; i < str.length; i++){
+//     count++
+//   }
+//   return count
+// }
 
-console.log(getStrLength("привет"))
+// console.log(getStrLength("привет"))
 
+/* Задача 42 */
 /*
 function double(arr) {
   //return arr.map(elem => elem * 2)
@@ -150,6 +152,7 @@ function double(arr) {
 }
 console.log(double([1,2,3]))
 */
+/* Задача 43 */
 /*
 function isArrEval(arr) {
   let result = true;
@@ -162,6 +165,7 @@ function isArrEval(arr) {
 }
 console.log(isArrEval([1,-2,3]))
 */
+/* Задача 44 */
 /*
 function getCountOfVowels(str) {
   let vowels = ["а","е","ё","и","о","у","ы","э","ю","я"]
@@ -176,6 +180,7 @@ function getCountOfVowels(str) {
 }
 console.log(getCountOfVowels("ПРивет, тебе нрАвится джАваскрипт?"))
 */
+/* Задача 45 */
 /*
 function reverseArr(arr) {
   let reverseArr = []
@@ -187,6 +192,7 @@ function reverseArr(arr) {
 }
 console.log(reverseArr([1,4,5]))
 */
+/* Задача 46 */
 /*
 function upperFirstLatter(str) {
   if (typeof str !== 'string') {
@@ -197,6 +203,7 @@ function upperFirstLatter(str) {
 }
 console.log(upperFirstLatter("Privet, do you like JS?"))
 */
+/* Задача 47 */
 /*
 function sumSifr(number) {
   let result = 0
@@ -210,3 +217,97 @@ function sumSifr(number) {
 console.log(sumSifr(23))
 */
 
+/* Задача 48 */
+function isPrimeNumber(num) {
+  if (num <= 1) return false
+  for (let i = 2; i <= Math.sqrt(num); i++) {
+    if (num % i ===0) {
+      return false
+    }
+  }
+  return true
+}
+console.log(isPrimeNumber(5));
+console.log(isPrimeNumber(10));
+
+
+/* Задача 49 */ 
+/*
+function delSpace(str) {
+  return str.trim().split(" ").join("")
+   return str.replace(/\s+/g, "")
+}
+console.log(delSpace(" Привет, тебе нравится JS?  "))
+*/
+
+/* Задача 50 */
+/*
+function findMin(arr) {
+  let min = arr[0]
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > min) continue
+    min = arr[i]
+  }
+  return min
+}
+
+console.log(findMin([1,4, -3]))
+*/
+
+/* Задача 51 */
+/*
+function getLengthFromArr(arr) {
+ return arr.map(elem => typeof elem === 'string' ? elem.length : 'не строка')
+ return arr
+    .filter(elem => typeof elem === "string")
+    .map(str => str.length)
+}
+console.log(getLengthFromArr(['hi', 'privet', 45]))
+*/
+
+/* задача 52  через цикл*/ 
+/*
+function factorial(num) {
+  if (typeof num !== 'number') return 'не число'
+  let res = 1
+  for (let i = 1; i <= num; i++) {
+    res *= i
+  }
+  return res
+}
+console.log(factorial(5))
+*/
+
+/* Задача 53 */
+/*
+function hasDuplicate(arr) {
+  let uniq = new Set(arr)
+  return uniq.size !== arr.length
+}
+console.log(hasDuplicate([1,1,4,5]))
+*/
+
+/* Задача 54 */
+/*
+function delNullAndUndefined(arr) {
+  let newArr =[]
+  arr.forEach(elem =>{
+    console.log(typeof elem)
+    if (elem != null) { newArr.push(elem) 
+    }
+  })
+      return arr.filter(elem => elem != null)
+  return newArr
+}
+console.log(delNullAndUndefined([null, undefined, 45])
+*/
+
+/* задача 55 */
+/*
+function getRandom(arr) {
+  let index = Math.floor(Math.random() * arr.length)
+  console.log(index)
+  return arr[index]
+}
+console.log(getRandom([0,34, 7, 2]))
+*/
