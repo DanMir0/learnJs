@@ -59,22 +59,64 @@
 // console.log(obj);
 // console.log(copy);
 
-function once(fn) {
-    let isCompleted = false
-    let res = null
-    return (...args) => {
-        if (!isCompleted) {
-            isCompleted = true
-            res = fn(...args)
-        } 
-        return res
-    }
+// function once(fn) {
+//     let isCompleted = false
+//     let res = null
+//     return (...args) => {
+//         if (!isCompleted) {
+//             isCompleted = true
+//             res = fn(...args)
+//         } 
+//         return res
+//     }
+// }
+
+// const f = once((x) => x * 2);
+// const a = once((x) => x * 2);
+// console.log(f(2)); // 4
+// console.log(f(5)); // всё равно 4
+// console.log(f(10)); // всё равно 4
+// console.log(a(10)); 
+// console.log(a(5)); 
+
+/*
+function throttle (fn, delay = 500) {
+  let timer ;
+  
+  return (...args) => {
+    if (timer) return
+    fn(...args)
+    timer = setTimeout(() => {
+      clearTimeout(timer)
+      timer = null
+    }, delay)
+    
+  }
 }
 
-const f = once((x) => x * 2);
-const a = once((x) => x * 2);
-console.log(f(2)); // 4
-console.log(f(5)); // всё равно 4
-console.log(f(10)); // всё равно 4
-console.log(a(10)); 
-console.log(a(5)); 
+const log = throttle(() => console.log("hi"), 1000);
+log(); // "hi"
+log(); // игнорируется, если вызвано раньше чем через 1с
+*/
+/*
+function groupBy(arr, fn) {
+  let obj = {}
+  
+  arr.forEach(elem => {
+    let key = fn(elem)
+    if (key in obj) {
+      obj[key] = obj[key].concat(elem)
+    } else{
+      obj[key] = [].concat(elem)
+    }
+    
+  } )
+  
+  return obj
+}
+
+console.log(groupBy([6.1, 4.2, 6.3], Math.floor))
+// { 6: [6.1, 6.3], 4: [4.2] }
+
+console.log(groupBy(['one', 'two', 'three'], str => str.length))
+// { 3: ["one", "two"], 5: ["three"] }
