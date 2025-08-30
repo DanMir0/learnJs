@@ -117,3 +117,43 @@
 //     return reverseStr === str
 // }
 // console.log(isPalindrom('Gag'));
+
+/* Задача 56 */
+// function getCountChar(str) {
+//     let obj = {}
+//     let arrChar = str.toLowerCase('').split("")
+//     arrChar.forEach((char) => {
+//         if (char in obj) {
+//             obj[char] += 1
+//         } else {
+//             let count = 1
+//             obj[char] =count
+//         }
+//     })
+//     return obj
+// }
+// console.log(getCountChar("Привет, пора кодить"));
+
+
+/* Задача 57 */
+// function herculeanArr(arr) {
+//     let reverseArr = [...arr].reverse()
+//     arr.pop()
+//     return arr.concat(reverseArr)
+// }
+// console.log(herculeanArr([1,2,3]));
+
+
+/* Задача 58 */
+
+
+
+
+/* Задача 59 */
+//function getUniq(arr) {
+//     return arr.filter((el, i) => i === arr.indexOf(el))
+//     return arr.reduce((acc, item) => acc.includes(item) ? acc : [...acc, item], [])
+// }
+// console.log(getUniq([1,2,3,3,3,4,2,1]));
+
+

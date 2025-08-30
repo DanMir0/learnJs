@@ -119,4 +119,4 @@ console.log(groupBy([6.1, 4.2, 6.3], Math.floor))
 // { 6: [6.1, 6.3], 4: [4.2] }
 
 console.log(groupBy(['one', 'two', 'three'], str => str.length))
-// { 3: ["one", "two"], 5: ["three"] }
+// { 3: ["one", "two"], 5: ["three"] } */
