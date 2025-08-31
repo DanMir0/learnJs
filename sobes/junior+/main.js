@@ -145,9 +145,33 @@
 
 
 /* Задача 58 */
+// function findLongestCommonSubstring(str1, str2) {
+//     let longerstSubstring = ""
 
+//     for (let i = 0; i < str1.length; i++) {
+//         for (j = 0; j < str2.length; j++) {
+//             let substring = ''
+//             let x = i;
+//             let y = j;
 
+//             while(x < str1.length && y <str2.length && str1[x] === str2[y]) {
+//                     substring += str1[x]
+//                     x++
+//                     y++
+//             }
 
+//             if (substring.length > longerstSubstring.length) {
+//                 longerstSubstring = substring
+//             }
+            
+
+//         }
+//     }
+//     return longerstSubstring
+// }
+// const string1 = "aaaaGeeksForgeeks";
+// const string2 = "Geekscode";
+//console.log(findLongestCommonSubstring(string1, string2));
 
 /* Задача 59 */
 //function getUniq(arr) {
@@ -156,4 +180,70 @@
 // }
 // console.log(getUniq([1,2,3,3,3,4,2,1]));
 
+/* Задача 60 */
+function groupBy(arr, group) {
+    // let grouped = {}
+
+    // arr.forEach(user => {
+    //     let key = user[group]
+
+    //     if (key === undefined) return
+
+    //     if (!grouped[key]) {
+    //         grouped[key] = []
+    //     }
+
+    //     grouped[key].push(user)
+        
+    // });
+    // return grouped
+    let newObj = {}
+
+    arr.forEach(user => {
+        if (user[group] === undefined) {return}
+        
+        if (newObj[user[group]]) {
+           newObj[user[group]].push(user)
+        } else {
+            newObj[user[group]] = [user]
+        }
+        
+    });    
+    return newObj
+}
+
+
+let users = [
+  {name: "Alex", age: 20},
+  {name: "Den", age: 22},
+  {name: "Lid", age: 20},
+    {name: "Lid"},
+]
+console.log(groupBy(users, "age"));
+
+/* Задача 61 */
+// function deepEqual(obj1, obj2) {
+//     const objKeys1 = Object.keys(obj1)
+//     const objKeys2 = Object.keys(obj2)
+
+//     if (objKeys1.length != objKeys2.length) return false
+
+//     for (let key in obj1) {
+//         let value1 = obj1[key]
+//         let value2 = obj2[key]
+
+//         const isObj = typeof value1 === 'object' && typeof value2 === 'object'
+
+//         if (isObj) {
+//             return deepEqual(value1, value2)
+//         }
+
+//         if (value1 !== value2) return false
+//     }
+//     return true
+
+// }
+// let obj1 = {name: 'Alex', age: 20, a: {b: {c: 'Asdjasd'}}, skills: ['css', 'html']}
+// let obj2 = {name: 'Alex', age: 20, a: {b: {c: 'Asdjasd'}}, skills: ['css', 'html']} 
+// console.log(deepEqual(obj1, obj2));
 
