@@ -120,3 +120,71 @@ console.log(groupBy([6.1, 4.2, 6.3], Math.floor))
 
 console.log(groupBy(['one', 'two', 'three'], str => str.length))
 // { 3: ["one", "two"], 5: ["three"] } */
+
+//! Напиши функцию isAnagram(str1, str2), которая проверяет, являются ли две строки анаграммами.
+function isAnagram(str1, str2) {
+//   if (str1.length !== str2.length) return false
+//   let sortStr1 = str1.toLowerCase().split('').sort().join('')
+//   let sortStr2 = str2.toLowerCase().split('').sort().join('')
+ 
+//   return sortStr1 === sortStr2 
+
+//? 2
+  // let count = {}
+  // for (let char of str1) {
+  //   count[char] = (count[char] || 0) + 1
+  //   console.log('Str1', count);
+    
+  // }
+  //  for (let char of str2) {
+  //    if (!count[char]) return false
+  //     count[char]--;
+  //      console.log('Str2', count);
+  // }
+
+  // return true
+}
+
+// console.log(isAnagram("listen", "silent")); // true
+// console.log(isAnagram("hello", "world"));   // false
+// console.log(isAnagram("кот", "ток"));
+
+
+//! Напиши функцию memoize(fn), которая кеширует результаты вызовов функции:
+function memoize(fn) {
+  // let cache = {}
+
+  // return (n) => {
+  //   if (n in cache) {
+  //     return cache[n]
+  //   }
+  //   cache[n] = fn(n)
+  //   return cache[n]
+  // }
+
+
+  //? 2
+  let cache = new Map()
+
+  return (...args) => {    
+    let key = JSON.stringify(args)
+    console.log(key);
+    
+    if (cache.has(key)) return cache.get(key)
+
+    let result = fn(...args)
+    cache.set(key, result)
+    return result
+  }
+}
+
+function slowSquare(n) {
+  console.log("Вычисляю...");
+  return n * n;
+}
+
+const memoSquare = memoize(slowSquare);
+
+console.log(memoSquare(5)); // "Вычисляю..." → 25
+console.log(memoSquare(5)); // кеш → 25 (без "Вычисляю...")
+console.log(memoSquare(6)); // "Вычисляю..." → 36
