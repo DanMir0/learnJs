@@ -181,45 +181,45 @@
 // console.log(getUniq([1,2,3,3,3,4,2,1]));
 
 /* Задача 60 */
-function groupBy(arr, group) {
-    // let grouped = {}
+// function groupBy(arr, group) {
+//     // let grouped = {}
 
-    // arr.forEach(user => {
-    //     let key = user[group]
+//     // arr.forEach(user => {
+//     //     let key = user[group]
 
-    //     if (key === undefined) return
+//     //     if (key === undefined) return
 
-    //     if (!grouped[key]) {
-    //         grouped[key] = []
-    //     }
+//     //     if (!grouped[key]) {
+//     //         grouped[key] = []
+//     //     }
 
-    //     grouped[key].push(user)
+//     //     grouped[key].push(user)
         
-    // });
-    // return grouped
-    let newObj = {}
+//     // });
+//     // return grouped
+//     let newObj = {}
 
-    arr.forEach(user => {
-        if (user[group] === undefined) {return}
+//     arr.forEach(user => {
+//         if (user[group] === undefined) {return}
         
-        if (newObj[user[group]]) {
-           newObj[user[group]].push(user)
-        } else {
-            newObj[user[group]] = [user]
-        }
+//         if (newObj[user[group]]) {
+//            newObj[user[group]].push(user)
+//         } else {
+//             newObj[user[group]] = [user]
+//         }
         
-    });    
-    return newObj
-}
+//     });    
+//     return newObj
+// }
 
 
-let users = [
-  {name: "Alex", age: 20},
-  {name: "Den", age: 22},
-  {name: "Lid", age: 20},
-    {name: "Lid"},
-]
-console.log(groupBy(users, "age"));
+// let users = [
+//   {name: "Alex", age: 20},
+//   {name: "Den", age: 22},
+//   {name: "Lid", age: 20},
+//     {name: "Lid"},
+// ]
+// console.log(groupBy(users, "age"));
 
 /* Задача 61 */
 // function deepEqual(obj1, obj2) {
@@ -247,3 +247,44 @@ console.log(groupBy(users, "age"));
 // let obj2 = {name: 'Alex', age: 20, a: {b: {c: 'Asdjasd'}}, skills: ['css', 'html']} 
 // console.log(deepEqual(obj1, obj2));
 
+/* Задача 62 */
+//function bubbleSort(arr) {
+    //let swapped = false
+    // do {
+    //     swapped = false
+    //     for (let i = 0; i < arr.length - 1; i++) {
+    //         if (arr[i] > arr[i + 1]) {
+    //             let temp = arr[i]
+    //             arr[i] = arr[i + 1]
+    //             arr[i + 1] = temp
+    //             swapped = true
+    //             console.log(arr);
+    //             console.log(`I=${i}`);
+                
+                
+    //         }
+    //     }
+    // } while(swapped)
+    //     return arr
+  
+   // return arr
+//}
+
+//console.log(bubbleSort([5,3,1,4])) // [1,3,4,5]
+
+/* Задача 63 */
+function camelToSnake(str) {
+    let newStr = ''
+    let arrChar = str.split('')
+    arrChar.forEach((char, index) => {
+        if (char !== char.toLowerCase()) {
+            char = char.toLowerCase()
+            newStr += '_' + char
+        } else {
+            newStr += char
+        }
+    })
+    return newStr
+}
+
+console.log(camelToSnake("helloWorld")) // "hello_world"
