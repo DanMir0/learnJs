@@ -320,3 +320,74 @@
 // console.log(getHourseAndMinutes(2000));
 // console.log(getHourseAndMinutes(13000));
 // console.log(getHourseAndMinutes(1500));
+
+/* 64. Реализовать debounce. */
+// function debounce(callback, delay) {
+//     let timerId = null;
+
+//     return (...args) => {
+//         if (timerId) clearTimeout(timerId)
+//         timerId = setTimeout(() => {
+//             callback(...args)
+//         }, delay)
+//     }
+// }
+
+// let fn = () => console.log("run")
+// let debounced = debounce(fn, 1000)
+// debounced() // вызовется только 1 раз через 1с, даже если вызвать 10 раз подряд
+// debounced() 
+// debounced() 
+
+/* 65. Реализовать throttle. */
+function throttle(callback, delay) {
+    // let isThrottled = false
+
+    // return (...args) => {
+    //     if (isThrottled) return
+
+    //     callback(...args)
+    //     isThrottled = true
+
+    //     setTimeout(() => {
+    //         isThrottled = false
+    //     }, delay)
+    // }
+
+    let isThrottled = false
+    let saveArgs = null
+
+    return (...args) => {
+        if (isThrottled) {
+            // если вызвали во время задержки → запомним последние аргументы
+            saveArgs = args
+            return
+        }
+        // Вызов сразу leading
+        callback(...args)
+        isThrottled = true
+ 
+        setTimeout(() => {
+            isThrottled = false
+
+            // если были сохранённые вызовы → выполним (trailing)
+            if (saveArgs) {
+                callback(...saveArgs)
+                saveArgs = null
+                isThrottled = true
+                setTimeout(() => {
+                    isThrottled = false
+                }, delay)
+            }
+        }, delay)
+    }
+}
+
+let fn = () => console.log("run")
+let throttled = throttle(fn, 2000)
+throttled() // сразу вызовется
+throttled() // проигнорируется, если <2 сек
+
+let fn2 = () => console.log("run 3")
+let throttled2 = throttle(fn2, 3000)
+throttled2()
