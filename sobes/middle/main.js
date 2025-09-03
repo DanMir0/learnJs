@@ -100,7 +100,7 @@
 //     age: 22, 
 //     skills: {
 //         prog: ['html', 'css'],
-//         p: 'ss'
+//         p: 'ss'w
 // }}
 // let copyObj = deepClone(obj)
 // copyObj.skills.p = 'aa'
@@ -340,54 +340,96 @@
 // debounced() 
 
 /* 65. Реализовать throttle. */
-function throttle(callback, delay) {
-    // let isThrottled = false
+// function throttle(callback, delay) {
+//     // let isThrottled = false
 
-    // return (...args) => {
-    //     if (isThrottled) return
+//     // return (...args) => {
+//     //     if (isThrottled) return
 
-    //     callback(...args)
-    //     isThrottled = true
+//     //     callback(...args)
+//     //     isThrottled = true
 
-    //     setTimeout(() => {
-    //         isThrottled = false
-    //     }, delay)
-    // }
+//     //     setTimeout(() => {
+//     //         isThrottled = false
+//     //     }, delay)
+//     // }
 
-    let isThrottled = false
-    let saveArgs = null
+//     let isThrottled = false
+//     let saveArgs = null
 
-    return (...args) => {
-        if (isThrottled) {
-            // если вызвали во время задержки → запомним последние аргументы
-            saveArgs = args
-            return
-        }
-        // Вызов сразу leading
-        callback(...args)
-        isThrottled = true
+//     return (...args) => {
+//         if (isThrottled) {
+//             // если вызвали во время задержки → запомним последние аргументы
+//             saveArgs = args
+//             return
+//         }
+//         // Вызов сразу leading
+//         callback(...args)
+//         isThrottled = true
  
-        setTimeout(() => {
-            isThrottled = false
+//         setTimeout(() => {
+//             isThrottled = false
 
-            // если были сохранённые вызовы → выполним (trailing)
-            if (saveArgs) {
-                callback(...saveArgs)
-                saveArgs = null
-                isThrottled = true
-                setTimeout(() => {
-                    isThrottled = false
-                }, delay)
-            }
-        }, delay)
-    }
-}
+//             // если были сохранённые вызовы → выполним (trailing)
+//             if (saveArgs) {
+//                 callback(...saveArgs)
+//                 saveArgs = null
+//                 isThrottled = true
+//                 setTimeout(() => {
+//                     isThrottled = false
+//                 }, delay)
+//             }
+//         }, delay)
+//     }
+// }
 
-let fn = () => console.log("run")
-let throttled = throttle(fn, 2000)
-throttled() // сразу вызовется
-throttled() // проигнорируется, если <2 сек
+// let fn = () => console.log("run")
+// let throttled = throttle(fn, 2000)
+// throttled() // сразу вызовется
+// throttled() // проигнорируется, если <2 сек
 
-let fn2 = () => console.log("run 3")
-let throttled2 = throttle(fn2, 3000)
-throttled2()
+// let fn2 = () => console.log("run 3")
+// let throttled2 = throttle(fn2, 3000)
+// throttled2()
+
+/* 66. Реализовать memoize. */
+// function memoize(callback) {
+//     let cache = {}
+
+//     return (...args) => {
+//         if (cache[args[0]] != undefined) {
+//             return cache[args[0]]
+//         } else {
+//             cache[args[0]] = callback(...args)
+//             return cache[args[0]]
+//         }
+//     }
+// }
+
+// let slowFn = n => {
+//     console.log("calc")
+//     return n*2
+// }
+// let fastFn = memoize(slowFn)
+// console.log(fastFn(5));
+// console.log(fastFn(5));
+
+/* 67. Глубокое клонирование. */
+// function deepClone(obj) {
+//     let copy = {}
+//     if (obj === null || typeof obj !== 'object') return obj
+
+//     if (Array.isArray(obj)) return obj.map(item => deepClone(item))
+
+//     for (let key in obj) {
+//          copy[key] = deepClone(obj[key])
+//     }
+//     return copy
+// }
+
+// let obj = {a: 1, b: {c: 2}}
+// let copy = deepClone(obj)
+
+// console.log(copy);
+// console.log(obj);
+// obj.b.c = 5
