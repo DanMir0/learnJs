@@ -433,3 +433,84 @@
 // console.log(copy);
 // console.log(obj);
 // obj.b.c = 5
+
+/* 68. Реализуй функцию, которая принимает массив промисов и работает как Promise.all. */
+// let arrPromise = [
+//     new Promise((resolve, reject) => setTimeout(() => resolve(1), 1000)),
+//     new Promise((resolve, reject) => setTimeout(() => reject(new Error("Ошибка!")), 2000)),
+//     new Promise((resolve, reject) => setTimeout(() => resolve(3), 3000))
+// ]
+
+// function promiseAll(arr) {
+//    return new Promise((resolve, reject) => {
+//         let result = []
+//         let completed = 0
+
+//         arr.forEach((promise, index) => {
+//             promise.then(value => {
+//                 result[index] = value
+//                 completed++
+
+//                 if (arr.length === completed) {
+//                     resolve(result)
+//                 }
+//             })
+//             .catch(err => reject(err))
+//         })
+//    })
+// }
+// promiseAll(arrPromise).then(res => console.log(res))
+
+/* Задача 69 Напиши функцию compose(f, g, h), которая позволяет объединять функции: compose(f,g,h)(x) → f(g(h(x))). */
+// function compose(...func) {
+//     return func.reduceRight((prevFn, nextFn) => (...args) => nextFn(prevFn(...args)))
+// }
+
+// const sum = (a, b) => a + b;
+// const square = (x) => x * x;
+// const double = (x) => x * 2;
+// const process = compose(double, square, sum);
+// console.log(process(2, 3)); // (2 + 3) → 5 → 25 → 50
+
+/* Задача 70 Реализуй класс Stack (стек) с методами push, pop, peek, isEmpty. */
+class Stack {
+    constructor() {
+        this.arr = []
+        this.index = 0
+    }
+
+    push(value) {
+        this.arr[this.index] = value
+        this.index += 1
+    }
+
+    pop() {
+        if (this.isEmpty()) return null
+        this.index--
+        console.log(`index = ${this.index}`);
+        
+        const value = this.arr[this.index]
+        console.log(`value = ${value}`);
+        
+        this.arr.length = this.index
+        return value
+    } 
+
+    peek() {
+        if (this.isEmpty()) return null
+        return this.arr[this.index - 1]
+    }
+
+    isEmpty() {
+        return this.index === 0
+    }    
+}
+
+let stack = new Stack();
+stack.push(2);
+stack.push(3);
+console.log(stack.peek()); // 3
+console.log(stack.pop());  // 3
+console.log(stack.isEmpty()); // false
+console.log(stack.pop());  // 2
+console.log(stack.isEmpty()); // true
