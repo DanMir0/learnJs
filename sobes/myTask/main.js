@@ -151,40 +151,99 @@ function isAnagram(str1, str2) {
 
 
 //! Напиши функцию memoize(fn), которая кеширует результаты вызовов функции:
-function memoize(fn) {
-  // let cache = {}
+// function memoize(fn) {
+//   // let cache = {}
 
-  // return (n) => {
-  //   if (n in cache) {
-  //     return cache[n]
-  //   }
-  //   cache[n] = fn(n)
-  //   return cache[n]
-  // }
+//   // return (n) => {
+//   //   if (n in cache) {
+//   //     return cache[n]
+//   //   }
+//   //   cache[n] = fn(n)
+//   //   return cache[n]
+//   // }
 
 
-  //? 2
-  let cache = new Map()
+//   //? 2
+//   let cache = new Map()
 
-  return (...args) => {    
-    let key = JSON.stringify(args)
-    console.log(key);
+//   return (...args) => {    
+//     let key = JSON.stringify(args)
+//     console.log(key);
     
-    if (cache.has(key)) return cache.get(key)
+//     if (cache.has(key)) return cache.get(key)
 
-    let result = fn(...args)
-    cache.set(key, result)
-    return result
-  }
-}
+//     let result = fn(...args)
+//     cache.set(key, result)
+//     return result
+//   }
+// }
 
-function slowSquare(n) {
-  console.log("Вычисляю...");
-  return n * n;
-}
+// function slowSquare(n) {
+//   console.log("Вычисляю...");
+//   return n * n;
+// }
 
-const memoSquare = memoize(slowSquare);
+// const memoSquare = memoize(slowSquare);
 
-console.log(memoSquare(5)); // "Вычисляю..." → 25
-console.log(memoSquare(5)); // кеш → 25 (без "Вычисляю...")
-console.log(memoSquare(6)); // "Вычисляю..." → 36
+// console.log(memoSquare(5)); // "Вычисляю..." → 25
+// console.log(memoSquare(5)); // кеш → 25 (без "Вычисляю...")
+// console.log(memoSquare(6)); // "Вычисляю..." → 36
+
+
+//! Напиши функцию countChars(str), которая возвращает объект с количеством вхождений каждого символа в строке.
+// function countChars(str) {
+//     if (typeof str !== 'string') return `Это не строка`
+//     let obj = {}
+
+//     str.split('').forEach(char => {
+//         if (obj[char] != undefined) {
+//             obj[char] += 1
+//         } else {
+//             obj[char] = 1
+//         }
+//     })
+//     return obj
+// }
+// console.log(countChars("hello")); // { h: 1, e: 1, l: 2, o: 1 }
+
+// function countChars(str) {
+//     return [...str].reduce((acc, char) => {
+//         acc[char] = (acc[char] || 0) + 1
+//         return acc
+//     }, {})
+// }
+// console.log(countChars("hello")); // { h: 1, e: 1, l: 2, o: 1 }
+
+//! Напиши функцию twoSum(nums, target), которая находит индексы двух чисел, сумма которых равна target.
+// function twoSum(arr, target) {
+//     let arrIndex = []
+
+//     for (let i = 0; i < arr.length; i++) {
+//         for (let j = i + 1; j < arr.length; j++) {
+//             if (arr[i] + arr[j] === target) {
+//                 arrIndex.push(i)
+//                 arrIndex.push(j)
+//                 break
+//             }
+            
+//         }
+//     }
+
+//     return arrIndex
+// }
+
+// function twoSum(nums, target) {
+//     const map = new Map()
+
+//     for (let i = 0; i < nums.length; i++) {
+//         const need = target - nums[i]
+//         if (map.has(need)) {
+//             return [map.get(need), i]
+//         }
+//         map.set(nums[i], i)
+//     }
+// }
+
+// console.log(twoSum([2, 7, 11, 15], 9));  // [0, 1]
+// console.log(twoSum([3, 2, 4], 6));      // [1, 2]
+// console.log(twoSum([3, 3], 6));         // [0, 1]
