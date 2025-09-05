@@ -218,17 +218,17 @@ console.log(sumSifr(23))
 */
 
 /* Задача 48 */
-function isPrimeNumber(num) {
-  if (num <= 1) return false
-  for (let i = 2; i <= Math.sqrt(num); i++) {
-    if (num % i ===0) {
-      return false
-    }
-  }
-  return true
-}
-console.log(isPrimeNumber(5));
-console.log(isPrimeNumber(10));
+// function isPrimeNumber(num) {
+//   if (num <= 1) return false
+//   for (let i = 2; i <= Math.sqrt(num); i++) {
+//     if (num % i ===0) {
+//       return false
+//     }
+//   }
+//   return true
+// }
+// console.log(isPrimeNumber(5));
+// console.log(isPrimeNumber(10));
 
 
 /* Задача 49 */ 
@@ -311,3 +311,79 @@ function getRandom(arr) {
 }
 console.log(getRandom([0,34, 7, 2]))
 */
+
+/* Задача 71 */
+/*
+class Queue {
+ constructor() {
+ this.queue = []
+ this.index = 0
+ }
+ enqueue(value) {
+ this.queue[this.index] = value
+ this.index++
+ }
+ dequeue() {
+ let value = this.queue[0]
+ this.index--
+ this.queue.length = this.index
+ return value
+ }
+ peek() {
+ return this.queue[0]
+ }
+ 
+ isEmpty() {
+   return this.index === 0
+ }
+}
+let q = new Queue()
+q.enqueue(1)
+q.enqueue(2)
+console.log(q.peek())     // 1
+console.log(q.dequeue())  // 1
+console.log(q.isEmpty())  // false
+*/
+
+/* Задача 72 */
+/*function flatten(arr) {
+//  return arr.flat(Infinity)
+ let newArr = []
+ arr.forEach(elem => {
+   if (Array.isArray(elem)) {
+     newArr = newArr.concat(flatten(elem))
+   } else {
+     newArr.push(elem)
+   }
+ })
+ return newArr
+}
+console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
+
+
+/* Задача 73 */
+/*
+function isPalindrome(str) {
+  str = str.toLowerCase()
+  return str === str.split('').reverse().join('')
+}
+console.log(isPalindrome("racecar")) // true
+console.log(isPalindrome("hello"))  // false
+*/
+/* Задача 74 */
+function getSecondLargest(arr) {
+  let max = arr[0]
+  let res = null
+  
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > max) {
+      res = max
+      max = arr[i]
+    }
+  }
+  if (res === null) {
+    res = max
+  }
+  return res
+}
+console.log(getSecondLargest([0, -5, -8, -20])) // 10
