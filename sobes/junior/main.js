@@ -324,10 +324,11 @@ class Queue {
  this.index++
  }
  dequeue() {
- let value = this.queue[0]
- this.index--
- this.queue.length = this.index
- return value
+//  let value = this.queue[0]
+//  this.index--
+//  this.queue.length = this.index
+//  return value
+return this.queue.shift() || null
  }
  peek() {
  return this.queue[0]
@@ -362,28 +363,52 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 
 
 /* Задача 73 */
-/*
-function isPalindrome(str) {
-  str = str.toLowerCase()
-  return str === str.split('').reverse().join('')
-}
-console.log(isPalindrome("racecar")) // true
-console.log(isPalindrome("hello"))  // false
-*/
+
+// function isPalindrome(str) {
+//   str = str.toLowerCase().replace(/[^a-zа-я0-9]/gi, "")
+//   return str === str.split('').reverse().join('')
+// }
+// console.log(isPalindrome("А роза упала на лапу Азора")) // true
+// console.log(isPalindrome("hello"))  // false
+
 /* Задача 74 */
-function getSecondLargest(arr) {
-  let max = arr[0]
-  let res = null
+// function getSecondLargest(arr) {
+//   let max = arr[0]
+//   let res = null
   
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] > max) {
-      res = max
-      max = arr[i]
-    }
-  }
-  if (res === null) {
-    res = max
-  }
-  return res
-}
-console.log(getSecondLargest([0, -5, -8, -20])) // 10
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] > max) {
+//       res = max
+//       max = arr[i]
+//     }
+//   }
+//   if (res === null) {
+//     res = max
+//   }
+//   return res
+// }
+// console.log(getSecondLargest([0, -5, -8, -20])) // 10
+
+// function getSecondLargest(arr) {
+//   if (arr.length < 2) return null
+
+//   let uniqArr = [...new Set(arr)]
+
+//   uniqArr.sort((a, b) => b - a)
+//   return uniqArr[1]
+// }
+// console.log(getSecondLargest([0, -5, -8, -20, 20, 20,40])) // 10
+// console.log(getSecondLargest([0])) // 10
+/* задача 75 реалтзуц функцию chunk */
+// function chunk(arr, size) {
+//   let newArr= []
+//   let subArr= []
+//   for (let i = 0; i < Math.ceil(arr.length/size); i++) {
+//     console.log(i);
+//     console.log(`Slice 1 ${i} * ${size} = ${i * size}`);
+//     console.log(`Slice 2 ${i} * ${size} = ${(i * size) + size}`);
+//     newArr[i] = arr.slice((i * size), (i * size) + size)
+//   }
+//   return newArr
+// }
+// console.log(chunk([1,2,3,4,5], 2)) // [[1,2],[3,4],[5]]
