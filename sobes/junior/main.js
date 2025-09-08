@@ -497,3 +497,50 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 // console.log(isAnagram("listen", "silent")) // true
 // console.log(isAnagram("hello", "world") )  // false
 
+//! Задача 81 (Junior)
+// Написать функцию sumArray(arr), которая возвращает сумму всех чисел в массиве.
+// function sumArray(arr) {
+//   return arr.reduce((acc, num) => acc + num, 0)
+// }
+// console.log(sumArray([1,2,3,5]));
+
+//! Задача 82 (Junior)
+// Написать функцию findMax(arr), которая находит максимальный элемент в массиве.
+// function findMax(arr) {
+//   // return Math.max(...arr)
+//   let max = arr[0]
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] > max) {
+//       max = arr[i]
+//     }
+//   }
+//   return max
+// }
+// console.log(findMax([-12,-2,-3]));
+
+//! Задача 83 (Junior)
+// Реализовать функцию reverseWords(str), которая переворачивает порядок слов в строке.
+// function reverseWords(str) {
+
+//   return str.split(" ").reverse().join(" ") //trim().split(/\s+/) если пробелы
+// }
+
+// console.log(reverseWords("I love JS")); // "JS love I"
+
+//! Задача 84 (Junior)
+// Написать функцию countChar(str, char), которая считает количество символов char в строке.
+function countChar(str, char) {
+//   return [...str.toLowerCase()].filter(c => c === char.toLowerCase()).length
+
+//   return str.toLowerCase().split("").reduce((acc, el) => el === char.toLowerCase() ? acc + 1 : acc + 0, 0)
+// }
+// console.log(countChar("Привет, ты пакет", 'П'));
+
+//! Задача 85 (Junior)
+// Написать функцию checkPalindrome(str), которая проверяет, является ли строка палиндромом.
+// function checkPalindrome(str) {
+//   let clean = str.toLowerCase().replace('/[^a-zа-я0-9]/gi, ""')
+//   return clean === clean.split("").reverse().join("")
+// }
+// console.log(checkPalindrome('rar'));
+// console.log(checkPalindrome('hey'));
