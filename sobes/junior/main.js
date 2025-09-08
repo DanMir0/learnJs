@@ -415,10 +415,10 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 
 
 /* Задача 76 */
-function unique(arr) {
-  return [...new Set(arr)]
-}
-console.log(unique([1,2,2,3,4,4,5])); // [1,2,3,4,5]);
+// function unique(arr) {
+//   return [...new Set(arr)]
+// }
+// console.log(unique([1,2,2,3,4,4,5])); // [1,2,3,4,5]);
 
 /* Задача 77 */
 
@@ -431,41 +431,69 @@ console.log(unique([1,2,2,3,4,4,5])); // [1,2,3,4,5]);
 //   }
 //   return newArr
 // }
+
+// function intersection(arr1, arr2) {
+//   let set2 = new Set(arr2)
+//   return arr1.filter(el => set2.has(el))
+// }
 // console.log(intersection([1,2,4,56,3], [2,3,4])) // [2,3]
 
 
 /* Задача 78 */
-/*
-function difference(arr1, arr2) {
-  let newArr = []
-  for (let i = 0; i < arr1.length; i++) {
-    if (!arr2.includes(arr1[i])) {
-      newArr.push(arr1[i])
-    }
-  }
-  for (let i = 0; i < arr2.length; i++) {
-    if (!arr1.includes(arr2[i])) {
-      newArr.push(arr2[i])
-    }
-  }
-  return newArr
-}
-console.log(difference([1,2,3], [2,3,4])) // [1,4]*/
+// function difference(arr1, arr2) {
+//   let newArr = []
+//   for (let i = 0; i < arr1.length; i++) {
+//     if (!arr2.includes(arr1[i])) {
+//       newArr.push(arr1[i])
+//     }
+//   }
+//   for (let i = 0; i < arr2.length; i++) {
+//     if (!arr1.includes(arr2[i])) {
+//       newArr.push(arr2[i])
+//     }
+//   }
+//   return newArr
+// }
+
+// function difference(arr1, arr2) {
+//   let set1 = new Set(arr1);
+//   let set2 = new Set(arr2);
+//   return [
+//     ...arr1.filter(el => !set2.has(el)),
+//     ...arr2.filter(el => !set1.has(el)),
+//   ]
+// }
+// console.log(difference([1,2,3], [2,3,4])) // [1,4]
 
 /* Зажача 79*/
-/*
-function capitalize(str) {
-  let newStr = ""
-  for (let i = 0; i < str.length; i++) {
-    if (str[i-1] === " " || i === 0) {
-      newStr += str[i].toUpperCase()
-    } else {
-      newStr += str[i]
-    }
-  }
-  return newStr
-}
-console.log(capitalize("hello world")) // "Hello World"
-*/
-/* задача 80 */
-//  
+// function capitalize(str) {
+//   let newStr = ""
+//   for (let i = 0; i < str.length; i++) {
+//     if (str[i-1] === " " || i === 0) {
+//       newStr += str[i].toUpperCase()
+//     } else {
+//       newStr += str[i]
+//     }
+//   }
+//   return newStr
+// }
+
+// function capitalize(str) {
+//   return str.split(" ").map(word => word[0].toUpperCase() + word.slice(1)).join(" ")
+// }
+// console.log(capitalize("hello world")) // "Hello World"
+
+/* задача 80 Anagrams*/
+// function isAnagram(str1, str2) {
+//   str1 = str1.toLowerCase().split("").sort().join("")
+//    str2 = str2.toLowerCase().split("").sort().join("")
+//    return str1 === str2
+// }
+
+// function isAnagram(str1, str2) {
+//   let normileze = (str) => str.toLowerCase().split("").sort().join("")
+//   return normileze(str1) === normileze(str2)
+// }
+// console.log(isAnagram("listen", "silent")) // true
+// console.log(isAnagram("hello", "world") )  // false
+
