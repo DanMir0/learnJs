@@ -247,3 +247,45 @@ function isAnagram(str1, str2) {
 // console.log(twoSum([2, 7, 11, 15], 9));  // [0, 1]
 // console.log(twoSum([3, 2, 4], 6));      // [1, 2]
 // console.log(twoSum([3, 3], 6));         // [0, 1]
+
+//! 1. Junior (строки):
+// Напиши функцию capitalize(str), которая делает первую букву строки заглавной.
+// function capitalize(str) {
+//   return str.split(" ").map(word => word[0].toUpperCase() + word.slice(1)).join(" ")
+// }
+// console.log(capitalize("хей ые"));
+
+//! 2. Middle (алгоритмы + Map):
+// Напиши функцию findFirstUnique(arr), которая возвращает первый уникальный элемент массива. Если таких нет — null.
+// function findFirstUnique(arr) {
+// let obj = arr.reduce((acc, el) => {
+//   if (el in acc) {
+//     acc[el] += 1
+//   } else {
+//     acc[el] = 1
+//   }
+//   return acc
+// }, {})
+//   let res = null
+//   for (key in obj) {
+//     if (obj[key] === 1) {
+//       res = key
+//       break;
+//     }
+//   }
+// return res
+// }
+
+// function findFirstUnique(arr) {
+//   const map = new Map()
+//   arr.forEach(el => map.set(el, (map.get(el) || 0) + 1));
+//   for (let el of arr) {
+//     if (map.get(el) === 1) return el
+//   }
+// }
+
+// console.log(findFirstUnique([1, 2, 2, 3, 3])); // 1
+// console.log(findFirstUnique([2, 2, 3, 3]));   // null
+// console.log(findFirstUnique(["a", "b", "a", "c"])); // "b"
+
+
