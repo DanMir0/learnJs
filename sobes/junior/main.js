@@ -529,7 +529,7 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 
 //! Задача 84 (Junior)
 // Написать функцию countChar(str, char), которая считает количество символов char в строке.
-function countChar(str, char) {
+// function countChar(str, char) {
 //   return [...str.toLowerCase()].filter(c => c === char.toLowerCase()).length
 
 //   return str.toLowerCase().split("").reduce((acc, el) => el === char.toLowerCase() ? acc + 1 : acc + 0, 0)
