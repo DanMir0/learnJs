@@ -273,18 +273,117 @@
 //console.log(bubbleSort([5,3,1,4])) // [1,3,4,5]
 
 /* Задача 63 */
-function camelToSnake(str) {
-    let newStr = ''
-    let arrChar = str.split('')
-    arrChar.forEach((char, index) => {
-        if (char !== char.toLowerCase()) {
-            char = char.toLowerCase()
-            newStr += '_' + char
-        } else {
-            newStr += char
-        }
-    })
-    return newStr
-}
+// function camelToSnake(str) {
+//     let newStr = ''
+//     let arrChar = str.split('')
+//     arrChar.forEach((char, index) => {
+//         if (char !== char.toLowerCase()) {
+//             char = char.toLowerCase()
+//             newStr += '_' + char
+//         } else {
+//             newStr += char
+//         }
+//     })
+//     return newStr
+// }
 
-console.log(camelToSnake("helloWorld")) // "hello_world"
+// console.log(camelToSnake("helloWorld")) // "hello_world"
+
+//! Задача 86 (Junior+)
+// Реализовать функцию removeFalsy(arr), которая убирает из массива все falsy-значения (false, 0, "", null, undefined, NaN).
+// function removeFalsy(arr) {
+//     return arr.filter(el => el)
+// }
+// console.log(removeFalsy([false, 0, "", null, undefined, NaN, 1, 2]));
+
+//! Задача 87 (Junior+)
+// Написать функцию chunkArray(arr, size), которая разбивает массив на подмассивы указанного размера.
+// function chunkArray(arr, size) {
+// if (!Number.isInteger(size) || size <= 0) {
+//     throw new Error('size must be a positive integer')
+// }
+//     let res = []
+//     for (let i = 0; i < arr.length; i += size) {
+//         res.push(arr.slice(i, i + size))
+//     }
+//     return res
+// }
+// function chunkArray(arr, size) {
+//     if (!Number.isInteger(size) || size <= 0) {
+//     throw new Error('size must be a positive integer')
+// }
+//     let res = []
+//     const copy = arr.slice()
+//     while (copy.length) {
+//         res.push(arr.splice(0, size))
+//     }
+//     return res
+// }
+
+// console.log(chunkArray([1,2,3,4,5], 2)); // [[1,2],[3,4],[5]]
+
+//! Задача 88 (Junior+)
+// Реализовать функцию groupBy(arr, key), которая группирует массив объектов по значению ключа.
+// function groupBy(arr, key) {
+//     let obj = {}
+//     arr.forEach(item => {
+//         if (obj[item[key]]) {
+//             obj[item[key]].push(item)
+//         } else {
+//             obj[item[key]] = [item]
+//         }
+        
+//     });
+//     return obj
+// }
+
+// function groupBy(arr, key) {
+//     return arr.reduce((acc, item) => {
+//         if (acc[item[key]]) {
+//             acc[item[key]].push(item)
+//         } else{
+//             acc[item[key]] = [item]
+//         }
+//         return acc
+//     }, {})
+// }
+// console.log(groupBy([{age:20}, {age:21}, {name: 'Alex', age:20}], "age"));
+
+// {20: [{age:20},{age:20}], 21: [{age:21}]}
+
+//! Задача 89 (Junior+)
+// Написать функцию deepClone(obj), которая создает глубокую копию объекта (без structuredClone).
+// function deepClone(obj) {
+//     if (typeof obj !== 'object' || obj === null) return obj
+
+//     if (Array.isArray(obj)) return obj.map(item => deepClone(item))
+
+//     let copy = {}
+//     for (let key in obj) {
+//         copy[key] = deepClone(obj[key])
+//     }
+//     return copy
+// }
+// let obj1 = {a: 1, b: {c: {d: 2}, h: 'sdas'}}
+// let copy = deepClone(obj1)
+// copy.b.c.d = 55
+// console.log(copy);
+// console.log(obj1);
+
+//! Задача 90 (Junior+)
+// Реализовать функцию arrayEqual(arr1, arr2), которая проверяет, равны ли массивы (одинаковая длина и значения).
+// function arrayEqual(arr1, arr2) {
+//     if (arr1.length !== arr2.length) return false
+
+//     for (let i = 0; i < arr1.length; i++) {
+//         if (arr1[i] !== arr2[i]) {
+//             return false
+//         }
+//     }
+
+//     return true
+// }
+function arrayEqual(arr1, arr2) {
+    return arr1.length === arr2.length && arr1.every((val, i) => val === arr2[i])
+}
+console.log(arrayEqual([1,2,3,4], [1,2,3]));
