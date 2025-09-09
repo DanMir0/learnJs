@@ -289,3 +289,38 @@ function isAnagram(str1, str2) {
 // console.log(findFirstUnique(["a", "b", "a", "c"])); // "b"
 
 
+//! Junior (строки)
+//! Напиши функцию reverseWords(str), которая переворачивает порядок слов в строке.
+// function reverseWords(str) {
+// return str.split(' ').reverse().join(' ')
+// }
+// console.log(reverseWords("I love JS")); // "JS love I"
+// console.log(reverseWords("hello world")); // "world hello"
+
+//! Middle (алгоритмы)
+//! Напиши функцию debounce(fn, delay), которая ограничивает количество вызовов функции: функция должна выполняться только через delay миллисекунд после последнего вызова.
+function debounce(fn, delay, immediate = false){ 
+  let timer = null
+
+  return (...args) => {
+    let callNow = immediate && !timer
+    clearTimeout(timer)
+
+    timer = setTimeout(() => {
+      fn(...args)
+    }, delay)
+    
+    if (callNow) fn.apply(this, args)
+  }
+}
+
+function log() {
+  console.log("Вызов!");
+}
+
+const debouncedLog = debounce(log, 1000,true);
+
+debouncedLog(); 
+debouncedLog(); 
+debouncedLog(); 
+// спустя 1с → "Вызов!" (только один раз)
