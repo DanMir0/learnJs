@@ -473,44 +473,115 @@
 // console.log(process(2, 3)); // (2 + 3) → 5 → 25 → 50
 
 /* Задача 70 Реализуй класс Stack (стек) с методами push, pop, peek, isEmpty. */
-class Stack {
-    constructor() {
-        this.arr = []
-        this.index = 0
-    }
+// class Stack {
+//     constructor() {
+//         this.arr = []
+//         this.index = 0
+//     }
 
-    push(value) {
-        this.arr[this.index] = value
-        this.index += 1
-    }
+//     push(value) {
+//         this.arr[this.index] = value
+//         this.index += 1
+//     }
 
-    pop() {
-        if (this.isEmpty()) return null
-        this.index--
-        console.log(`index = ${this.index}`);
+//     pop() {
+//         if (this.isEmpty()) return null
+//         this.index--
+//         console.log(`index = ${this.index}`);
         
-        const value = this.arr[this.index]
-        console.log(`value = ${value}`);
+//         const value = this.arr[this.index]
+//         console.log(`value = ${value}`);
         
-        this.arr.length = this.index
-        return value
-    } 
+//         this.arr.length = this.index
+//         return value
+//     } 
 
-    peek() {
-        if (this.isEmpty()) return null
-        return this.arr[this.index - 1]
+//     peek() {
+//         if (this.isEmpty()) return null
+//         return this.arr[this.index - 1]
+//     }
+
+//     isEmpty() {
+//         return this.index === 0
+//     }    
+// }
+
+// let stack = new Stack();
+// stack.push(2);
+// stack.push(3);
+// console.log(stack.peek()); // 3
+// console.log(stack.pop());  // 3
+// console.log(stack.isEmpty()); // false
+// console.log(stack.pop());  // 2
+// console.log(stack.isEmpty()); // true
+
+//! Задача 91 (Middle)
+// Реализовать структуру данных LinkedList с методами: append, prepend, find, delete.
+
+
+//! Задача 92 (Middle)
+// Реализовать функцию twoSum(arr, target), которая возвращает индексы двух чисел, сумма которых равна target.
+// function twoSum(arr, target) {
+//     let res = []
+//     for (let i = 0; i < arr.length; i++) {
+//         for (let j = i + 1; j < arr.length; j++) {
+//             if (arr[i] + arr[j] === target) {
+//                 res.push(i)
+//                 res.push(j)
+//             }
+//         }
+//     }
+//     return [...res]
+// }
+function twoSum(arr, target) {
+    let map = new Map()
+    for (let i = 0; i < arr.length; i++) {
+        let complement = target - arr[i]
+        if (map.has(complement)) {
+            return [map.get(complement), i]
+        }
+        map.set(arr[i], i)
     }
-
-    isEmpty() {
-        return this.index === 0
-    }    
+    return []
 }
+console.log(twoSum([2,7,11,15], 9)); // [0,1]
 
-let stack = new Stack();
-stack.push(2);
-stack.push(3);
-console.log(stack.peek()); // 3
-console.log(stack.pop());  // 3
-console.log(stack.isEmpty()); // false
-console.log(stack.pop());  // 2
-console.log(stack.isEmpty()); // true
+
+//! Задача 93 (Middle)
+// Написать функцию areParenthesesBalanced(str), которая проверяет, правильно ли расставлены скобки.
+function areParenthesesBalanced(str) {
+
+}
+// "()[]{}" → true  
+// "([)]" → false
+
+
+//! Задача 94 (Middle)
+// Реализовать функцию memoize(fn), которая кеширует результаты вызова функции.
+function memoize(fn) {
+    let cache = {}
+    return (...args) => {      
+        let key = JSON.stringify(...args)  
+        if (cache[key]) {
+            return cache[key]
+        } else {
+            cache[key] = fn(...args) 
+            return cache[key]
+        }
+    }
+}
+let slowFn = (a,b,c) => {
+    console.log("calc")
+    return a + b * c
+}
+let fastFn = memoize(slowFn)
+console.log(fastFn(2, 2, 2));
+console.log(fastFn(2,2,2));
+
+//! Задача 95 (Middle)
+// Написать функцию longestSubstringWithoutRepeating(str), которая возвращает длину самой длинной подстроки без повторяющихся символов.
+function longestSubstringWithoutRepeating(str) {
+
+}
+// "abcabcbb" → 3 ("abc")
+// "bbbbb" → 1 ("b")
