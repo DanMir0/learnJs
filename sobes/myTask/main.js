@@ -500,17 +500,56 @@ function isAnagram(str1, str2) {
 //   return map.get(n)
 // }
 
-function square() { 
-  let map = new Map()
-  return (n) => {
-    if (!(map.has(n))) {
-      console.log('Считаю');
-      map.set(n, n*n)
-    }
-    return map.get(n)
-  }
-}
-let res = square()
-console.log(res(2));
-console.log(res(2));
-console.log(res(4));
+// function square() { 
+//   let map = new Map()
+//   return (n) => {
+//     if (!(map.has(n))) {
+//       console.log('Считаю');
+//       map.set(n, n*n)
+//     }
+//     return map.get(n)
+//   }
+// }
+// let res = square()
+// console.log(res(2));
+// console.log(res(2));
+// console.log(res(4));
+// function unique(arr) {
+//   return Array.from(new Set(arr))
+//   let uniq = new Set(arr) 
+//   return [...uniq] 
+// }
+
+// let values = ["Hare", "Krishna", "Hare", "Krishna",
+//   "Krishna", "Krishna", "Hare", "Hare", ":-O"
+// ];
+
+// alert( unique(values) ); // Hare,Krishna,:-O
+
+//! Напишите функцию aclean(arr), которая возвращает массив слов, очищенный от анаграмм.
+// function aclean(arr) {
+//   const map = new Map()
+//   for (word of arr) {
+//     let sorted = word.toLowerCase().split("").sort().join("")
+//     if (!map.has(sorted)) {
+//       map.set(sorted, word)
+//     }
+//   }
+
+//   return Array.from(map.values())
+// }
+// let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+
+// alert( aclean(arr) ); // "nap,teachers,ear" или "PAN,cheaters,era"
+
+//! Мы хотели бы получить массив ключей map.keys() в переменную и далее работать с ними, например, применить метод .push
+let map = new Map();
+
+map.set("name", "John");
+
+let keys = Array.from(map.keys())
+
+// Error: keys.push is not a function
+// Ошибка: keys.push -- это не функция
+keys.push("more");
+console.log(keys);
