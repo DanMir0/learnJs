@@ -544,3 +544,73 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 // }
 // console.log(checkPalindrome('rar'));
 // console.log(checkPalindrome('hey'));
+
+//! Напишите функцию, которая проверяет, является ли переданная строка палиндромом (читается одинаково слева направо и справа налево). Регистр и пробелы не должны учитываться.
+// function isPalindrome(str) {
+//   str = str.toLowerCase().replace(/[^a-zа-я0-9]/gi, "")
+//   return str === str.split("").reverse("").join("")
+// }
+// console.log(isPalindrome('А роза упала на лапу Азора') );// true
+// console.log(isPalindrome('Кошка')) // false
+
+//! Напишите функцию, которая принимает строку и возвращает количество гласных букв в ней. Гласные буквы: а, е, ё, и, о, у, ы, э, ю, я (можно и английские a, e, i, o, u).
+// function countVowels(str) {
+//   let vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'а', 'я', 'о', 'ё', 'у', 'ю', 'ы', 'и', 'э', 'е']
+//   let count = 0
+//   let lowerStr = str.toLowerCase()
+//   lowerStr.forEach(char => {
+//     if (vowels.includes(char)) {
+//       count++
+//     }
+//   })
+//   return count
+// }
+// function countVowels(str) {
+//   let vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'а', 'я', 'о', 'ё', 'у', 'ю', 'ы', 'и', 'э', 'е']
+//   return str.toLowerCase().split("").filter(char => vowels.includes(char)).length
+// }
+//  console.log(countVowels('Привет мир!')) // 3
+
+//! Напишите функцию, которая принимает строку и возвращает длину самого короткого слова в ней.
+// function findShortestWord(str) {
+//   return Math.min(...str.split(" ").map(word => word.length))
+// }
+
+// function findShortestWord(str) {
+//   return str.split(" ").reduce((min, word) => Math.min(min, word.length), Infinity)
+// }
+// console.log(findShortestWord('Мир это такое место'));// 3 (слово "Мир" или "это")
+
+// !FizzBuzz
+// Классическая задача. Напишите программу, которая выводит числа от 1 до 100.
+// Если число кратно 3, вывести "Fizz".
+// Если число кратно 5, вывести "Buzz".
+// Если число кратно и 3, и 5, вывести "FizzBuzz".
+// В остальных случаях вывести само число.
+
+// for (let i = 1; i <= 100; i++) {
+//   if (i % 3 === 0 && i % 5 === 0) {
+//     console.log('FizzBuzz');
+//   } else if (i % 5 === 0) {
+//     console.log('Buzz');
+//   } else if (i % 3 === 0) {
+//     console.log('Fizz');
+//   } else {
+//     console.log(i);
+//   }
+// }
+
+// 5. Сумма всех чисел до N
+// Напишите функцию, которая принимает число N и возвращает сумму всех чисел от 1 до N.
+// function sumToN(n) {
+//   let res = 0
+//   for (let i = 1; i <= n; i++) {
+//     res += i
+//   }
+//   return res
+// }
+
+// function sumToN(n) {
+//   return n * (n + 1) / 2
+// }
+// console.log(sumToN(2)) // 15 (1+2+3+4+5)
