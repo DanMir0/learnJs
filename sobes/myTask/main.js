@@ -299,28 +299,218 @@ function isAnagram(str1, str2) {
 
 //! Middle (алгоритмы)
 //! Напиши функцию debounce(fn, delay), которая ограничивает количество вызовов функции: функция должна выполняться только через delay миллисекунд после последнего вызова.
-function debounce(fn, delay, immediate = false){ 
-  let timer = null
+// function debounce(fn, delay, immediate = false){ 
+//   let timer = null
 
-  return (...args) => {
-    let callNow = immediate && !timer
-    clearTimeout(timer)
+//   return (...args) => {
+//     let callNow = immediate && !timer
+//     clearTimeout(timer)
 
-    timer = setTimeout(() => {
-      fn(...args)
-    }, delay)
+//     timer = setTimeout(() => {
+//       fn(...args)
+//     }, delay)
     
-    if (callNow) fn.apply(this, args)
+//     if (callNow) fn.apply(this, args)
+//   }
+// }
+
+// function log() {
+//   console.log("Вызов!");
+// }
+
+// const debouncedLog = debounce(log, 1000,true);
+
+// debouncedLog(); 
+// debouncedLog(); 
+// debouncedLog(); 
+// // спустя 1с → "Вызов!" (только один раз)
+
+
+//! Set
+// Напиши функцию unique(arr), которая возвращает массив уникальных значений из массива.
+// function unique(arr) {
+//   return [...new Set(arr)]
+// }
+// console.log(unique([1, 2, 2, 3, 4, 4, 5])); // [1, 2, 3, 4, 5]
+
+//! Есть массив строк. Найди все дубликаты
+// function findDuplicates(arr) {
+//   let dublicate = new Set()
+//   let seen = new Set()
+
+//   for (el of arr) {
+//     if (seen.has(el)) {
+//       dublicate.add(el)
+//     } else {
+//       seen.add(el)
+//     }
+//   }
+//   return [...dublicate]
+// }
+// console.log(findDuplicates(["a", "b", "a", "c", "b", "d"])); // ["a", "b"]
+
+// function hasDublicate(arr) {
+//   let seen = new Set()
+  
+//   for (el of arr) {
+//     if (seen.has(el)) {
+//       return true
+//     } else {
+//       seen.add(el)
+//     }
+//   }
+//   return false
+// }
+// console.log(hasDublicate(["a", "c", "b", "d"])); // ["a", "b"]
+
+
+//! Map 
+// Создай Map, где ключ — это имя, а значение — возраст. Напиши функцию, которая принимает имя и возвращает возраст.
+// let users = new Map()
+// users.set("Alex", 25)
+// users.set("Vlad", 28)
+// users.set("Daniil", 25)
+
+// function getAge(name) {
+//   if (users.has(name)) {
+//     return users.get(name)
+//   }
+//   return `Такого пользователя нету`
+// }
+// console.log(getAge("Alex"));
+
+
+//Используя Map, посчитай, сколько раз встречается каждое слово в строке: 
+// function getCountWord(str) {
+//   let map = new Map()
+//   let arrStr = str.split(" ")
+
+//   for (el of arrStr) {
+//     if (map.has(el)) {
+//       let count = map.get(el)
+//       count++
+//       map.set(el, count)
+//     } else {
+//       map.set(el, 1)
+//     }
+//   }
+//   return map
+// }
+// console.log(getCountWord("apple orange apple banana apple orange")); //Ожидаем: {apple: 3, orange: 2, banana: 1}
+
+// Храни в Map пользователей, где ключ — объект с id, а значение — имя. Выведи все имена.
+// const users = new Map()
+// users.set(0, "Alex")
+// users.set(1, "Daniil")
+// users.set(2, "Vlad")
+
+// let user1 = { id: 3 }
+// let user2 = { id: 4 }
+// users.set(user1, "Kirill")
+// users.set(user2, "Nastya")
+// for (let name of users.values()) {
+//   console.log(name);
+  
+// }
+
+// Напиши функцию, которая принимает два массива и возвращает массив элементов, которые есть в обоих.
+// function intersection(arr1, arr2) {
+//   let result = []
+//   arr1 = new Set(arr1)
+//   arr2 = new Set(arr2)
+
+//   for (el of arr1) {
+//     if (arr2.has(el)) {
+//       result.push(el)
+//     }
+//   }
+//   return result
+// }
+// console.log(intersection([1,2,3], [2,3,4])) // [2,3]
+
+//! Напиши функцию, которая возвращает элементы, которые есть только в первом массиве, но нет во втором.
+// function difference(arr1, arr2) {
+//   arr1 = new Set(arr1)
+//   arr2 = new Set(arr2)
+//   let result = []
+  
+//   for (el of arr1) {
+//     if (!(arr2.has(el))) {
+//       result.push(el)
+//     }
+//   }
+//   return result
+// }
+// console.log(difference([1,2,3], [2,3,4]) );// [1]
+
+
+//! Найди количество уникальных символов в строке.
+// function uniqueChars(str) {
+//   let uniq = new Set(str)
+//   return uniq.size
+// }
+// console.log(uniqueChars("hello") ); // 4 (h, e, l, o)
+
+
+// Используя Map, посчитай сколько раз встречается каждая буква:
+// function getCountChar(str) {
+//   const map = new Map()
+
+//   str.split("").forEach(char => {
+//     if (map.has(char)) {
+//       let count = map.get(char)
+//       count++
+//       map.set(char, count)
+//     } else {
+//       map.set(char, 1)
+//     }
+//   })
+//   return map
+// }
+// console.log(getCountChar("hello"));
+// //"hello" → {h:1, e:1, l:2, o:1}
+
+
+// Сгруппируй их в Map, где ключ — возраст, значение — массив имён.
+// function groupAge(arr) {
+//   let map = new Map()
+
+//   for (user of arr) {
+//     if (map.has(user.age)) {
+//       let value = map.get(user.age)
+//       value.push(user.name)
+//       map.set(user.age, value)
+//     } else {
+//       map.set(user.age, [user.name])
+//     }
+//   }
+//   return map
+// }
+
+// let arr = [{name: "Alex", age: 20}, {name: "Vlad", age: 22}, {name: "Daniil", age: 20}]
+// console.log(groupAge(arr));
+
+//! Сделай функцию square(n), которая считает квадрат числа, но если число уже считали ранее — возвращай результат из Map, а не считай заново.
+//  let map = new Map()
+// function square(n) { 
+//   if (!(map.has(n))) {
+//     console.log('считаю');
+//     map.set(n, n * n) 
+//   }
+//   return map.get(n)
+// }
+
+function square() { 
+  let map = new Map()
+  return (n) => {
+    if (!(map.has(n))) {
+      console.log('Считаю');
+      map.set(n, n*n)
+    }
+    return map.get(n)
   }
 }
-
-function log() {
-  console.log("Вызов!");
-}
-
-const debouncedLog = debounce(log, 1000,true);
-
-debouncedLog(); 
-debouncedLog(); 
-debouncedLog(); 
-// спустя 1с → "Вызов!" (только один раз)
+let res = square()
+console.log(res(2));
+console.log(res(2));
+console.log(res(4));
