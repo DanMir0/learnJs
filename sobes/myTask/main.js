@@ -543,13 +543,126 @@ function isAnagram(str1, str2) {
 // alert( aclean(arr) ); // "nap,teachers,ear" или "PAN,cheaters,era"
 
 //! Мы хотели бы получить массив ключей map.keys() в переменную и далее работать с ними, например, применить метод .push
-let map = new Map();
+// let map = new Map();
 
-map.set("name", "John");
+// map.set("name", "John");
 
-let keys = Array.from(map.keys())
+// let keys = Array.from(map.keys())
 
-// Error: keys.push is not a function
-// Ошибка: keys.push -- это не функция
-keys.push("more");
-console.log(keys);
+// // Error: keys.push is not a function
+// // Ошибка: keys.push -- это не функция
+// keys.push("more");
+// console.log(keys);
+
+//! Цель: Написать функцию, которая рекурсивно замораживает сам объект и все вложенные в него объекты.
+// function deepFreeze(obj) {
+//   if (obj === null || typeof obj !== 'object') return obj
+
+//   Object.freeze(obj) 
+
+//   Object.getOwnPropertyNames(obj).forEach(prop =>{
+//     const value = obj[prop]
+//     deepFreeze(value)
+//   })
+// }
+// Object.getOwnPropertyDescriptor
+
+// // Проверка:
+// const myObj = {
+//   a: 1,
+//   b: {
+//     inner: 'test',
+//     anotherInner: {
+//       deep: true
+//     }
+//   },
+//   c: [1, 2, 3]
+// };
+
+// deepFreeze(myObj);
+
+// myObj.a = 2; // Не должно работать
+// myObj.b.inner = 'new'; // Не должно работать
+// myObj.b.anotherInner.deep = false; // Не должно работать
+// myObj.c.push(4); // Не должно работать
+
+// console.log(myObj); // Должен остаться неизменным
+
+
+//! Напишите функцию inspectObject(obj), которая принимает объект и выводит в консоль таблицу со всеми его свойствами и их атрибутами (writable, enumerable, configurable).
+// function inspectObject(obj) {
+//   let allProps = Object.getOwnPropertyNames(obj)
+//   let result = []
+
+//   allProps.forEach(propName => {
+//     let descriptor = Object.getOwnPropertyDescriptor(obj, propName)
+    
+//     result.push({
+//       'Свойство': propName,
+//       'Value': descriptor.value,
+//       'Writable': descriptor.writable,
+//       'Enumerable': descriptor.enumerable,
+//       'Configurable': descriptor.configurable
+//     })
+//   })
+//   console.table(result)
+// }
+
+// const obj = {
+//   a: 'ww',
+//   b: 'sdasd',
+// }
+
+// Object.defineProperty(obj, 'customProp', {
+//   value: "not",
+//   writable: false,
+//   configurable: false,
+// })
+
+// inspectObject(obj)
+
+//! Напишите функцию cloneWithDescriptors(obj), которая создает и возвращает полную (глубокую) копию объекта, сохраняя все атрибуты свойств (writable, enumerable и т.д.) исходного объекта. Простое копирование {...obj} или Object.assign() этого не делает.
+function cloneWithDescriptors(obj) {
+  if (obj === null || typeof obj !== 'object') return obj
+
+  let copy = Array.isArray(obj) ? [] : {}
+
+  const propNames = Object.getOwnPropertyNames(obj)
+
+  propNames.forEach(propName => {
+    const descriptor = Object.getOwnPropertyDescriptor(obj, propName)
+
+    if (descriptor.value && typeof descriptor.value === 'object') {
+      descriptor.value = cloneWithDescriptors(descriptor.value)
+    }
+
+    Object.defineProperty(copy, propName, descriptor)
+  })
+
+  return copy
+}
+
+let obj = {
+  a: 5,
+  nested: {
+    b: 'hello'
+  }
+};
+
+Object.defineProperty(obj, 'customProp', {
+  value: 144,
+  writable: false,
+  configurable: false,
+  enumerable: true
+});
+
+Object.defineProperty(obj.nested, 'hidden', {
+  value: 'secret',
+  enumerable: false,
+  writable: false
+});
+
+let copy = cloneWithDescriptors(obj);
+copy.nested.hidden = 'dsadasdas'
+console.log(copy);
+
