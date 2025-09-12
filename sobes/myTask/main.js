@@ -622,47 +622,79 @@ function isAnagram(str1, str2) {
 // inspectObject(obj)
 
 //! Напишите функцию cloneWithDescriptors(obj), которая создает и возвращает полную (глубокую) копию объекта, сохраняя все атрибуты свойств (writable, enumerable и т.д.) исходного объекта. Простое копирование {...obj} или Object.assign() этого не делает.
-function cloneWithDescriptors(obj) {
-  if (obj === null || typeof obj !== 'object') return obj
+// function cloneWithDescriptors(obj) {
+//   if (obj === null || typeof obj !== 'object') return obj
 
-  let copy = Array.isArray(obj) ? [] : {}
+//   let copy = Array.isArray(obj) ? [] : {}
 
-  const propNames = Object.getOwnPropertyNames(obj)
+//   const propNames = Object.getOwnPropertyNames(obj)
 
-  propNames.forEach(propName => {
-    const descriptor = Object.getOwnPropertyDescriptor(obj, propName)
+//   propNames.forEach(propName => {
+//     const descriptor = Object.getOwnPropertyDescriptor(obj, propName)
 
-    if (descriptor.value && typeof descriptor.value === 'object') {
-      descriptor.value = cloneWithDescriptors(descriptor.value)
-    }
+//     if (descriptor.value && typeof descriptor.value === 'object') {
+//       descriptor.value = cloneWithDescriptors(descriptor.value)
+//     }
 
-    Object.defineProperty(copy, propName, descriptor)
-  })
+//     Object.defineProperty(copy, propName, descriptor)
+//   })
 
-  return copy
+//   return copy
+// }
+
+// let obj = {
+//   a: 5,
+//   nested: {
+//     b: 'hello'
+//   }
+// };
+
+// Object.defineProperty(obj, 'customProp', {
+//   value: 144,
+//   writable: false,
+//   configurable: false,
+//   enumerable: true
+// });
+
+// Object.defineProperty(obj.nested, 'hidden', {
+//   value: 'secret',
+//   enumerable: false,
+//   writable: false
+// });
+
+// let copy = cloneWithDescriptors(obj);
+// copy.nested.hidden = 'dsadasdas'
+// console.log(copy);
+
+// Задача 1.1 будет 26
+// Задача 1.2
+// false
+// true
+// false
+
+// Задача 2.1: Защита конфигурации
+// Создайте объект config с настройками приложения (apiUrl, timeout, retryCount) и защитите его от любых изменений, кроме изменения значений существующих свойств.
+const config = {
+ apiUrl: 'https://api.example.com',
+  timeout: 5000,                    
+  retryCount: 3  
 }
+Object.seal(config)
 
-let obj = {
-  a: 5,
-  nested: {
-    b: 'hello'
-  }
-};
+// Задача 2.2: Immutable данные
+// Создайте объект constants с математическими константами (PI, E, GOLDEN_RATIO) и защитите его от любых изменений.
+const constants = {
+  PI: 3.14,
+  E: 2.71828,
+  GOLDEN_RATIO: 1.618
+}
+Object.freeze(constants)
 
-Object.defineProperty(obj, 'customProp', {
-  value: 144,
-  writable: false,
-  configurable: false,
-  enumerable: true
-});
-
-Object.defineProperty(obj.nested, 'hidden', {
-  value: 'secret',
-  enumerable: false,
-  writable: false
-});
-
-let copy = cloneWithDescriptors(obj);
-copy.nested.hidden = 'dsadasdas'
-console.log(copy);
-
+// Задача 2.3: Контроль интерфейса
+// Создайте объект userAPI с методами getUser(), updateUser(), deleteUser() и защитите его от добавления новых методов, но разрешите изменение существующих.
+const userAPI = {
+  getUser() {},
+  updateUser() {},
+  deleteUser() {}
+}
+Object.preventExtensions(userAPI)
