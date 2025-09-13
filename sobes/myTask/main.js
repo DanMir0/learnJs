@@ -674,27 +674,88 @@ function isAnagram(str1, str2) {
 
 // Задача 2.1: Защита конфигурации
 // Создайте объект config с настройками приложения (apiUrl, timeout, retryCount) и защитите его от любых изменений, кроме изменения значений существующих свойств.
-const config = {
- apiUrl: 'https://api.example.com',
-  timeout: 5000,                    
-  retryCount: 3  
-}
-Object.seal(config)
+// const config = {
+//  apiUrl: 'https://api.example.com',
+//   timeout: 5000,                    
+//   retryCount: 3  
+// }
+// Object.seal(config)
 
 // Задача 2.2: Immutable данные
 // Создайте объект constants с математическими константами (PI, E, GOLDEN_RATIO) и защитите его от любых изменений.
-const constants = {
-  PI: 3.14,
-  E: 2.71828,
-  GOLDEN_RATIO: 1.618
-}
-Object.freeze(constants)
+// const constants = {
+//   PI: 3.14,
+//   E: 2.71828,
+//   GOLDEN_RATIO: 1.618
+// }
+// Object.freeze(constants)
 
 // Задача 2.3: Контроль интерфейса
 // Создайте объект userAPI с методами getUser(), updateUser(), deleteUser() и защитите его от добавления новых методов, но разрешите изменение существующих.
-const userAPI = {
-  getUser() {},
-  updateUser() {},
-  deleteUser() {}
+// const userAPI = {
+//   getUser() {},
+//   updateUser() {},
+//   deleteUser() {}
+// }
+// Object.preventExtensions(userAPI)
+
+// Задача 4.1: Deep Freeze
+// Напишите функцию deepFreeze(obj), которая рекурсивно замораживает сам объект и все вложенные объекты.
+// function deepFreeze(obj) {
+//   if (obj === null || typeof obj !=='object') return obj
+
+//   Object.getOwnPropertyNames(obj).forEach(prop => {
+//     const value = obj[prop]
+//     if (value && typeof value === 'object') {
+//       deepFreeze(value)
+//     }
+//   })
+
+//   return Object.freeze(obj)
+// }
+// let obj = {
+//   a:5,
+//   b: {
+//     f: 8889
+//   }
+// }
+
+// console.log(deepFreeze(obj))
+// obj.b.f = 66
+// console.log(obj)
+
+
+// Задача 4.2: Unseal checker
+// Напишите функцию canUnseal(obj), которая проверяет, можно ли "распечатать" объект (можно ли сделать его снова расширяемым).
+
+// function canUnseal(obj) {
+//   return !Object.isSealed(obj)
+// }
+ 
+// let obj = {
+//   a: 55
+// }
+// Object.seal(obj)
+// console.log(canUnseal(obj))
+
+
+//4.3
+function validator(obj) {
+  if (Object.isFrozen(obj)) {
+    return 'frozen'
+  } else if (Object.isSealed(obj)) {
+    return 'sealed'
+  } else if (!Object.isExtensible(obj)) {
+    return 'extensible'
+  }else {
+    return 'not security'
+  }
 }
-Object.preventExtensions(userAPI)
+// let obj = { a: 67}
+// console.log(validator(obj))
+// Object.preventExtensions(obj)
+// console.log(validator(obj))
+// Object.seal(obj)
+// console.log(validator(obj))
+// Object.freeze(obj)
+// console.log(validator(obj))
