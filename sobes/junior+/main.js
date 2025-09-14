@@ -383,7 +383,31 @@
 
 //     return true
 // }
-function arrayEqual(arr1, arr2) {
-    return arr1.length === arr2.length && arr1.every((val, i) => val === arr2[i])
+// function arrayEqual(arr1, arr2) {
+//     return arr1.length === arr2.length && arr1.every((val, i) => val === arr2[i])
+// }
+// console.log(arrayEqual([1,2,3,4], [1,2,3]));
+
+
+// 1. Поиск уникальных значений в массиве
+// Напишите функцию, которая принимает массив и возвращает новый массив, содержащий только уникальные элементы.
+/*
+function getUnique(arr) {
+  return [...new Set(arr)]
 }
-console.log(arrayEqual([1,2,3,4], [1,2,3]));
+console.log(getUnique([1,3,6,8,8, 6]))
+*/
+
+// 2 Разворот строки (без использования reverse())
+// Напишите функцию, которая переворачивает строку без использования встроенного метода .reverse().
+/*
+function reverseString(str) {
+  let reverse = ''
+  for (let i = str.length -1; i >= 0; i--) {
+    reverse += str[i]
+  }
+  return reverse
+}
+console.log(reverseString("JavaScript"))
+*/
+
