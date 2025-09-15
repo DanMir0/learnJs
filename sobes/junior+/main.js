@@ -411,3 +411,62 @@ function reverseString(str) {
 console.log(reverseString("JavaScript"))
 */
 
+// 3. Группировка объектов по свойству
+// Дан массив объектов. Напишите функцию, которая группирует их по заданному свойству.
+const people = [
+  { name: 'Alice', age: 25 },
+  { name: 'Bob', age: 30 },
+  { name: 'Charlie', age: 25 },
+  { name: 'Charlie', }
+];
+function groupBy(arr, group) {
+  return arr.reduce((result, user) => {
+    if (user[group] !== undefined) {
+      const key = user[group]
+      console.log('KEY = ', key);
+      
+      result[key] = result[key] || []
+      console.log('RESULT', result);
+      
+      result[key].push(user)
+    }
+    return result
+  }, {})
+
+    let res = {}
+
+    arr.forEach(user => {
+      if (!user[group]) return
+
+      if (res[user[group]]) {
+        res[user[group]].push(user)
+      } else {
+        res[user[group]] = [user]
+      }
+    })
+    return res
+}
+
+console.log(groupBy(people, 'age'));
+
+/* Результат:
+{
+  '25': [ { name: 'Alice', age: 25 }, { name: 'Charlie', age: 25 } ],
+  '30': [ { name: 'Bob', age: 30 } ]
+}
+*/
+
+// 4. Замыкание: Счётчик
+// Напишите функцию createCounter(), которая возвращает другую функцию. Возвращаемая функция при каждом вызове должна возвращать число, увеличенное на 1, начиная с 0.
+// function createCounter() {
+//   let count = -1
+//   return () => {
+//     count++
+//     return count
+//   }
+// }
+
+// const counter = createCounter();
+// console.log(counter()); // 0
+// console.log(counter()); // 1
+// console.log(counter()); // 2
