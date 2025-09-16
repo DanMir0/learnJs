@@ -740,17 +740,17 @@ function isAnagram(str1, str2) {
 
 
 //4.3
-function validator(obj) {
-  if (Object.isFrozen(obj)) {
-    return 'frozen'
-  } else if (Object.isSealed(obj)) {
-    return 'sealed'
-  } else if (!Object.isExtensible(obj)) {
-    return 'extensible'
-  }else {
-    return 'not security'
-  }
-}
+// function validator(obj) {
+//   if (Object.isFrozen(obj)) {
+//     return 'frozen'
+//   } else if (Object.isSealed(obj)) {
+//     return 'sealed'
+//   } else if (!Object.isExtensible(obj)) {
+//     return 'extensible'
+//   }else {
+//     return 'not security'
+//   }
+// }
 // let obj = { a: 67}
 // console.log(validator(obj))
 // Object.preventExtensions(obj)
@@ -759,3 +759,279 @@ function validator(obj) {
 // console.log(validator(obj))
 // Object.freeze(obj)
 // console.log(validator(obj))
+
+//! Задача 1
+// const car = {
+//   brand: 'Toyota',
+//   getBrand: function() {
+//     return this.brand;
+//   }
+// };
+
+// const bike = {
+//   brand: 'Yamaha'
+// };
+
+// // Как вызвать getBrand так, чтобы он вернул 'Yamaha'?
+// console.log(car.getBrand.call(bike));
+
+// //! Задача 2
+// function showInfo(price, year) {
+//   return `${this.model} - ${price} руб., ${year} год`;
+// }
+
+// const product = { model: 'iPhone 15' };
+// console.log(showInfo.call(product, 89990, 2023));
+// console.log(showInfo.apply(product, [89990, 2023]));
+// // Вызовите showInfo с контекстом product и аргументами 89990, 2023
+// // используя call и apply
+
+//! Задача 3
+// const user = {
+//   name: 'Anna',
+//   scores: [5, 4, 3, 5, 2],
+//   getAverage: function() {
+//     return this.scores.reduce((acc, score) => acc + score, 0) / this.scores.length;
+//   }
+// };
+
+// // Создайте функцию getAvg, которая всегда будет считать среднее для user
+// const getAvg = user.getAverage.bind(user);
+
+// console.log(getAvg()); // 3.8
+
+//! Задача 4: Заимствование методов
+// Есть массив-like объект
+// const arrayLike = { 0: 'a', 1: 'b', 2: 'c', length: 3 };
+
+// ПОЧЕМУ НУЖНО ИСПОЛЬЗОВАТЬ slice? как это работет?
+// Преобразуйте его в настоящий массив, используя call/apply
+// const realArray = Array.prototype.slice.call(arrayLike);
+
+// console.log(realArray); // ['a', 'b', 'c']
+
+
+//! Задача 5: Каррирование
+// function createURL(protocol, domain, path) {
+//   return `${protocol}://${domain}/${path}`;
+// }
+
+// // Создайте функцию createHttpsUrl, которая всегда использует 'https'
+// Почему нужно указывать null?
+// const createHttpsUrl = createURL.bind(null, 'https');
+
+// console.log(createHttpsUrl('example.com', 'about')); // 'https://example.com/about'
+
+//! Задача 6 (продвинутая): Декоратор
+// Напишите декоратор delay, который задерживает вызов функции
+// function delay(fn, ms) {
+//   return function() {
+//     setTimeout(() => {
+//       return fn.call(this, arguments)
+//     }, ms)
+//   };
+// }
+
+// function sayHello(name) {
+//   console.log(`Привет, ${name}!`);
+// }
+
+// const delayedHello = delay(sayHello, 2000);
+// delayedHello('Алексей'); // Выведет "Привет, Алексей!" через 2 секунды
+
+//! Задача 1.1: Потерянный контекст
+// const user = {
+//   name: 'John',
+//   sayHi() {
+//     console.log(`Привет, ${this.name}!`);
+//   }
+// };
+
+// // Почините вызов, чтобы работало:
+// setTimeout(user.sayHi.bind(user), 1000); // Должно вывести "Привет, John!"
+
+//! Задача 1.2: Заимствование метода
+// const obj1 = { name: 'Alice' };
+// const obj2 = { name: 'Bob' };
+
+// function getName() {
+//   return this.name;
+// }
+
+// // Как вызвать getName для obj1 и obj2?
+// console.log(getName.call(obj1)); // Alice
+// console.log(getName.call(obj2)); // Bob
+
+//  Уровень 2: Практическое применение
+//! Задача 2.1: Каррирование
+// function multiply(a, b, c) {
+//   return a * b * c;
+// }
+
+// // Создайте функцию double, которая удваивает число
+// const double = multiply.bind(null, 2, 1);
+// console.log(double(5)); // 10
+
+// // Создайте функцию triple, которая утраивает число  
+// const triple = multiply.bind(null, 3, 1);
+// console.log(triple(5)); // 15
+
+//! Задача 2.2: Нахождение максимального числа
+// const numbers = [10, 5, 8, 20, 3];
+
+// Найдите максимальное число, используя apply
+// const max = Math.max.apply(null, numbers)
+// console.log(max); // 20
+
+//! Задача 2.3: Привязка контекста
+// const calculator = {
+//   value: 5,
+//   add(x) {
+//     return this.value + x;
+//   }
+// };
+
+// // Создайте функцию add10, которая прибавляет 10 к value
+// const add10 = calculator.add.bind(calculator, 10);
+// console.log(add10()); // 15
+
+//! 🔹 Уровень 3: Продвинутые задачи
+// Задача 3.1: Декоратор логирования
+// function logDecorator(fn) {
+//   return function() {
+//     console.log(`Вызываем функцию ${fn.name}`);
+//     return fn.apply(this, arguments)
+//   };
+// }
+
+// function sum(a, b) {
+//   return a + b;
+// }
+
+// const loggedSum = logDecorator(sum);
+// console.log(loggedSum(2, 3)); // Должно вывести сообщение и результат 5
+
+//! Задача 3.2: Частичное применение
+// function createEmail(from, to, subject, body) {
+//   return `From: ${from}\nTo: ${to}\nSubject: ${subject}\n\n${body}`;
+// }
+
+// // Создайте функцию sendToAdmin, которая всегда отправляет на admin@company.com
+// const sendToAdmin = createEmail.bind(null, 'admin@company.com');
+
+// console.log(sendToAdmin('user@mail.com', 'Важно', 'Текст письма'));
+
+//! Задача 3.3: Работа с псевдомассивами
+// function sumArguments() {
+//   // arguments - псевдомассив
+//   // Преобразуйте arguments в массив и посчитайте сумму
+//   // const argsArray = Array.prototype.slice.call(arguments)
+//   // return argsArray.reduce((acc, val) => acc + val, 0)
+//   // return Array.prototype.reduce.call(arguments, function(acc, val) {
+//   //   return acc + val
+//   // }, 0)
+// }
+ 
+// console.log(sumArguments(1, 2, 3, 4)); // 10
+
+//! 🔹 Уровень 4: Реальные кейсы
+// Задача 4.1: Обработчик событий
+// class Button {
+//   constructor(text) {
+//     this.text = text;
+//     this.clickCount = 0;
+//   }
+  
+//   handleClick() {
+//     this.clickCount++;
+//     console.log(`Кнопка "${this.text}" нажата ${this.clickCount} раз`);
+//   }
+// }
+
+// const myButton = new Button('Купить');
+// // Привяжите handleClick к myButton
+// document.addEventListener('click', (e) => {
+//   myButton.handleClick.call(myButton)
+// });
+
+//! Задача 4.2: Дебаунс (устранение дребезга)
+// function debounce(fn, delay) {
+//   let timeout;
+//   return function() {
+//     clearTimeout(timeout);
+//     timeout = setTimeout(() => {
+//       return fn.apply(this, arguments)
+//     }, delay);
+//   };
+// }
+
+// function search(query) {
+//   console.log(`Ищем: ${query}`);
+// }
+
+// const debouncedSearch = debounce(search, 300);
+// debouncedSearch('js');
+// debouncedSearch('javascript');
+// Должен выполниться только последний вызов
+
+//! Задача 4.3: Мемоизация
+// function memoize(fn) {
+//   const cache = new Map();
+//   return function() {
+//     const key = JSON.stringify(arguments);
+//     if (cache.has(key)) return cache.get(key);
+    
+//     const result = fn.apply(this, arguments)
+//     cache.set(key, result);
+//     return result;
+//   };
+// }
+
+// function expensiveCalculation(x) {
+//   console.log('Вычисляю...');
+//   return x * x;
+// }
+
+// const memoizedCalc = memoize(expensiveCalculation);
+// console.log(memoizedCalc(5)); // Вычисляю... 25
+// console.log(memoizedCalc(5)); // 25 (из кеша)
+
+
+//! Задача 5.1: API объект
+// Создайте объект-синглтон для работы с API, который нельзя изменить, но можно использовать его методы.
+// const API = Object.freeze({
+//   baseURL: 'https://api.example.com',
+//   getUsers: function() {
+//     return fetch(`${this.baseURL}/users`)
+//   },
+
+//   getUser(id) {
+//      return fetch(`${this.baseURL}/users/${id}`)
+//   } 
+// })
+// API.getUsers(); // Работает
+// API.baseURL = 'hack'; // Не сработает (в strict mode - ошибка)
+// delete API.getUsers; // Не сработает
+
+// Задача 5.3: Конфиг с валидацией
+// Создайте функцию, которая создает конфиг-объект и автоматически запечатывает его, но только если все обязательные поля заполнены.
+// function createConfig(config) {
+//   const requiredFields = ['apiUrl', 'timeout', 'env']
+
+//   const missingFields = requiredFields.filter(field => !(field in config));
+//   if (missingFields.length > 0) {
+//     throw new Error(`Missing required fields: ${missingFields.join(', ')}`)
+//   }
+
+//   return Object.seal(config)
+// }
+
+// const validConfig = createConfig({
+//   apiUrl: 'https://api.example.com',
+//   timeout: 5000,
+//   env: 'production'
+// }); // ✅ Работает
+
+// const invalidConfig = createConfig({
+//   apiUrl: 'https://api.example.com'
+// }); // ❌ Ошибка: Missing required fields: timeout, env
