@@ -533,55 +533,149 @@
 //     }
 //     return [...res]
 // }
-function twoSum(arr, target) {
-    let map = new Map()
-    for (let i = 0; i < arr.length; i++) {
-        let complement = target - arr[i]
-        if (map.has(complement)) {
-            return [map.get(complement), i]
-        }
-        map.set(arr[i], i)
-    }
-    return []
-}
-console.log(twoSum([2,7,11,15], 9)); // [0,1]
+// function twoSum(arr, target) {
+//     let map = new Map()
+//     for (let i = 0; i < arr.length; i++) {
+//         let complement = target - arr[i]
+//         if (map.has(complement)) {
+//             return [map.get(complement), i]
+//         }
+//         map.set(arr[i], i)
+//     }
+//     return []
+// }
+// console.log(twoSum([2,7,11,15], 9)); // [0,1]
 
 
-//! Задача 93 (Middle)
-// Написать функцию areParenthesesBalanced(str), которая проверяет, правильно ли расставлены скобки.
-function areParenthesesBalanced(str) {
+// //! Задача 93 (Middle)
+// // Написать функцию areParenthesesBalanced(str), которая проверяет, правильно ли расставлены скобки.
+// function areParenthesesBalanced(str) {
 
-}
-// "()[]{}" → true  
-// "([)]" → false
+// }
+// // "()[]{}" → true  
+// // "([)]" → false
 
 
-//! Задача 94 (Middle)
-// Реализовать функцию memoize(fn), которая кеширует результаты вызова функции.
-function memoize(fn) {
-    let cache = {}
-    return (...args) => {      
-        let key = JSON.stringify(...args)  
-        if (cache[key]) {
-            return cache[key]
-        } else {
-            cache[key] = fn(...args) 
-            return cache[key]
-        }
-    }
-}
-let slowFn = (a,b,c) => {
-    console.log("calc")
-    return a + b * c
-}
-let fastFn = memoize(slowFn)
-console.log(fastFn(2, 2, 2));
-console.log(fastFn(2,2,2));
+// //! Задача 94 (Middle)
+// // Реализовать функцию memoize(fn), которая кеширует результаты вызова функции.
+// function memoize(fn) {
+//     let cache = {}
+//     return (...args) => {      
+//         let key = JSON.stringify(...args)  
+//         if (cache[key]) {
+//             return cache[key]
+//         } else {
+//             cache[key] = fn(...args) 
+//             return cache[key]
+//         }
+//     }
+// }
+// let slowFn = (a,b,c) => {
+//     console.log("calc")
+//     return a + b * c
+// }
+// let fastFn = memoize(slowFn)
+// console.log(fastFn(2, 2, 2));
+// console.log(fastFn(2,2,2));
 
-//! Задача 95 (Middle)
-// Написать функцию longestSubstringWithoutRepeating(str), которая возвращает длину самой длинной подстроки без повторяющихся символов.
-function longestSubstringWithoutRepeating(str) {
+// //! Задача 95 (Middle)
+// // Написать функцию longestSubstringWithoutRepeating(str), которая возвращает длину самой длинной подстроки без повторяющихся символов.
+// function longestSubstringWithoutRepeating(str) {
 
-}
+// }
 // "abcabcbb" → 3 ("abc")
 // "bbbbb" → 1 ("b")
+
+//! 1. Глубокое клонирование объекта
+// Напишите функцию для глубокого клонирования объекта. Объект может содержать вложенные объекты, массивы, примитивы, даты. Нельзя использовать JSON.parse(JSON.stringify(obj)) (у этого способа есть ограничения).
+// function deepClone(obj) {
+//     if (obj === null || typeof obj !== 'object') return obj
+
+//     if (Array.isArray(obj)) return obj.map(item => deepClone(item))
+        
+//     let copy = {}
+
+//     for (key in obj) {
+//         copy[key] = deepClone(obj[key])
+//     }
+
+//     return copy
+// }
+// let obj = {
+//     a: 5,
+//     b: {c: 2, date: new Date("2025-01-26")}
+// }
+// let copy = deepClone(obj)
+// copy.b.c = 5
+// copy.b.date = new Date("2025-02-02")
+// console.log(obj);
+// console.log(copy);
+
+//! 2. Функция с памятью (мемоизация)
+// Напишите функцию memoize(fn), которая принимает функцию и возвращает её мемоизированную версию. Мемоизация — это кэширование результатов выполнения функции для предотвращения повторных вычислений.
+// function memoize(fn) {
+//     let cache = {}
+//     return (n) => {
+//         if (cache[n]) {
+//             return cache[n]
+//         } else {
+//             console.log('Вычисляю');
+//             cache[n] = fn(n)
+//             return cache[n]
+//         }
+//     }
+// }
+
+// const expensiveCalculation = (n) => { 
+//     return n * 25
+//  };
+// const memoizedCalculation = memoize(expensiveCalculation);
+
+// console.log(memoizedCalculation(5)); // вычисляется
+// console.log(memoizedCalculation(5)); // результат берётся из кэша
+
+//! 3. Свой bind()
+// Реализуйте аналог встроенного метода Function.prototype.bind без использования нативного bind.
+// function myBind(cb, obj, msg) {
+
+// }
+
+// function greet(greeting, punctuation) {
+//   return `${greeting}, ${this.name}${punctuation}`;
+// }
+// const person = { name: 'Bob' };
+// const boundGreet = myBind(greet, person, 'Hello');
+// boundGreet('!'); // "Hello, Bob!"
+
+//! 4. Свёртка большого массива (chunk)
+// Напишите функцию, которая разбивает большой массив на подмассивы (чанки) заданного размера.
+// Для чего нужно делать copy = arr.slice()
+// function chunk(arr, target) {
+//     let res = []
+//     let copy = arr.slice()
+    
+//     while (copy.length) {
+//         res.push(copy.splice(0, target))
+//     }
+
+//     return res
+// }
+
+// console.log(chunk([1, 2, 3, 4, 5, 6, 7], 3)); // [[1, 2, 3], [4, 5, 6], [7]]
+
+//! 5. Промисы: Цепочка с задержкой
+// Напишите функцию delay(ms), которая возвращает промис, который резолвится через указанное количество миллисекунд. Используйте её, чтобы создать цепочку вызовов.
+function delay(ms) {
+    return new Promise((resolve, raject) => {
+        setTimeout(resolve, ms)
+    })
+}
+
+delay(1000)
+  .then(() => {
+    console.log('Выполнилось через 1 секунду');
+    return delay(2000);
+  })
+  .then(() => {
+    console.log('Выполнилось ещё через 2 секунды');
+  });
