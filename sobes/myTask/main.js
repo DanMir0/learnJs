@@ -1035,3 +1035,175 @@ function isAnagram(str1, str2) {
 // const invalidConfig = createConfig({
 //   apiUrl: 'https://api.example.com'
 // }); // ❌ Ошибка: Missing required fields: timeout, env
+
+//! Задача 1: Object.freeze() - Конфигурация приложения
+// Проблема: У вас есть конфиг-объект с настройками приложения, который должен быть неизменяемым после инициализации.
+// Задача: Сделать конфиг полностью иммутабельным
+// const appConfig = {
+//   apiUrl: 'https://api.example.com',
+//   version: '1.0.0',
+//   features: {
+//     darkMode: true,
+//     offlineMode: false
+//   }
+// };
+
+// function deepFreeze(obj) {
+//   Object.freeze(obj)
+//   Object.values(obj).forEach(value => {
+//     if (value && typeof value === 'object') {
+//       deepFreeze(value)
+//     }
+//   })
+//   return obj
+// }
+// Тесты (должны выдавать ошибки в strict mode):
+// appConfig.apiUrl = 'hacked'; // ❌ Не должно работать
+// appConfig.features.darkMode = false; // ❌ Не должно работать
+// appConfig.newProperty = 'test'; // ❌ Не должно работать
+// delete appConfig.version; // ❌ Не должно работать
+
+// console.log('Конфиг защищен!');
+// console.log(appConfig);
+
+//! Задача 2: Object.seal() - Объект пользователя
+// Проблема: Объект пользователя должен позволять изменять данные, но не позволять добавлять или удалять свойства.
+// Задача: Запечатать объект пользователя
+// const user = {
+//   id: 1,
+//   name: 'John Doe',
+//   email: 'john@example.com',
+//   preferences: {
+//     theme: 'dark',
+//     notifications: true
+//   }
+// };
+
+// Object.getOwnPropertyNames(user).forEach(propName => {
+//   Object.seal(user[propName])
+// })
+// Object.seal(user)
+// // Тесты:
+// user.name = 'John Smith'; // ✅ Должно работать
+// user.preferences.theme = 'light'; // ✅ Должно работать
+// user.age = 30; // ❌ Не должно работать
+// delete user.email; // ❌ Не должно работать
+
+// console.log('Пользователь защищен от неправильных изменений!');
+// console.log(user);
+
+//! Задача 3: Object.preventExtensions() - Кэш данных
+// Проблема: Нужно создать кэш-объект, который позволяет изменять и удалять существующие данные, но не добавлять новые свойства.
+
+// Задача: Запретить расширение кэш-объекта
+// const cache = {
+//   userData: { name: 'Alice', age: 25 },
+//   settings: { theme: 'light' },
+//   timestamp: Date.now()
+// };
+
+// Object.getOwnPropertyNames(cache).forEach(propName => {
+//   Object.preventExtensions(cache[propName])
+// })
+// Object.preventExtensions(cache)
+
+// // Тесты:
+// cache.userData = { name: 'Bob', age: 30 }; // ✅ Должно работать
+// delete cache.settings; // ✅ Должно работать
+// cache.newData = 'something'; // ❌ Не должно работать
+
+// console.log('Кэш защищен от случайного расширения!');
+// console.log(cache);
+
+
+//! Задача 1: bind - Каррирование в утилитах
+// Проблема: Есть функция логирования с несколькими параметрами, нужно создать ее специализированные версии.
+// function logMessage(level, module, message, timestamp = new Date()) {
+//   console.log(`[${level}] ${timestamp.toISOString()} [${module}]: ${message}`);
+// }
+
+// Задача: Создать специализированные функции:
+// 1. logError - всегда level = 'ERROR'
+// 2. logAuth - всегда module = 'AUTH'  
+// 3. logDebug - всегда level = 'DEBUG' и выводить только в development
+
+// Ваше решение с использованием bind:
+// const logError = logMessage.bind(null, 'ERROR', 'APP');
+// const logAuth = logMessage.bind(null, 'INFO', 'AUTH');
+// const logDebug = logMessage.bind(null, 'DEBUG', 'DEV');
+// Тесты:
+// logError('Database connection failed');
+// [ERROR] 2024-01-15T10:30:00.000Z [APP]: Database connection failed
+
+// logAuth('User login successful');
+// [INFO] 2024-01-15T10:30:00.000Z [AUTH]: User login successful
+
+//! Задача 2: call - Заимствование методов массива
+// Проблема: Есть объект, похожий на массив (псевдомассив), нужно использовать методы массивов.
+// DOM коллекция элементов (псевдомассив)
+// const buttons = document.querySelectorAll('.btn');
+// {0: button, 1: button, 2: button, length: 3} - не массив!
+
+// Задача: 
+// 1. Преобразовать в настоящий массив
+// 2. Отфильтровать только disabled кнопки
+// 3. Для каждой disabled кнопки добавить класс 'inactive'
+
+// Ваше решение с использованием call:
+// let arrBtn = Array.prototype.slice.call(buttons)
+// console.log(arrBtn);
+// let disabledButtons = arrBtn.filter(btn => btn.disabled)
+// disabledButtons.forEach(btn => btn.classList.add('inactive'))
+
+// Тесты:
+// console.log('Disabled buttons:', disabledButtons.length);
+// Должно работать с любой DOM коллекцией
+
+//! Задача 3: apply - Декоратор для ограничения вызовов
+// Проблема: Нужно ограничить частоту вызова expensive функции.
+function expensiveApiCall(userId, data) {
+  console.log(`Выполняем дорогой API вызов для пользователя ${userId}`, data);
+  // Дорогая операция
+  return { status: 'success', userId };
+}
+
+// Задача: Создать декоратор throttle, который:
+// 1. Ограничивает вызовы до 1 раза в указанный интервал
+// 2. Сохраняет контекст и аргументы
+// 3. Возвращает последний результат при частых вызовах
+
+function throttle(fn, delay) {
+  let lastCall = 0;
+  let lastResult;
+  let timeout = null
+  
+  return function() {
+    const now = Date.now();
+    const context = this;
+    const args = arguments;
+    
+    if (now - lastCall >= delay) {
+      lastCall = now;
+      lastResult = fn.apply(context, args)
+      return lastResult
+    } 
+    
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      lastCall = now
+      lastResult = fn.apply(context, args)
+    }, delay - (now - lastCall))
+
+    return lastResult;
+  };
+}
+
+// Использование:
+const throttled = throttle((x) => {
+  console.log('Выполнено:', x, Date.now());
+  return x * 2;
+}, 1000);
+
+console.log(throttled(1)); // Выполняется сразу, возвращает 2
+console.log(throttled(2)); // Откладывается, возвращает 2 (предыдущий результат)
+console.log(throttled(3)); // Перезаписывает очередь, возвращает 2
