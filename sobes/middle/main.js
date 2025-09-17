@@ -517,7 +517,137 @@
 
 //! Задача 91 (Middle)
 // Реализовать структуру данных LinkedList с методами: append, prepend, find, delete.
+// class LinkedListNode {
+//     constructor (value, next = null) {
+//         this.value = value;
+//         this.next = next
+//     }
+    
+//     toString() {
+//         return `${this.value}`;
+//     }
+// }
 
+// class LinkedList {
+//     constructor() {
+//         this.head = null;
+//         this.tail = null;
+//     }
+
+//     append(value) {
+//         const newNode = new LinkedListNode(value);
+
+//         if (!this.head || !this.tail) {
+//             this.head = newNode;
+//             this.tail = newNode;
+
+//             return this;
+//         }
+
+//         this.tail.next = newNode;
+
+//         this.tail = newNode;
+
+//         return this;
+//     }
+
+//     prepend(value) {
+//         const newNode = new LinkedListNode(value, this.head);
+
+//         this.head = newNode;
+
+//         if (!this.tail) {
+//             this.tail = newNode;
+//         }
+
+//         return this;
+//     }
+
+//     find(value) {
+//         if (!this.head) return null
+
+//         let currentNode = this.head;
+
+//         while(currentNode) {
+//             if (currentNode.value === value) {
+//                 return currentNode;
+//             }
+//             currentNode = currentNode.next
+//         }
+
+//         return null;
+//     }
+
+//  delete(value) {
+//         if (!this.head) return null
+
+//         let deletedNode = null;
+
+//         while (this.head && this.head.value === value) {
+//             deletedNode = this.head;
+
+//             this.head = this.head.next;
+//         } 
+
+//         let currentNode = this.head;
+
+//         if (currentNode !== null) {
+//             while (currentNode.next) {
+//                 if (currentNode.next.value === value) {
+//                     deletedNode = currentNode.next;
+//                     currentNode.next = currentNode.next.next;
+//                 } else {
+//                     currentNode = currentNode.next;
+//                 }
+//             }
+//         }
+
+//         if (this.tail?.value === value) {
+//             this.tail = currentNode;
+//         }
+
+//         return deletedNode;
+//     }
+
+//     insertAfter(value, prevNode) {
+//         if (prevNode === null) return this;
+
+//         const newNode = new LinkedListNode(value);
+
+//         newNode.next = prevNode.next;
+        
+//         prevNode.next = newNode;
+
+//         if (newNode.next === null) {
+//             this.tail = newNode;
+//         }
+
+//         return this;
+//     }
+
+//     toArray() {
+//         const nodes = [];
+
+//         let currentNode = this.head;
+
+//         while(currentNode) {
+//             nodes.push(currentNode)
+//             currentNode = currentNode.next
+//         }
+
+//         return nodes
+//     }
+
+//     toString() {
+//         return this.toArray().map(node => node.toString()).toString();
+//     }
+// }
+
+const list = new LinkedList();
+list.append('a').append('b').append('c')
+list.prepend('x')
+let prevNode = list.find('a')
+console.log(list.insertAfter('gg', prevNode));
 
 //! Задача 92 (Middle)
 // Реализовать функцию twoSum(arr, target), которая возвращает индексы двух чисел, сумма которых равна target.
@@ -548,12 +678,55 @@
 
 
 // //! Задача 93 (Middle)
-// // Написать функцию areParenthesesBalanced(str), которая проверяет, правильно ли расставлены скобки.
+// Написать функцию areParenthesesBalanced(str), которая проверяет, правильно ли расставлены скобки.
 // function areParenthesesBalanced(str) {
+//   const stack = []
+//   const pairs = {
+//     ')': '(',
+//     ']': '[', 
+//     '}': '{'
+//   }
 
+//   for (let char of str) {
+//     if (char === '(' || char === '[' || char === '{') {
+//       stack.push(char)
+//       console.log('Stack push', stack);
+      
+//     } else if (char === ')' || char === ']' || char === '}') {
+//       const last = stack.pop()
+//       console.log("Last", last);
+//       if (last !== pairs[char]) {
+//         return false
+//       }
+//     }
+//   }
+//   return stack.length === 0;
 // }
-// // "()[]{}" → true  
-// // "([)]" → false
+// function areParenthesesBalanced(str) {
+//   let stack = []
+
+//   for (let char of str) {
+//     if (char === '(' || char === '[' || char === '{') {
+//       stack.push(char);
+//     } else {
+//       if (stack.length === 0) return false;
+
+//       const last = stack.pop()
+
+//        if ((char === ')' && last !== '(') ||
+//                 (char === ']' && last !== '[') || 
+//                 (char === '}' && last !== '{')) {
+//                 return false;
+//             }
+//     }
+//   }
+//   return stack.length === 0
+// }
+// console.log(areParenthesesBalanced("()[]{}"));
+// console.log(areParenthesesBalanced("([)]"));
+// console.log(areParenthesesBalanced("([{}])"));
+// "()[]{}" → true  
+// "([)]" → false
 
 
 // //! Задача 94 (Middle)
@@ -579,10 +752,46 @@
 // console.log(fastFn(2,2,2));
 
 // //! Задача 95 (Middle)
-// // Написать функцию longestSubstringWithoutRepeating(str), которая возвращает длину самой длинной подстроки без повторяющихся символов.
+// Написать функцию longestSubstringWithoutRepeating(str), которая возвращает длину самой длинной подстроки без повторяющихся символов.
 // function longestSubstringWithoutRepeating(str) {
+//   let maxLength = 0
+//   let left = 0
+//   let charSet = new Set()
 
+//   for (let right = 0; right < str.length; right++) {
+//     // Пока текущий символ есть в Set, удаляем символы слева
+//     while (charSet.has(str[right])) {
+//       charSet.delete(str[left])
+//       left++
+//     }
+//     // Добавляем текущий символ в Set
+//     charSet.add(str[right])
+//     // Обновляем максимальную длину
+//     maxLength = Math.max(maxLength, right - left + 1)
+//   }
+//   return maxLength
 // }
+
+// function longestSubstringWithoutRepeating(str) {
+//   let maxLength = 0;
+//   let left = 0;
+//   let charMap = new Map();
+
+//   for (let right = 0; right < str.length; right++) {
+//     const currentChar = str[right]
+
+//     if (charMap.has(currentChar) && charMap.get(currentChar) >= left) {
+//       left = charMap.get(currentChar) + 1
+//       console.log('Left = ', left);
+//     }
+
+//     charMap.set(currentChar, right)
+//     maxLength = Math.max(maxLength, right - left + 1)
+//   }
+//   return maxLength
+// }
+// console.log(longestSubstringWithoutRepeating('abcabcbb'));
+// console.log(longestSubstringWithoutRepeating('bbbbb'));
 // "abcabcbb" → 3 ("abc")
 // "bbbbb" → 1 ("b")
 
@@ -665,17 +874,17 @@
 
 //! 5. Промисы: Цепочка с задержкой
 // Напишите функцию delay(ms), которая возвращает промис, который резолвится через указанное количество миллисекунд. Используйте её, чтобы создать цепочку вызовов.
-function delay(ms) {
-    return new Promise((resolve, raject) => {
-        setTimeout(resolve, ms)
-    })
-}
+// function delay(ms) {
+//     return new Promise((resolve, raject) => {
+//         setTimeout(resolve, ms)
+//     })
+// }
 
-delay(1000)
-  .then(() => {
-    console.log('Выполнилось через 1 секунду');
-    return delay(2000);
-  })
-  .then(() => {
-    console.log('Выполнилось ещё через 2 секунды');
-  });
+// delay(1000)
+//   .then(() => {
+//     console.log('Выполнилось через 1 секунду');
+//     return delay(2000);
+//   })
+//   .then(() => {
+//     console.log('Выполнилось ещё через 2 секунды');
+//   });
