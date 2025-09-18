@@ -413,41 +413,41 @@ console.log(reverseString("JavaScript"))
 
 // 3. Группировка объектов по свойству
 // Дан массив объектов. Напишите функцию, которая группирует их по заданному свойству.
-const people = [
-  { name: 'Alice', age: 25 },
-  { name: 'Bob', age: 30 },
-  { name: 'Charlie', age: 25 },
-  { name: 'Charlie', }
-];
-function groupBy(arr, group) {
-  return arr.reduce((result, user) => {
-    if (user[group] !== undefined) {
-      const key = user[group]
-      console.log('KEY = ', key);
+// const people = [
+//   { name: 'Alice', age: 25 },
+//   { name: 'Bob', age: 30 },
+//   { name: 'Charlie', age: 25 },
+//   { name: 'Charlie', }
+// ];
+// function groupBy(arr, group) {
+//   return arr.reduce((result, user) => {
+//     if (user[group] !== undefined) {
+//       const key = user[group]
+//       console.log('KEY = ', key);
       
-      result[key] = result[key] || []
-      console.log('RESULT', result);
+//       result[key] = result[key] || []
+//       console.log('RESULT', result);
       
-      result[key].push(user)
-    }
-    return result
-  }, {})
+//       result[key].push(user)
+//     }
+//     return result
+//   }, {})
 
-    let res = {}
+//     let res = {}
 
-    arr.forEach(user => {
-      if (!user[group]) return
+//     arr.forEach(user => {
+//       if (!user[group]) return
 
-      if (res[user[group]]) {
-        res[user[group]].push(user)
-      } else {
-        res[user[group]] = [user]
-      }
-    })
-    return res
-}
+//       if (res[user[group]]) {
+//         res[user[group]].push(user)
+//       } else {
+//         res[user[group]] = [user]
+//       }
+//     })
+//     return res
+// }
 
-console.log(groupBy(people, 'age'));
+// console.log(groupBy(people, 'age'));
 
 /* Результат:
 {
@@ -470,3 +470,47 @@ console.log(groupBy(people, 'age'));
 // console.log(counter()); // 0
 // console.log(counter()); // 1
 // console.log(counter()); // 2
+
+//! Напишите функцию, которая суммирует все числовые значения объекта.
+// function sumObjectValues(obj) {
+//   const values = Object.values(obj)
+//   let sum = 0
+//   values.forEach(val => {
+//     if (typeof val === 'number') {
+//       sum += val
+//     }
+//   })
+//   return sum
+// }
+
+// const prices = { apple: 100, banana: 50, orange: 75 , black: 'ss'};
+// console.log(sumObjectValues(prices)); // 225
+
+//! Дан массив пользователей. Верните массив их имен.
+// function getNames(users) {
+//    return users.map(user => user.name).filter(name => name !== undefined);
+// }
+
+// const users = [
+//   { id: 1, name: 'Alice', age: 25 },
+//   { id: 2, name: 'Bob', age: 30 },
+//   { id: 3, name: 'Charlie', age: 35 },
+//   { id: 4,  age: 35 }
+// ];
+
+// console.log(getNames(users)); // ['Alice', 'Bob', 'Charlie']
+
+// //!Напишите функцию, которая удаляет повторяющиеся элементы из массива.
+function removeDuplicates(arr) {
+ // return [...new Set(arr)]
+  const seen = {}
+  return arr.filter(element => {
+    if (seen[element]) {
+      return false
+    }
+    seen[element] = element
+    return true
+  });
+}
+
+console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5])); // [1, 2, 3, 4, 5]
