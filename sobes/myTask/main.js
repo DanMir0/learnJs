@@ -1161,49 +1161,87 @@ function isAnagram(str1, str2) {
 
 //! Задача 3: apply - Декоратор для ограничения вызовов
 // Проблема: Нужно ограничить частоту вызова expensive функции.
-function expensiveApiCall(userId, data) {
-  console.log(`Выполняем дорогой API вызов для пользователя ${userId}`, data);
-  // Дорогая операция
-  return { status: 'success', userId };
-}
+// function expensiveApiCall(userId, data) {
+//   console.log(`Выполняем дорогой API вызов для пользователя ${userId}`, data);
+//   // Дорогая операция
+//   return { status: 'success', userId };
+// }
 
-// Задача: Создать декоратор throttle, который:
-// 1. Ограничивает вызовы до 1 раза в указанный интервал
-// 2. Сохраняет контекст и аргументы
-// 3. Возвращает последний результат при частых вызовах
+// // Задача: Создать декоратор throttle, который:
+// // 1. Ограничивает вызовы до 1 раза в указанный интервал
+// // 2. Сохраняет контекст и аргументы
+// // 3. Возвращает последний результат при частых вызовах
 
-function throttle(fn, delay) {
-  let lastCall = 0;
-  let lastResult;
-  let timeout = null
+// function throttle(fn, delay) {
+//   let lastCall = 0;
+//   let lastResult;
+//   let timeout = null
   
-  return function() {
-    const now = Date.now();
-    const context = this;
-    const args = arguments;
+//   return function() {
+//     const now = Date.now();
+//     const context = this;
+//     const args = arguments;
     
-    if (now - lastCall >= delay) {
-      lastCall = now;
-      lastResult = fn.apply(context, args)
-      return lastResult
-    } 
+//     if (now - lastCall >= delay) {
+//       lastCall = now;
+//       lastResult = fn.apply(context, args)
+//       return lastResult
+//     } 
     
-    clearTimeout(timeout)
-    timeout = setTimeout(() => {
-      lastCall = now
-      lastResult = fn.apply(context, args)
-    }, delay - (now - lastCall))
+//     clearTimeout(timeout)
+//     timeout = setTimeout(() => {
+//       lastCall = now
+//       lastResult = fn.apply(context, args)
+//     }, delay - (now - lastCall))
 
-    return lastResult;
-  };
+//     return lastResult;
+//   };
+// }
+
+// // Использование:
+// const throttled = throttle((x) => {
+//   console.log('Выполнено:', x, Date.now());
+//   return x * 2;
+// }, 1000);
+
+// console.log(throttled(1)); // Выполняется сразу, возвращает 2
+// console.log(throttled(2)); // Откладывается, возвращает 2 (предыдущий результат)
+// console.log(throttled(3)); // Перезаписывает очередь, возвращает 2
+
+
+function throttle(func, ms) {
+  let isThrottled = false;
+  let savedArgs;
+  let savedThis;
+
+  function wrapper() {
+
+    if (isThrottled) {
+      savedArgs = arguments;
+      savedThis = this;
+      return;
+    }
+
+    func.apply(this, arguments)
+    isThrottled = true;
+
+    setTimeout(() => {
+      isThrottled = false;
+
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs)
+        savedArgs = savedThis = null;
+      }
+    }, ms)
+  }
+
+  return wrapper;
 }
 
-// Использование:
-const throttled = throttle((x) => {
-  console.log('Выполнено:', x, Date.now());
-  return x * 2;
-}, 1000);
+function mouseMove() {
+  console.log(new Date());
+}
 
-console.log(throttled(1)); // Выполняется сразу, возвращает 2
-console.log(throttled(2)); // Откладывается, возвращает 2 (предыдущий результат)
-console.log(throttled(3)); // Перезаписывает очередь, возвращает 2
+mouseMove = throttle(mouseMove, 3000)
+
+setInterval(mouseMove, 1000)
