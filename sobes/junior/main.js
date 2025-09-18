@@ -614,3 +614,29 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 //   return n * (n + 1) / 2
 // }
 // console.log(sumToN(2)) // 15 (1+2+3+4+5)
+
+//! Напишите функцию, которая проверяет, все ли числа в массиве четные.
+// function allEven(numbers) {
+//   return numbers.every(num => num % 2 === 0)
+// }
+
+// console.log(allEven([2, 4, 6, 8])); // true
+// console.log(allEven([1, 2, 3, 4])); // false
+
+//! Напишите функцию, которая находит максимальное число в массиве (без Math.max).
+// function findMax(numbers) {
+//   let max = numbers[0];
+//   numbers.forEach(num => {
+//     if (num > max) max = num
+//   });
+//   return max
+// }
+
+// console.log(findMax([3, 7, 2, 9, 1])); // 9
+
+//! Напишите функцию, которая фильтрует массив строк, оставляя только строки длиннее заданного значения.
+function filterByLength(strings, minLength) {
+  return strings.filter(word => word.length >= minLength)
+}
+
+console.log(filterByLength(['cat', 'dog', 'elephant', 'bird'], 4)); // ['elephant', 'bird']
