@@ -643,11 +643,11 @@
 //     }
 // }
 
-const list = new LinkedList();
-list.append('a').append('b').append('c')
-list.prepend('x')
-let prevNode = list.find('a')
-console.log(list.insertAfter('gg', prevNode));
+// const list = new LinkedList();
+// list.append('a').append('b').append('c')
+// list.prepend('x')
+// let prevNode = list.find('a')
+// console.log(list.insertAfter('gg', prevNode));
 
 //! Задача 92 (Middle)
 // Реализовать функцию twoSum(arr, target), которая возвращает индексы двух чисел, сумма которых равна target.
@@ -888,3 +888,113 @@ console.log(list.insertAfter('gg', prevNode));
 //   .then(() => {
 //     console.log('Выполнилось ещё через 2 секунды');
 //   });
+
+//! Напишите функцию, которая выполняет массив промисов последовательно.
+// function runPromisesSequentially(promises) {
+//   return promises.reduce((chain, promiseFn) => {
+//     return chain.then(() => promiseFn())
+//   }, Promise.resolve())
+// }
+
+// async function runPromisesSequentially(promises) {
+//     for (const promiseFn of promises) {
+//         await promiseFn()
+//     }
+// }
+
+// function delay(ms) {
+//     return new Promise((resolve) => setTimeout(resolve, ms))
+// }
+
+// const promises = [
+//   () => delay(5000).then(() => console.log('1')),
+//   () => delay(500).then(() => console.log('2')),
+//   () => delay(200).then(() => console.log('3'))
+// ];
+
+// runPromisesSequentially(promises);
+// Должно вывести: 1, 2, 3 с задержками
+
+//! Напишите функцию для глубокого сравнения двух объектов.
+// function deepEqual(obj1, obj2) {
+//     if (obj1 === obj2) return true
+
+//     if (obj1 === null || obj2 === null || typeof obj1 !== 'object' || typeof obj2 !== 'object') return false
+  
+//     if (Object.keys(obj1).length !== Object.keys(obj2).length) return false
+
+//     let keys1 = Object.keys(obj1)
+//     let keys2 = Object.keys(obj2)
+
+//     if (keys1.length !== keys2.length) return false
+
+//     for (const key of keys1) {
+//         if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+//             return false
+//         }
+//     }
+//     return true
+// }
+
+// const objA = { a: 1, b: { c: 2, d: {f:44} } };
+// const objB = { a: 1, b: { c: 2, d: {f:44} } };
+// const objC = { a: 1, b: { c: 3 } };
+
+// console.log(deepEqual(objA, objB)); // true
+// console.log(deepEqual(objA, objC)); // false
+
+//! Реализуйте функцию debounce.
+// function debounce(func, delay) {
+//   let timerId = null
+
+//   return (...args) => {
+//     clearTimeout(timerId)
+//     timerId = setTimeout(() => {
+//         func.apply(this, args)
+//     }, delay)
+    
+//   }
+// }
+
+// const debouncedFn = debounce(() => console.log('Вызвано!'), 300);
+// debouncedFn()
+// debouncedFn()
+// debouncedFn()
+// debouncedFn()
+// debouncedFn()
+// debouncedFn()
+// Многократные вызовы debouncedFn должны вызывать func только один раз после задержки
+
+//! Реализуйте функцию throttle.
+// function throttle(func, delay) {
+//     let isThrottled = false;
+//     let context;
+//     let args;
+
+//     return function wrapper() {
+//         if (isThrottled) {
+//             context = this
+//             args = arguments
+//             return
+//         }
+
+//         func.apply(this, arguments)
+//         isThrottled = true
+
+//         setTimeout(() => {
+//             isThrottled = false
+
+//             if (args) {
+//                 wrapper.apply(context, args)
+//                 context = args = null
+//             }
+//         }, delay)
+     
+//     }
+// }
+
+// const throttledFn = throttle(() => console.log('Вызвано!'), 1000);
+// throttledFn()
+// throttledFn()
+// setTimeout(throttledFn, 1000)
+// Многократные вызовы throttledFn должны вызывать func не чаще чем раз в delay ms
