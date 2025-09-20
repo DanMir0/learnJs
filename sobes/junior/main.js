@@ -635,8 +635,71 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 // console.log(findMax([3, 7, 2, 9, 1])); // 9
 
 //! Напишите функцию, которая фильтрует массив строк, оставляя только строки длиннее заданного значения.
-function filterByLength(strings, minLength) {
-  return strings.filter(word => word.length >= minLength)
-}
+// function filterByLength(strings, minLength) {
+//   return strings.filter(word => word.length >= minLength)
+// }
 
-console.log(filterByLength(['cat', 'dog', 'elephant', 'bird'], 4)); // ['elephant', 'bird']
+// console.log(filterByLength(['cat', 'dog', 'elephant', 'bird'], 4)); // ['elephant', 'bird']
+
+/* Проверка на простое число
+Напишите функцию, которая проверяет, является ли число простым.*/
+// function isPrime(num) {
+//   if (num < 2) return false
+//   if (num === 2) return true
+
+//   for (let i = 2;  i <= Math.sqrt(num); i++) {
+//     console.log(`${i} = ${Math.sqrt(num)}`);
+    
+//     if (num % i === 0) {
+//       return false
+//     }
+//   }
+//   return true
+// }
+
+// console.log(isPrime(7)); // true
+// console.log(isPrime(10)); // false
+// console.log(isPrime(3))
+// console.log(isPrime(5))
+// console.log(isPrime(2))
+// console.log(isPrime(4))
+// console.log(isPrime(12))
+
+
+/*Поиск отсутствующего числа
+Дан массив чисел от 1 до N с одним пропущенным числом. Найдите его */
+// function findMissingNumber(arr) {
+//   arr.sort((a, b) => a - b)
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] !== i + 1) {
+//       return i + 1
+//     }
+//   }
+// }
+
+// console.log(findMissingNumber([1, 2, 3, 5, 6])); // 4
+
+/*
+Подсчет символов в строке
+Напишите функцию, которая подсчитывает количество каждого символа в строке. */
+// function countChars(str) {
+//   // let obj = {}
+//   // str.split("").forEach(char => {
+//   //   if (obj[char]) {
+//   //     obj[char] += 1
+//   //   } else {
+//   //     obj[char] = 1
+//   //   }
+//   // }
+//   // )
+//   // return obj
+
+//   return str.split("").reduce((acc, char) => {
+//     acc[char] = (acc[char] || 0) + 1
+//     return acc
+//   }, {})
+// }
+
+// console.log(countChars('hello')); // { h: 1, e: 1, l: 2, o: 1 }
+
+
