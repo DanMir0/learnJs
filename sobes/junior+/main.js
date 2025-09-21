@@ -501,16 +501,78 @@ console.log(reverseString("JavaScript"))
 // console.log(getNames(users)); // ['Alice', 'Bob', 'Charlie']
 
 // //!Напишите функцию, которая удаляет повторяющиеся элементы из массива.
-function removeDuplicates(arr) {
- // return [...new Set(arr)]
-  const seen = {}
-  return arr.filter(element => {
-    if (seen[element]) {
-      return false
-    }
-    seen[element] = element
-    return true
-  });
-}
+// function removeDuplicates(arr) {
+//  // return [...new Set(arr)]
+//   const seen = {}
+//   return arr.filter(element => {
+//     if (seen[element]) {
+//       return false
+//     }
+//     seen[element] = element
+//     return true
+//   });
+// }
 
-console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5])); // [1, 2, 3, 4, 5]
+// console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5])); // [1, 2, 3, 4, 5]
+
+/*Уровень: Junior+
+4. Плоский массив
+Напишите функцию, которая преобразует многомерный массив в одномерный.
+*/
+//  function flattenArray(arr) {
+//   // return arr.flat(Infinity)
+//   let res = []
+//   for (const item of arr) {
+//     if (Array.isArray(item)) {
+//       res.push(...flattenArray(item))
+//     } else {
+//       res.push(item)
+//     }
+//   }
+//   return res
+// }
+
+// console.log(flattenArray([1, [2, [3, 4]], 5])); // [1, 2, 3, 4, 5]
+
+// Напишите функцию, которая возвращает уникальные значения из нескольких массивов.
+// function unionArrays(...arrays) {
+//     let res = []
+//     arrays.forEach(item => {
+//         res = res.concat(item)
+//     })
+//     return [...new Set(res)]
+   
+// }
+
+
+// console.log(unionArrays([1, 2, 3], [2, 3, 4], [3, 4, 5])); // [1, 2, 3, 4, 5]
+
+
+// Сгруппируйте массив строк по первой букве
+// function groupByFirstLetter(strings) {
+//     // let res = {}
+//     // strings.forEach(word => {
+//     //   const firstLetter = word[0].toLowerCase()
+//     //     if (res[firstLetter]) {
+//     //         res[firstLetter].push(word)
+//     //     } else {
+//     //         res[firstLetter] = [word]
+//     //     }
+//     // })
+//     // return res
+
+//     return strings.reduce((acc, word) => {
+//       const firstLetter = word[0].toLowerCase()
+//       acc[firstLetter] = acc[firstLetter] || []
+//       acc[firstLetter].push(word)
+//       return acc
+//     }, {})
+// }
+
+
+// console.log(groupByFirstLetter(['apple', 'banana', 'avocado', 'cherry']));
+// { a: ['apple', 'avocado'], b: ['banana'], c: ['cherry'] }
+
+
+
+
