@@ -998,3 +998,138 @@
 // throttledFn()
 // setTimeout(throttledFn, 1000)
 // Многократные вызовы throttledFn должны вызывать func не чаще чем раз в delay ms
+
+// Memoization с несколькими аргументами
+// Улучшите функцию мемоизации для работы с несколькими аргументами.
+// function memoize(fn) {
+//   let cache = {}
+
+//   return (...n) => {
+//     if (!cache[n[0]]) {
+//         console.log('Записываю');
+//         cache[n[0]] = fn(...n)  
+//     } 
+//     return cache[n[0]]
+//   }
+// }
+
+// const sum = (a, b) => a + b;
+// const memoizedSum = memoize(sum);
+
+// console.log(memoizedSum(1, 2)); // вычисляется
+// console.log(memoizedSum(1, 2)); // из кэша
+
+// Promise.all с ограничением одновременных запросов
+// Напишите функцию, которая выполняет промисы с ограничением количества одновременных запросов.
+// async function promiseAllWithLimit(promises, limit) {
+//     const results = []
+//     const executing = new Set()
+
+//     for (let i = 0; i < promises.length; i++) {
+//         const promise = promises[i]();
+//         executing.add(promise)
+
+//         promise.finally(() => executing.delete(promise));
+
+//         results.push(promise)
+
+//         if (executing.size >= limit) {
+//             await Promise.race(executing)
+//         }
+//     }
+//     return Promise.all(results)
+// }
+
+// function delay(ms, value) {
+//     return new Promise(resolve => setTimeout(resolve(value), ms))
+// }
+
+// const promises = [
+//  () => delay(1000, '1'),
+//   () => delay(500, '2'),
+//   () => delay(800, '3'),
+//   () => delay(300, '4'),
+//   () => delay(1200, '5')
+// ];
+
+// async function test() {
+//   console.time('With limit 2');
+//   const results = await promiseAllWithLimit(promises, 2);
+//   console.timeEnd('With limit 2');
+//   console.log('Results:', results);
+// }
+
+// test();
+
+// Deep clone с циклическими ссылками
+// Улучшите функцию глубокого клонирования для работы с циклическими ссылками.
+// function deepClone(obj, visited = new WeakMap()) {
+//     if (obj === null || typeof obj !== 'object') return obj
+    
+//     if (visited.has(obj)) {
+//         return visited.get(obj)
+//     }
+
+//     if (Array.isArray(obj)) {
+//         const clone = []
+//         visited.set(obj, clone)
+//         obj.forEach(item => {
+//             clone.push(deepClone(item, visited))
+//         })
+//         return clone
+//     }
+
+//       // Обработка объектов
+//   if (obj instanceof Date) return new Date(obj.getTime());
+//   if (obj instanceof RegExp) return new RegExp(obj);
+  
+//   const clone = {};
+//   visited.set(obj, clone); // Сохраняем в кэш ДО рекурсии
+  
+//   for (let key in obj) {
+//     if (obj.hasOwnProperty(key)) {
+//       clone[key] = deepClone(obj[key], visited);
+//     }
+//   }
+  
+//   return clone;
+// }
+
+// const obj = { a: 1 };
+// obj.self = obj; // циклическая ссылка
+
+// const clone = deepClone(obj);
+// console.log(clone.self === clone); // true
+
+//! Реализуйте простой Event Emitter.
+class EventEmitter {
+  constructor() {
+    this.events = {}
+  }
+  
+  on(event, callback) {
+    if (!this.events[event]) {
+        this.events[event] = []
+    }
+    this.events[event].push(callback)
+  }
+  
+  emit(event, data) {
+    if (!this.events[event]) return
+
+    this.events[event].forEach(callback => {
+        callback(data)
+    })
+  }
+  
+  off(event, callback) {
+    if (!this.events[event]) return
+    
+    this.events[event] = this.events[event].filter(cb => cb !== callback)
+  }
+}
+
+// Использование:
+const emitter = new EventEmitter();
+emitter.on('message', (data) => console.log(data));
+emitter.emit('message', 'Hello!'); // Hello!
