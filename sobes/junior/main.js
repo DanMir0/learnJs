@@ -703,3 +703,118 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 // console.log(countChars('hello')); // { h: 1, e: 1, l: 2, o: 1 }
 
 
+// Сумма чисел от 1 до n
+// Напиши функцию sumTo(n), которая возвращает сумму чисел от 1 до n.
+// function sumTo(n) {
+//   return (n * (n + 1)) / 2
+//   let res = 0;
+//   for (let i = 1; i <= n; i++) {
+//     res += i
+//   }
+//   return res
+// }
+// console.log(sumTo(5));
+
+// Факториал
+// Реализуй factorial(n) с использованием цикла.
+// function factorial(n) {
+//   return n <= 1 ? 1 : n * factorial(n-1)
+//   let res = 1
+//   for (let i = 1; i <= n; i++) {
+//     res *= i
+//   }
+//   return res
+// }
+// console.log(factorial(5));
+
+// Чётное/нечётное
+// Напиши функцию isEven(num), которая возвращает true, если число чётное, и false — если нечётное.
+// function isEven(num) {
+//   if (typeof num !== 'number') return new TypeError(`Parametr "${num}" is not number`)
+//   return num % 2 === 0
+// }
+// console.log(isEven(5));
+
+// Реверс строки
+// Напиши функцию reverseString(str).
+// function reverseString(str) {
+//   return str.split("").reverse().join("")
+// }
+// console.log(reverseString('privet tut'));
+
+// Подсчёт слов
+// Реализуй функцию countWords(str), которая возвращает количество слов в строке.
+// function countWords(str) {
+//   if (!str.trim()) return 0
+//   return str.trim().split(/\s+/).length;
+//   if (!str) return 0
+//   return str.split(" ").length
+// }
+// console.log(countWords("Hello, world"));
+
+// Фильтрация массива
+// Функция filterPositive(arr) должна возвращать только положительные числа.
+// function filterPositive(arr) {
+//   return arr.filter(num => num > 0)
+// }
+// console.log(filterPositive([-1,-2,1,2,3,4]));
+
+// Поиск минимального числа
+// Напиши функцию findMin(arr).
+// function findMin(arr) {
+//   // return Math.min(...arr)
+//   return arr.reduce((min, num) => num < min ? num : min, arr[0])
+//   let min = arr[0]
+//   for (let i = 0; i < arr.length; i++) {
+//     if (!(arr[i] > min)) {
+//       min = arr[i]
+//     }
+//   }
+//   return min
+// }
+// console.log(findMin([1,2,3,5,]));
+
+// Проверка на простое число
+// Реализуй isPrime(num).
+// function isPrime(num) {
+//   if (num === null || typeof num !== 'number') return num
+//   if (num < 2) return false
+
+//   for (let i = 2; i <= Math.sqrt(num); i++) {
+//     if (num % i === 0) return false
+//   }
+//   return true
+// }
+// console.log(isPrime(2));
+// console.log(isPrime(5));
+// console.log(isPrime(11));
+// console.log(isPrime(4));
+// console.log(isPrime(15));
+
+// Удаление дубликатов из массива
+// Реализуй removeDuplicates(arr).
+// function removeDuplicates(arr) {
+//   //return [... new Set(arr)]
+//   let res = []
+//   arr.forEach(item => {
+//     if (!res.includes(item)) {
+//       res.push(item)
+//     }
+//   })
+//   return res
+// }
+// console.log(removeDuplicates([1,2,3,2,1,5]));
+
+// Подсчёт гласных
+// Напиши функцию countVowels(str), которая считает количество гласных в строке.
+// function countVowels(str) {
+//   let vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'а', 'я', 'о', 'ё', 'у', 'ю', 'ы', 'и', 'э', 'е']
+//   let res = 0
+//   str.toLowerCase().split("").forEach(char => {
+//     if (vowels.includes(char)) {
+//       res += 1
+//     }
+//   })
+//   return res
+// }
+// console.log(countVowels('Аыуuosdsdsdsd'));
