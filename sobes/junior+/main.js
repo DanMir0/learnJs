@@ -573,6 +573,154 @@ console.log(reverseString("JavaScript"))
 // console.log(groupByFirstLetter(['apple', 'banana', 'avocado', 'cherry']));
 // { a: ['apple', 'avocado'], b: ['banana'], c: ['cherry'] }
 
+// Сумма элементов на нечётных позициях
+// sumOddIndexes(arr) → сумма чисел с нечётными индексами.
+// function sumOddIndexes(arr) {
+//   return arr.reduce((sum, num, i) => i % 2 ? sum + num : sum, 0)
+//   let res = 0;
+//   for (let i = 0; i < arr.length; i++) {
+//     if (i % 2 === 1) {
+//       res += arr[i]
+//     }
+//   } 
+//   return res
+// }
+// console.log(sumOddIndexes([1,2,3,4,5]));
 
+// Фибоначчи
+// Реализуй fibonacci(n) (итеративно).
+// function fibonacci(n) {
+//   if (n <= 0) return 0
+//   if (n === 1) return 1
+
+//   let prev = 0;
+//   let current = 1;
+
+//   for (let i = 2; i <= n; i++) {
+//     let next = prev + current;
+//     prev = current;
+//     current = next;
+//   }
+
+//   return current
+// }
+// console.log(fibonacci(10));
+
+// Разворот массива
+// Напиши функцию reverseArray(arr) без использования reverse().
+// function reverseArray(arr) {
+//   for (let i = 0, j = arr.length - 1; i < j; i++, j--) {
+//     [arr[i], arr[j]] = [arr[j], arr[i]];
+//   }
+//   return arr;
+
+//   let res = []
+//   for (let i = arr.length - 1; i >= 0; i--) {
+//     res.push(arr[i])
+//   }
+//   return res
+// }
+// console.log(reverseArray(['Hello', 'world']));
+// console.log(reverseArray([1,2,3,4,5]));
+
+// Палиндром число
+// Функция isPalindromeNumber(num) должна проверять, является ли число палиндромом.
+// function isPalindromeNumber(num) {
+//   const str = String(num)
+//   return str === str.split('').reverse().join("")
+
+//   let copy = num.toString()
+//   let newNum = ''
+//   for (let i = copy.length-1; i >= 0 ; i--) {
+//     newNum += copy[i]
+//   }
+//   newNum = Number(newNum)
+
+//   console.log(num);
+//   console.log(newNum);
+  
+  
+//   return newNum === num
+// }
+// console.log(isPalindromeNumber(676));
+
+// Второй максимум
+// Напиши secondMax(arr) — второй по величине элемент массива.
+// function secondMax(arr) {
+//   let uniq = [... new Set(arr)]
+//   uniq = arr.sort((a,b) => b - a)
+//   return uniq[1]
+// }
+// console.log(secondMax([1,2,3,4,5]));
+
+// Объединение массивов без дубликатов
+// Реализуй union(arr1, arr2).
+// function union(arr1, arr2) {
+//   let newArr = arr1.concat(arr2)
+//   return [...new Set(newArr)]
+// }
+// console.log(union([1,2,3], [3,2,4,5]));
+
+// Flatten (упрощённый)
+// Напиши flatten(arr), который распрямляет массив только на 1 уровень.
+// Пример: [1, [2, 3], 4] → [1,2,3,4].
+// function flatten(arr) {
+//   // return arr.flat(Infinity)
+//   let newArr = []
+//   arr.forEach(item => {
+//     if (Array.isArray(item)) {
+//       newArr = newArr.concat(flatten(item))
+//     } else {
+//       newArr.push(item)
+//     }
+//   })
+//   return newArr
+// }
+// console.log(flatten([1,2, [3, 4, [5,6]]]));
+
+// Подсчёт символов
+// Реализуй charFrequency(str), возвращающую объект частоты символов.
+// function charFrequency(str) {
+// return str.split("").reduce((acc, char) => {
+//   acc[char] = (acc[char] || 0) + 1
+//   return acc
+// }, {})
+
+//   let obj = {}
+//   for (let i = 0; i < str.length; i++) {
+//     if (obj[str[i]]) {
+//       obj[str[i]] += 1
+//     } else {
+//       obj[str[i]] = 1
+//     }
+//   }
+//   return obj
+// }
+// console.log(charFrequency('Hello'));
+
+// Сумма уникальных элементов
+// Напиши sumUnique(arr) (суммирует только уникальные числа).
+// function sumUnique(arr) {
+//   let uniqArr = [... new Set(arr)]
+//  return uniqArr.reduce((acc, num) => acc + num, 0)
+// }
+// console.log(sumUnique([1,1,2,2,3,3]));
+
+// Поменять местами
+// Функция swap(arr, i, j) меняет местами элементы по индексам.
+function swap(arr, i, j) {
+  [arr[i], arr[j]] = [arr[j], arr[i]]
+  return arr
+
+  for (let pos = 0; pos < arr.length; pos++) {
+    if (pos === i) {
+      let temp = arr[i]
+      arr[i] = arr[j]
+      arr[j] = temp
+    }
+  }
+  return arr
+}
+console.log(swap([1,2,3,4,5,6], 4, 1));
 
 
