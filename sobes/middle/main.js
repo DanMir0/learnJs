@@ -1102,34 +1102,149 @@
 // console.log(clone.self === clone); // true
 
 //! Реализуйте простой Event Emitter.
-class EventEmitter {
-  constructor() {
-    this.events = {}
-  }
+// class EventEmitter {
+//   constructor() {
+//     this.events = {}
+//   }
   
-  on(event, callback) {
-    if (!this.events[event]) {
-        this.events[event] = []
-    }
-    this.events[event].push(callback)
-  }
+//   on(event, callback) {
+//     if (!this.events[event]) {
+//         this.events[event] = []
+//     }
+//     this.events[event].push(callback)
+//   }
   
-  emit(event, data) {
-    if (!this.events[event]) return
+//   emit(event, data) {
+//     if (!this.events[event]) return
 
-    this.events[event].forEach(callback => {
-        callback(data)
-    })
-  }
+//     this.events[event].forEach(callback => {
+//         callback(data)
+//     })
+//   }
   
-  off(event, callback) {
-    if (!this.events[event]) return
+//   off(event, callback) {
+//     if (!this.events[event]) return
     
-    this.events[event] = this.events[event].filter(cb => cb !== callback)
-  }
-}
+//     this.events[event] = this.events[event].filter(cb => cb !== callback)
+//   }
+// }
 
-// Использование:
-const emitter = new EventEmitter();
-emitter.on('message', (data) => console.log(data));
-emitter.emit('message', 'Hello!'); // Hello!
+// // Использование:
+// const emitter = new EventEmitter();
+// emitter.on('message', (data) => console.log(data));
+// emitter.emit('message', 'Hello!'); // Hello!
+
+// Two Sum (улучшенный)
+// Реализуй twoSum(arr, target) за O(n) с использованием Map.
+// function twoSum(arr, target) {
+//     let map = new Map()
+
+//     for (let i = 0; i < arr.length; i++) {
+//         let diff = target - arr[i]
+//         if (map.has(diff)) {            
+//             return [map.get(diff), i]
+//         } else {
+//             map.set(arr[i], i)
+//         }
+//     }
+    
+// }
+// console.log(twoSum([7,1,4,6, 2], 9));
+
+// Valid Anagram
+// Напиши isAnagram(str1, str2) (без сортировки, через Map).
+// function isAnagram(str1, str2) {
+//     let map = new Map()
+//     if (str1.length !== str2.length) return false
+
+//     str1 = str1.toLowerCase()
+//     str2 = str2.toLowerCase()
+
+//     for (let i = 0; i < str1.length; i++) {
+//         map.set(0, str1[i])
+//     }
+//     for (let i = 0; i < str2.length; i++) {
+//         if (map.has(str2[i])) return false
+//     }
+//     return true
+// }
+// console.log(isAnagram('asdgw1', 'lloeh'));
+
+// Majority Element
+// Найди элемент, встречающийся более чем n/2 раз в массиве.
+// function findTwoElement(arr) {
+//     let count = 1;
+//     let candidate = arr[0]
+
+//     for (let i = 0; i < arr.length; i++) {
+//         if (count === 0) {
+//             candidate = arr[i]
+//         } else if (candidate === arr[i]) {
+//             count++
+//         } else {
+//             count--
+//         }
+//     }
+//     return candidate
+// }
+// console.log(findTwoElement([9,2,3,4,5,9]));
+
+// Rotate Array
+// Напиши функцию rotate(arr, k), которая циклически сдвигает массив вправо на k.
+// function rotate(arr, k) {
+//     let newArr = arr.slice(arr.length - k)
+//     let lastArr = arr.slice(0, arr.length - k)
+    
+//     return newArr.concat(lastArr)
+// }
+// console.log(rotate([1,2,3,4,5], 2));
+
+// Valid Parentheses
+// Проверка скобок (()[]{}) — но уже расширь для любого количества символов (например, "<>").
+// function validParentheses(str) {
+//   const stack = []
+
+//     for (char of str) {
+//         if (char === '(' || char === '[' || char === '{') {
+//             stack.push(char)
+//         } else {
+//             const last = stack.pop()
+
+//             if (char === ')' && last !== '(' || char === ']' && last !== '[' || char === '}' && last !== '{') return false
+//         }
+//     }
+//     return true
+// }
+// console.log(validParentheses('({[]})'));
+// console.log(validParentheses('({[}))'));
+
+
+// First Unique Character
+// Найди индекс первого неповторяющегося символа в строке.
+// function getFirstUniqueCharacter(str) {
+//     let map = new Map()
+//     str = str.toLowerCase()
+//     for (let i = 0; i < str.length; i++) {
+//         if (map.has(str[i])) {
+//             map.delete(str[i])
+//         } else {
+//             map.set(str[i], i)
+//         }
+//     }
+
+//     return map.values().next().value
+// }
+// console.log(getFirstUniqueCharacter('helloH'));
+
+// Merge Intervals
+// Функция merge(intervals), которая объединяет пересекающиеся интервалы.
+// Пример: [[1,3],[2,6],[8,10]] → [[1,6],[8,10]].
+
+// Кадане (макс. сумма подмассива)
+// Реализуй maxSubArray(arr).
+
+// LinkedList → Array
+// Реализуй функцию, которая преобразует связанный список в массив.
+
+// LRU Cache (упрощённо)
+// Реализуй класс LRUCache с методами get и put (ограниченная память).
