@@ -1239,9 +1239,38 @@
 // Merge Intervals
 // Функция merge(intervals), которая объединяет пересекающиеся интервалы.
 // Пример: [[1,3],[2,6],[8,10]] → [[1,6],[8,10]].
+// function merge(intervals) {
+//    if (intervals.length <= 1) return intervals
+
+//    intervals.sort((a,b) => a[0] - b[0])
+
+//     let results = []
+//     let currentInterval = intervals[0]
+//     results.push(currentInterval)
+
+//     for (let i = 1; i < intervals.length; i++) {
+//         let nextInterval = intervals[i]
+
+//         if (currentInterval[1] >= nextInterval[0]) {
+//             currentInterval[1] = Math.max(currentInterval[1], nextInterval[1])
+//         } else {
+//             currentInterval = nextInterval
+//             results.push(currentInterval)
+//         }
+//     }
+
+//    return results
+// }
+// console.log(merge([[1,3],[2,6],[8,10]]));
+
 
 // Кадане (макс. сумма подмассива)
 // Реализуй maxSubArray(arr).
+// function maxSubArray(arr) {
+//     let maxArrs = arr.map(arr => arr.reduce((acc, val) => acc + val))
+//     return Math.max(...maxArrs)
+// }
+// console.log(maxSubArray([[1,2,3],[7,7,7],[9,2,9,9]]));
 
 // LinkedList → Array
 // Реализуй функцию, которая преобразует связанный список в массив.
