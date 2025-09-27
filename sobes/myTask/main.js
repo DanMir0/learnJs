@@ -1207,41 +1207,75 @@ function isAnagram(str1, str2) {
 // console.log(throttled(1)); // Выполняется сразу, возвращает 2
 // console.log(throttled(2)); // Откладывается, возвращает 2 (предыдущий результат)
 // console.log(throttled(3)); // Перезаписывает очередь, возвращает 2
+// function throttle(func, ms) {
+//   let isThrottled = false;
+//   let savedArgs;
+//   let savedThis;
 
+//   function wrapper() {
 
-function throttle(func, ms) {
-  let isThrottled = false;
-  let savedArgs;
-  let savedThis;
+//     if (isThrottled) {
+//       savedArgs = arguments;
+//       savedThis = this;
+//       return;
+//     }
 
-  function wrapper() {
+//     func.apply(this, arguments)
+//     isThrottled = true;
 
-    if (isThrottled) {
-      savedArgs = arguments;
-      savedThis = this;
-      return;
+//     setTimeout(() => {
+//       isThrottled = false;
+
+//       if (savedArgs) {
+//         wrapper.apply(savedThis, savedArgs)
+//         savedArgs = savedThis = null;
+//       }
+//     }, ms)
+//   }
+
+//   return wrapper;
+// }
+
+// function mouseMove() {
+//   console.log(new Date());
+// }
+
+// mouseMove = throttle(mouseMove, 3000)
+
+// setInterval(mouseMove, 1000)
+
+// Необходимо написать функцию которая преобразует полученный на вход массив - в строку, сворачивая соседние по числовому ряду числа в диапазон
+const range = (arr) => {
+  let subArr = []
+  let newArr = []
+  let res = ``
+
+    arr.sort((a,b) => a - b) 
+     
+    for (let i = 0; i < arr.length; i++) {
+       if (subArr.length === 0) {
+        subArr.push(arr[i])
+      } else if (arr[i] === subArr[subArr.length - 1] + 1) {
+        subArr.push(arr[i])
+      } else {
+        newArr.push(subArr)
+        subArr = [arr[i]]
+      }
     }
 
-    func.apply(this, arguments)
-    isThrottled = true;
+    if (subArr.length > 0) {
+        newArr.push(subArr);
+    }
 
-    setTimeout(() => {
-      isThrottled = false;
-
-      if (savedArgs) {
-        wrapper.apply(savedThis, savedArgs)
-        savedArgs = savedThis = null;
-      }
-    }, ms)
-  }
-
-  return wrapper;
+    newArr.forEach(arr => {
+        if (arr.length === 1) {
+            res += `${arr[0]},`;
+        } else {
+            res += `${arr[0]}-${arr[arr.length-1]},`;
+        }
+    });
+    
+    return res.slice(0, -1); // убираем последнюю запятую
 }
 
-function mouseMove() {
-  console.log(new Date());
-}
-
-mouseMove = throttle(mouseMove, 3000)
-
-setInterval(mouseMove, 1000)
+console.log('range', range([1,4,5,2,3,9,8,11,0]));
