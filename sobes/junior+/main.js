@@ -708,19 +708,51 @@ console.log(reverseString("JavaScript"))
 
 // Поменять местами
 // Функция swap(arr, i, j) меняет местами элементы по индексам.
-function swap(arr, i, j) {
-  [arr[i], arr[j]] = [arr[j], arr[i]]
-  return arr
+// function swap(arr, i, j) {
+//   [arr[i], arr[j]] = [arr[j], arr[i]]
+//   return arr
 
-  for (let pos = 0; pos < arr.length; pos++) {
-    if (pos === i) {
-      let temp = arr[i]
-      arr[i] = arr[j]
-      arr[j] = temp
+//   for (let pos = 0; pos < arr.length; pos++) {
+//     if (pos === i) {
+//       let temp = arr[i]
+//       arr[i] = arr[j]
+//       arr[j] = temp
+//     }
+//   }
+//   return arr
+// }
+// console.log(swap([1,2,3,4,5,6], 4, 1));
+
+// Создайте функцию, которая принимает массив функций, возвращающих промисы, и выполняет их последовательно с задержкой между вызовами.
+async function runWithDelay(promises, delay) {
+  const results = []
+
+  for (let i = 0; i < promises.length; i++) {
+    if (i > 0) {
+      await new Promise(resolve => setTimeout(resolve, delay))
     }
+
+    const result = await promises[i]()
+    results.push(result)
+    console.log(result);
+    
   }
-  return arr
+  return results
 }
-console.log(swap([1,2,3,4,5,6], 4, 1));
+// async function runWithDelay(promises, delay) {
+//   for (let i = 0; i < promises.length; i++) {
+//     if (i > 0) {
+//       await new Promise(resolve => setTimeout(resolve, delay));
+//     }
+//     const result = await promises[i]();
+//     console.log(result);
+//   }
+// }
+const tasks = [
+  () => Promise.resolve('Task 1'),
+  () => Promise.resolve('Task 2'), 
+  () => Promise.resolve('Task 3')
+];
 
-
+runWithDelay(tasks, 1000);
+// Должен выполнять: Task1 → (пауза 1s) → Task2 → (пауза 1s) → Task3
