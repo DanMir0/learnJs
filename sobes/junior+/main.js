@@ -724,35 +724,172 @@ console.log(reverseString("JavaScript"))
 // console.log(swap([1,2,3,4,5,6], 4, 1));
 
 // Создайте функцию, которая принимает массив функций, возвращающих промисы, и выполняет их последовательно с задержкой между вызовами.
-async function runWithDelay(promises, delay) {
-  const results = []
-
-  for (let i = 0; i < promises.length; i++) {
-    if (i > 0) {
-      await new Promise(resolve => setTimeout(resolve, delay))
-    }
-
-    const result = await promises[i]()
-    results.push(result)
-    console.log(result);
-    
-  }
-  return results
-}
 // async function runWithDelay(promises, delay) {
+//   const results = []
+
 //   for (let i = 0; i < promises.length; i++) {
 //     if (i > 0) {
-//       await new Promise(resolve => setTimeout(resolve, delay));
+//       await new Promise(resolve => setTimeout(resolve, delay))
 //     }
-//     const result = await promises[i]();
+
+//     const result = await promises[i]()
+//     results.push(result)
 //     console.log(result);
+    
 //   }
+//   return results
 // }
-const tasks = [
-  () => Promise.resolve('Task 1'),
-  () => Promise.resolve('Task 2'), 
-  () => Promise.resolve('Task 3')
+// // async function runWithDelay(promises, delay) {
+// //   for (let i = 0; i < promises.length; i++) {
+// //     if (i > 0) {
+// //       await new Promise(resolve => setTimeout(resolve, delay));
+// //     }
+// //     const result = await promises[i]();
+// //     console.log(result);
+// //   }
+// // }
+// const tasks = [
+//   () => Promise.resolve('Task 1'),
+//   () => Promise.resolve('Task 2'), 
+//   () => Promise.resolve('Task 3')
+// ];
+
+// runWithDelay(tasks, 1000);
+// // Должен выполнять: Task1 → (пауза 1s) → Task2 → (пауза 1s) → Task3
+
+// Напишите функцию, которая ищет значение по пути в глубоком объекте.
+// function getValue(obj, path) {
+//  const keys = typeof path === 'string' ? path.split('.') : path
+//  let current = obj
+
+//  for (key of keys) {
+//   if (typeof current === undefined || typeof current === null) return undefined
+
+//   current = current[key]
+//  }
+//  return current
+
+// const pathArr = typeof path === 'string' ? path.split('.') : path
+//   if (path.length === 0) return obj
+
+//   if (pathArr.length === 1) {
+//     return obj ? obj[pathArr[0]] : undefined;
+//   }
+
+//   let currentKey = pathArr[0]
+//   const remainingPath = pathArr.slice(1);
+
+//   return obj && obj[currentKey] !== undefined ? getValue(obj[currentKey], remainingPath) : undefined
+// }
+
+// const obj = {
+//   a: {
+//     b: {
+//       c: 42
+//     }
+//   },
+//   x: [1, { y: 2 }, 3],
+//   h: 1
+// };
+
+// console.log(getValue(obj, 'a.b.c')); // 42
+// console.log(getValue(obj, 'x.1.y')); // 2
+// console.log(getValue(obj, 'x.0'));   // 1
+// console.log(getValue(obj, 'h'));
+// console.log(getValue(obj, 'hsds'));
+
+// Преобразуйте массив объектов в объект с группировкой по ключу.
+// function transformArray(arr, key) {
+//   if (typeof arr !== 'object' || arr == null) return arr
+
+//   let newObj = {}
+
+//   arr.forEach(user => {
+//     if (newObj[user[key]]) {
+//       newObj[user[key]].push(user)
+//     } else {
+//       newObj[user[key]] = [user]
+//     }
+//   })
+//   return newObj
+// }
+
+// const users = [
+//   { id: 1, name: 'Alice', role: 'admin' },
+//   { id: 2, name: 'Bob', role: 'user' },
+//   { id: 3, name: 'Charlie', role: 'admin' }
+// ];
+
+// console.log(transformArray(users, 'role'));
+// // {
+// //   admin: [{id: 1, name: 'Alice'}, {id: 3, name: 'Charlie'}],
+// //   user: [{id: 2, name: 'Bob'}]
+// // }
+
+// .Реализуйте свою функцию map для массивов.
+// function customMap(arr, callback) {
+//   if (arr === null && typeof arr !== 'object') return arr
+//   let results = []
+
+//   arr.forEach(value => results.push(callback(value)))
+//   return results
+// }
+
+// const numbers = [1, 2, 3];
+// const doubled = customMap(numbers, (num) => num * 2);
+// console.log(doubled); // [2, 4, 6]
+
+
+//Напишите функцию, которая проверяет валидность последовательности скобок.
+// function isValidBrackets(str) {
+//   const stack = []
+
+//   for (let char of str) {
+//     if (char === '(' || char === '[' || char === '{') {
+//       stack.push(char)
+//     } else {
+//       if (stack.length === 0) return false
+
+//       let last = stack.pop()
+
+//       if (char === ')' && last !== '(' || char === ']' && last !== '[' || char === '}' && last !== '{') return false
+//     }
+//   }
+
+//   return true
+// }
+
+// console.log(isValidBrackets('(){}[]')); // true
+// console.log(isValidBrackets('([{}])')); // true  
+// console.log(isValidBrackets('(]')); // false
+// console.log(isValidBrackets('([)]')); // false
+
+// Найдите уникальные объекты по определенному свойству.
+function uniqueBy(arr, prop) {
+if (!Array.isArray(arr)) return arr
+
+  const results = []
+  const seenValues = new Set()
+
+  for (let i = 0; i < arr.length; i++) {
+    const currentItem = arr[i]
+    const propValue = currentItem[prop]
+
+    if (!seenValues.has(propValue)) {
+      seenValues.add(propValue)
+      results.push(currentItem)
+    }
+  }
+
+  return results
+}
+
+const items = [
+  { id: 1, category: 'fruit' },
+  { id: 2, category: 'vegetable' },
+  { id: 3, category: 'fruit' },
+  { id: 4, category: 'dairy' }
 ];
 
-runWithDelay(tasks, 1000);
-// Должен выполнять: Task1 → (пауза 1s) → Task2 → (пауза 1s) → Task3
+console.log(uniqueBy(items, 'category'));
+// [{id:1, category:'fruit'}, {id:2, category:'vegetable'}, {id:4, category:'dairy'}]
