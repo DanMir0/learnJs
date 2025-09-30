@@ -818,3 +818,116 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 //   return res
 // }
 // console.log(countVowels('Аыуuosdsdsdsd'));
+
+//! Напишите функцию, которая возвращает сумму цифр числа.
+// function sumDigits(num) {
+//   let str = num.toString()
+  
+//   let result = 0
+
+//   for (let i = 0; i < str.length; i++) {
+//     result += Number(str[i])
+//   }
+//   return result
+// }
+
+// console.log(sumDigits(123)); // 6
+// console.log(sumDigits(9045)); // 18
+
+//! Проверьте, является ли число палиндромом.
+// function isNumberPalindrome(num) {
+//   num = num.toString()
+//   return num === num.split('').reverse().join('')
+// }
+
+// console.log(isNumberPalindrome(121)); // true
+// console.log(isNumberPalindrome(123)); // false
+
+//! Посчитайте количество слов в строке.
+// function countWords(str) {
+//   if (str.length === 0) return 0
+
+//   let arr = str.trim().replace(/\s+/g, " ").split(" ")
+
+//   return arr.length
+// }
+
+// console.log(countWords('Hello world from JavaScript')); // 4
+// console.log(countWords('  Multiple   spaces   here  ')); // 3
+
+//! Найдите НОД двух чисел.
+// function gcd(a, b) {
+//   while(b !== 0) {
+//     const temp = b;
+//     b = a % b;
+//     a = temp
+//   }
+//   return a
+// }
+
+// console.log(gcd(48, 18)); // 6
+// console.log(gcd(101, 103)); // 1
+
+//! Разверните строку рекурсивно.
+// function reverseString(str) {
+//   if (str.length <= 1) return str
+
+//   return reverseString(str.slice(1)) + str[0]
+// }
+
+// console.log(reverseString('hello')); // 'olleh'
+// console.log(reverseString('JavaScript')); // 'tpircSavaJ'
+
+//! Отфильтруйте массив по типу элементов.
+// function filterByType(array, type) {
+//   return array.filter(item => typeof item === type)
+// }
+
+// const mixed = [1, 'hello', true, 42, 'world', false];
+// console.log(filterByType(mixed, 'string')); // ['hello', 'world']
+// console.log(filterByType(mixed, 'number')); // [1, 42]
+
+//! Отформатируйте имя в правильный регистр
+// function formatName(name) {
+//   let result = ''
+//   let arr = name.toLowerCase().split(" ")
+//   arr.forEach(item => {
+//     result += ' ' + item[0].toUpperCase() + item.slice(1)
+    
+//   })
+//   return result
+// }
+
+// console.log(formatName('john doe')); // 'John Doe'
+// console.log(formatName('mARY aNN')); // 'Mary Ann'
+
+//! Найдите медиану числового массива.
+// function findMedian(numbers) {
+//   const sorted = [...numbers].sort((a,b) => a - b);
+//   const middle = Math.floor(sorted.length / 2)
+
+//    if (sorted.length % 2 === 0) {
+//     return (sorted[middle - 1] + sorted[middle]) / 2;
+//   } else {
+//     return sorted[middle];
+//   }
+// }
+
+// console.log(findMedian([1, 3, 2])); // 2
+// console.log(findMedian([1, 2, 3, 4])); // 2.5
+
+//! Удалите все falsy значения из массива.
+// function removeFalsy(array) {
+//   return array.filter(item => item)
+// }
+
+// const values = [0, 1, false, 2, '', 3, null, undefined, NaN];
+// console.log(removeFalsy(values)); // [1, 2, 3]
+
+//! Создайте функцию для генерации случайного числа в диапазоне.
+// function randomInRange(min, max) {
+//   return Math.floor(Math.random() * (max - min + 1) + min)
+// }
+
+// console.log(randomInRange(5, 10)); // число между 5 и 10
+// console.log(randomInRange(-10, 10)); // число между -10 и 10

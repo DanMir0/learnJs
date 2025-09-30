@@ -864,32 +864,120 @@ console.log(reverseString("JavaScript"))
 // console.log(isValidBrackets('(]')); // false
 // console.log(isValidBrackets('([)]')); // false
 
-// Найдите уникальные объекты по определенному свойству.
-function uniqueBy(arr, prop) {
-if (!Array.isArray(arr)) return arr
+//! Найдите уникальные объекты по определенному свойству.
+// function uniqueBy(arr, prop) {
+// if (!Array.isArray(arr)) return arr
 
-  const results = []
-  const seenValues = new Set()
+//   const results = []
+//   const seenValues = new Set()
 
-  for (let i = 0; i < arr.length; i++) {
-    const currentItem = arr[i]
-    const propValue = currentItem[prop]
+//   for (let i = 0; i < arr.length; i++) {
+//     const currentItem = arr[i]
+//     const propValue = currentItem[prop]
 
-    if (!seenValues.has(propValue)) {
-      seenValues.add(propValue)
-      results.push(currentItem)
+//     if (!seenValues.has(propValue)) {
+//       seenValues.add(propValue)
+//       results.push(currentItem)
+//     }
+//   }
+
+//   return results
+// }
+
+// const items = [
+//   { id: 1, category: 'fruit' },
+//   { id: 2, category: 'vegetable' },
+//   { id: 3, category: 'fruit' },
+//   { id: 4, category: 'dairy' }
+// ];
+
+// console.log(uniqueBy(items, 'category'));
+// // [{id:1, category:'fruit'}, {id:2, category:'vegetable'}, {id:4, category:'dairy'}]
+
+//! Реализуйте функцию композиции для других функций.
+// function compose(...fns) {
+//   return fns.reduceRight((prevFn, nextFn) => (...args) => nextFn(prevFn(args)))
+// }
+
+// const add5 = (x) => x + 5;
+// const multiply3 = (x) => x * 3;
+// const subtract2 = (x) => x - 2;
+
+// const composed = compose(add5, multiply3, subtract2);
+// console.log(composed(10)); // (10 - 2) * 3 + 5 = 29
+
+//! Найдите различия между двумя объектами.
+// function objectDiff(obj1, obj2) {
+//   const allKeys = new Set([...Object.keys(obj1), ...Object.keys(obj2)])
+//   const diff = {}
+
+//   for (const key of allKeys) {
+//     if (obj1[key] !== obj2[key]) {
+//       diff[key] = {old: obj1[key], new: obj2[key]}
+//     }
+//   }
+//   return diff
+
+//   // let newObj = {}
+//   // for (let key in obj1) {
+//   //   if (obj1[key] === obj2[key]) {
+//   //     continue
+//   //   } else {
+//   //     newObj[key] = {old: obj1[key], new: obj2[key]}
+//   //   }
+
+//   // }
+//   // for (let key in obj2) {
+//   //   if (newObj[key] === obj2[key] || obj1[key] === obj2[key]) {
+//   //     continue
+//   //   } else {
+//   //     newObj[key] = {old: obj1[key], new: obj2[key]}
+//   //   }
+//   // }
+//   // return newObj
+// }
+
+// const objA = { a: 1, b: 2, c: 3 };
+// const objB = { a: 1, b: 5, d: 4 };
+
+// console.log(objectDiff(objA, objB));
+// // { b: { old: 2, new: 5 }, c: { old: 3, new: undefined }, d: { old: undefined, new: 4 } }
+
+//! Создайте функцию, которая генерирует случайный HEX-цвет.
+// function randomHexColor() {
+//   return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')
+
+//   const hexChars = '0123456789ABCDEF';
+//   let color = '#'
+
+//   for (let i = 0; i < 6; i++) {
+//     const randomIndex = Math.floor(Math.random() * hexChars.length)
+//     color += hexChars[randomIndex]
+//   }
+//   return color
+// }
+
+// console.log(randomHexColor()); // '#a3f1c5'
+// console.log(randomHexColor()); // '#ff0033'
+
+//! Реализуйте сортировку массива объектов по нескольким полям.
+function sortByFields(arr, fields) {
+  return arr.sort((a,b) => {
+    for (let value of fields) {
+      if (a[value] !== b[value]) {
+        return a[value] > b[value] ? 1 : -1
+      } 
     }
-  }
-
-  return results
+    return 0
+  })
 }
 
-const items = [
-  { id: 1, category: 'fruit' },
-  { id: 2, category: 'vegetable' },
-  { id: 3, category: 'fruit' },
-  { id: 4, category: 'dairy' }
+const people = [
+  { name: 'Alice', age: 30, city: 'London' },
+  { name: 'Bob', age: 25, city: 'Paris' },
+  { name: 'Charlie', age: 30, city: 'Berlin' },
+  { name: 'Charlie', age: 30, city: 'Aaaerlin' }
 ];
 
-console.log(uniqueBy(items, 'category'));
-// [{id:1, category:'fruit'}, {id:2, category:'vegetable'}, {id:4, category:'dairy'}]
+console.log(sortByFields(people, ['age', 'city']));
+// Сначала по age (по возрастанию), затем по city (алфавиту)
