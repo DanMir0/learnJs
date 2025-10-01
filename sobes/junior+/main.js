@@ -960,24 +960,98 @@ console.log(reverseString("JavaScript"))
 // console.log(randomHexColor()); // '#a3f1c5'
 // console.log(randomHexColor()); // '#ff0033'
 
-//! Реализуйте сортировку массива объектов по нескольким полям.
-function sortByFields(arr, fields) {
-  return arr.sort((a,b) => {
-    for (let value of fields) {
-      if (a[value] !== b[value]) {
-        return a[value] > b[value] ? 1 : -1
-      } 
-    }
-    return 0
-  })
-}
+//! 1 Реализуйте сортировку массива объектов по нескольким полям.
+// function sortByFields(arr, fields) {
+//   return arr.sort((a,b) => {
+//     for (let value of fields) {
+//       if (a[value] !== b[value]) {
+//         return a[value] > b[value] ? 1 : -1
+//       } 
+//     }
+//     return 0
+//   })
+// }
 
-const people = [
-  { name: 'Alice', age: 30, city: 'London' },
-  { name: 'Bob', age: 25, city: 'Paris' },
-  { name: 'Charlie', age: 30, city: 'Berlin' },
-  { name: 'Charlie', age: 30, city: 'Aaaerlin' }
-];
+// const people = [
+//   { name: 'Alice', age: 30, city: 'London' },
+//   { name: 'Bob', age: 25, city: 'Paris' },
+//   { name: 'Charlie', age: 30, city: 'Berlin' },
+//   { name: 'Charlie', age: 30, city: 'Aaaerlin' }
+// ];
 
-console.log(sortByFields(people, ['age', 'city']));
-// Сначала по age (по возрастанию), затем по city (алфавиту)
+// console.log(sortByFields(people, ['age', 'city']));
+// // Сначала по age (по возрастанию), затем по city (алфавиту)
+
+//!  2 Создайте функцию, которая отклоняет промис, если он не выполняется за указанное время.
+// function promiseWithTimeout(promise, timeout) {
+//   const timeoutPromise = new Promise((resolve, reject) => setTimeout(() => reject("Timeout!"), timeout))
+//  return Promise.race([promise, timeoutPromise]).then(value => console.log(value)).catch((error) => console.log(error))
+// }
+
+// // Использование:
+// const slowPromise = new Promise(resolve => setTimeout(() => resolve('Done'), 2000));
+// promiseWithTimeout(slowPromise, 3000).catch(console.log); // "Timeout!"
+
+//! Напишите функцию для глубокого слияния двух объектов.
+// function deepMerge(obj1, obj2) {
+//   let result = deepClone(obj1)
+
+//   for (let key in obj2) {
+//     if (typeof obj2[key] === 'object' && typeof result[key] === 'object') {
+//       result[key] = deepMerge(result[key], obj2[key])
+//     } else {
+//       result[key] = deepClone(obj2[key])
+//     }
+//   }
+//   return result
+// }
+
+// function deepClone(obj) {
+//   let clone = {}
+
+//   if (obj === null || typeof obj !== 'object') return obj
+
+//   for (let key in obj) {
+//     clone[key] = deepClone(obj[key])
+//   }
+
+//   return clone
+// }
+// const obj1 = { a: 1, b: { x: 10 } };
+// const obj2 = { b: { y: 20 }, c: 3 };
+// console.log(deepMerge(obj1, obj2)); // { a: 1, b: { x: 10, y: 20 }, c: 3 }
+
+// 3. Функция Currying
+//! Реализуйте каррирование для функции.
+// function curry(fn) {
+//   return function curried(...args) {
+//     if (args.length >= fn.length) {
+//       return fn.apply(this, args)
+//     } else {
+//       return (...nextArgs) => curried.apply(this, args.concat(nextArgs))
+//     }
+//   }
+// }
+
+// const sum = (a, b, c) => a + b + c;
+// const curriedSum = curry(sum);
+// console.log(curriedSum(1)(2)(3)); // 6
+// console.log(curriedSum(1, 2)(3)); // 6
+
+//! 4. Пагинация массива
+// Создайте функцию пагинации для массива.
+// function paginate(array, page, perPage) {
+//   let totalItemInPage = Math.ceil(array.length / perPage)
+//   let arr = []
+//   let endIndex = totalItemInPage
+//   for (let startIndex = 0; startIndex < array.length; startIndex+=totalItemInPage) {
+//     arr.push(array.slice(startIndex, endIndex))
+//     endIndex += totalItemInPage
+//   }
+//   return {data: arr[page - 1], page: page, totalPages: perPage}
+  
+// }
+
+// const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// console.log(paginate(data, 2, 3)); // { data: [4, 5, 6], page: 2, totalPages: 3 }
+
