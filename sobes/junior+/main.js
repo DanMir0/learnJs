@@ -1055,3 +1055,133 @@ console.log(reverseString("JavaScript"))
 // const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 // console.log(paginate(data, 2, 3)); // { data: [4, 5, 6], page: 2, totalPages: 3 }
 
+// 5. Частичное применение
+//! Реализуйте функцию partial application.
+// function partial(fn, ...args) {
+//   return function(...nextArgs) {
+//     return fn.apply(this, args.concat(nextArgs))
+//   }
+// }
+
+// const multiply = (a, b, c) => a * b * c;
+// const multiplyByTwo = partial(multiply, 2);
+// console.log(multiplyByTwo(3, 4)); // 24
+
+// 6. Трансформация ключей объекта
+// Напишите функцию, которая трансформирует ключи объекта.
+// function transformKeys(obj, transformer) {
+//     let results = {}
+//     for (let key in obj) {
+//       results[transformer(key)] = obj[key]
+//     }
+//     return results
+// }
+
+// const user = { firstName: 'John', lastName: 'Doe' };
+// console.log(transformKeys(user, key => key.toUpperCase())); // { FIRSTNAME: 'John', LASTNAME: 'Doe' }
+
+// 7. Генератор диапазона чисел
+// Создайте функцию-генератор диапазона чисел.
+// function range(start, end, step = 1) {
+//   let results = []
+//   for (start; start <= end; start += step) {
+//     results.push(start)
+//   }
+//   return results
+// }
+// function* range(start, end, step = 1) {
+//   for (let i = start; i <= end; i += step) {
+//     yield i
+//   }
+// }
+// console.log([...range(1, 5)]); // [1, 2, 3, 4, 5]
+// console.log([...range(0, 10, 2)]); // [0, 2, 4, 6, 8, 10]
+
+// 8. Мемоизация с несколькими аргументами
+// Улучшите мемоизацию для работы с несколькими аргументами.
+// function memoize(fn) {
+//   let cache = {}
+
+//   return function(...args) {
+//     if (cache[args]) {
+//       console.log(cache);
+//       return cache[args]
+//     } else {
+//       cache[args] = fn(...args)
+//       return cache[args]
+//     }
+//   }
+// }
+
+// function memoize(fn) {
+//   const cache = new Map()
+
+//   return function(...args) {
+//     const key = JSON.stringify(args)
+
+//     if (cache.has(key)) {
+//       console.log(`Cache, ${key}`);
+//       return cache.get(key)
+//     } else {
+//       const result = fn(...args)
+//       cache.set(key, result)
+//       return result
+//     }
+//   }
+// }
+
+// const sum = (a, b) => a + b;
+// const memoizedSum = memoize(sum);
+// console.log(memoizedSum(1, 2)); // вычисляется
+// console.log(memoizedSum(1, 2)); // из кэша
+// console.log(memoizedSum(3, 5)); // из кэша
+// console.log(memoizedSum(3, 5)); // из кэша
+// console.log(memoizedSum(11, 2)); // из кэша
+// console.log(memoizedSum(11, 2)); // из кэша
+// console.log(memoizedSum(11, 4)); // из кэша
+// console.log(memoizedSum(11, 4)); // из кэша
+
+// 9. Группировка по условию
+// Сгруппируйте элементы массива по результату функции.
+// function groupBy(array, fn) {
+//   let results = {}
+
+//   array.forEach(item => {
+//     let key = fn(item)
+//     if (results[key]) {
+//       results[key] = results[key].concat(item)
+//     } else {
+//       results[key] = [item]
+//     }
+//   })
+//   return results
+// }
+// function groupBy(array, fn) {
+//   return array.reduce((acc, item) => {
+//     const key = fn(item);
+//     acc[key] = acc[key] || []
+//     acc[key].push(item)
+//     return acc
+//   }, {})
+// }
+// const numbers = [1.2, 2.3, 3.1, 4.7, 5.8, 5.4];
+// console.log(groupBy(numbers, Math.floor)); // { 1: [1.2], 2: [2.3], 3: [3.1], 4: [4.7], 5: [5.8] }
+
+// 10. Функция Pipe
+// Реализуйте функцию pipe для последовательного применения функций.
+// function pipe(...fns) {
+//   return fns.reduce((prevFn, nextFn) => (...args) => nextFn(prevFn(...args)))
+// }
+
+function pipe(...fns) {
+  return function(x) {
+    return fns.reduce((result, fn) => fn(result), x)
+  }
+}
+
+const add5 = x => x + 5;
+const multiply3 = x => x * 3;
+const subtract2 = x => x - 2;
+
+const piped = pipe(subtract2, multiply3, add5);
+console.log(piped(10)); // (10 - 2) * 3 + 5 = 29
