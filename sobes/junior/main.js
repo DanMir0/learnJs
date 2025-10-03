@@ -931,3 +931,27 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 
 // console.log(randomInRange(5, 10)); // число между 5 и 10
 // console.log(randomInRange(-10, 10)); // число между -10 и 10
+
+//! Напишите функцию, которая проверяет, является ли число степенью двойки.
+// function isPowerOfTwo(num) {
+//   if (num <= 0) return false
+//   return Math.log2(num) % 1 === 0
+// }
+
+// console.log(isPowerOfTwo(8)); // true (2³)
+// console.log(isPowerOfTwo(16)); 
+// console.log(isPowerOfTwo(10)); // false
+
+//! Найдите минимальное число в массиве (без Math.min).
+function findMin(numbers) {
+  let min = numbers[0]
+
+  for (let i = 0; i < numbers.length; i++) {
+    if (numbers[i] < min) {
+      min = numbers[i]
+    }
+  }
+  return min
+}
+
+console.log(findMin([5, 2, 9, 1, 7])); // 1
