@@ -943,15 +943,85 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 // console.log(isPowerOfTwo(10)); // false
 
 //! Найдите минимальное число в массиве (без Math.min).
-function findMin(numbers) {
-  let min = numbers[0]
+// function findMin(numbers) {
+//   let min = numbers[0]
 
-  for (let i = 0; i < numbers.length; i++) {
-    if (numbers[i] < min) {
-      min = numbers[i]
-    }
-  }
-  return min
+//   for (let i = 0; i < numbers.length; i++) {
+//     if (numbers[i] < min) {
+//       min = numbers[i]
+//     }
+//   }
+//   return min
+// }
+
+// console.log(findMin([5, 2, 9, 1, 7])); // 1
+
+//! Количество гласных и согласных
+// function countVowelsConsonants(str) {
+//     let result = {
+//         vowels: 0,
+//         consonants: 0,
+//     }
+//     let consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'z', 'б', 'в', 'г', 'д', 'ж', 'з', 'й', 'к', 'л', 'м',
+//     'н', 'п', 'р', 'с', 'т', 'ф', 'х', 'ц', 'ч', 'ш', 'щ']
+   
+//     let vowels = [ 'a', 'e', 'i', 'o', 'u', 'y', 'а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я']
+
+
+//     for (let i = 0; i < str.length; i++){
+//     if (vowels.includes(str[i])) {
+//         result['vowels'] += 1
+//     } else if (consonants.includes(str[i])) {
+//         result['consonants'] += 1
+//     } else {
+//         continue
+//     }
+//     }
+//     return result
+// }
+
+
+// console.log(countVowelsConsonants('Hello World')); // { vowels: 3, consonants: 7 }
+
+
+//! 4. Умножение матрицы на число
+// Умножьте все элементы матрицы (2D массива) на число.
+// function multiplyMatrix(matrix, multiplier) {
+//  return matrix.map(arr => arr.map(item => item *= multiplier))
+// }
+
+// const matrix = [[1, 2], [3, 4], [5, 6]];
+// console.log(multiplyMatrix(matrix, 2)); // [[2, 4], [6, 8], [10, 12]]
+
+//! 5. Форматирование времени
+// Преобразуйте секунды в формат "чч:мм:сс".
+function formatTime(seconds) {
+    let hours = Math.floor(seconds / 60)
+    let minutes = Math.floor((seconds % 3600) / 60)
+    let second = seconds % 60
+    
+    return [
+      hours.toString().padStart(2, '0'),
+      minutes.toString().padStart(2, '0'),
+      second.toString().padStart(2, '0')
+    ].join(':')
 }
 
-console.log(findMin([5, 2, 9, 1, 7])); // 1
+console.log(formatTime(3665)); // "01:01:05"
+console.log(formatTime(45)); // "00:00:45"
+
+
+// // 6. Проверка массива на возрастание
+// // Проверьте, является ли массив строго возрастающим.
+
+
+// function isStrictlyIncreasing(arr) {
+//   // Ваш код
+// }
+
+
+// console.log(isStrictlyIncreasing([1, 2, 3, 4])); // true
+// console.log(isStrictlyIncreasing([1, 3, 2, 4])); // false
+
+
+
