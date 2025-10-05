@@ -938,6 +938,10 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 //   return Math.log2(num) % 1 === 0
 // }
 
+// function isPowerOfTwo(num) {
+//   return num > 0 && (num & (num - 1)) === 0
+// }
+
 // console.log(isPowerOfTwo(8)); // true (2³)
 // console.log(isPowerOfTwo(16)); 
 // console.log(isPowerOfTwo(10)); // false
@@ -966,7 +970,7 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 //     'н', 'п', 'р', 'с', 'т', 'ф', 'х', 'ц', 'ч', 'ш', 'щ']
    
 //     let vowels = [ 'a', 'e', 'i', 'o', 'u', 'y', 'а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я']
-
+//     str = str.toLowerCase()
 
 //     for (let i = 0; i < str.length; i++){
 //     if (vowels.includes(str[i])) {
@@ -995,33 +999,124 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 
 //! 5. Форматирование времени
 // Преобразуйте секунды в формат "чч:мм:сс".
-function formatTime(seconds) {
-    let hours = Math.floor(seconds / 60)
-    let minutes = Math.floor((seconds % 3600) / 60)
-    let second = seconds % 60
+// function formatTime(seconds) {
+//     let hours = Math.floor(seconds / 3600)
+//     let minutes = Math.floor((seconds % 3600) / 60)
+//     let second = seconds % 60
     
-    return [
-      hours.toString().padStart(2, '0'),
-      minutes.toString().padStart(2, '0'),
-      second.toString().padStart(2, '0')
-    ].join(':')
-}
-
-console.log(formatTime(3665)); // "01:01:05"
-console.log(formatTime(45)); // "00:00:45"
-
-
-// // 6. Проверка массива на возрастание
-// // Проверьте, является ли массив строго возрастающим.
-
-
-// function isStrictlyIncreasing(arr) {
-//   // Ваш код
+//     return [
+//       hours.toString().padStart(2, '0'),
+//       minutes.toString().padStart(2, '0'),
+//       second.toString().padStart(2, '0')
+//     ].join(':')
 // }
 
+// console.log(formatTime(3665)); // "01:01:05"
+// console.log(formatTime(45)); // "00:00:45"
+
+
+// 6. Проверка массива на возрастание
+// Проверьте, является ли массив строго возрастающим.
+// function isStrictlyIncreasing(arr) {
+//   let sortArr = arr.map(item => item).sort((a, b) => a - b)
+  
+//   for (let i = 0; i < arr.length; i++) {
+//     if (sortArr[i] !== arr[i]) {
+//       return false
+//     }
+//   }
+//   return true
+// }
+
+// function isStrictlyIncreasing(arr) {
+//   for (let i = 1; i < arr.length; i++) {
+//     if (arr[i] <= arr[i-1]) return false
+//   }
+//   return true
+// }
 
 // console.log(isStrictlyIncreasing([1, 2, 3, 4])); // true
 // console.log(isStrictlyIncreasing([1, 3, 2, 4])); // false
+
+// Сумма диапазона чисел
+// Найдите сумму всех чисел в диапазоне [a, b].
+// function sumRange(a, b) {
+//   let result = 0
+
+//   for (let i = a; i <= b; i++) {
+//     result += i
+//   }
+//   return result
+// }
+
+// function sumRange(a, b) {
+//   return (b - a + 1) * (a + b) / 2
+// }
+// console.log(sumRange(1, 5)); // 15 (1+2+3+4+5)
+// console.log(sumRange(-3, 3)); // 0
+
+
+// 8. Удаление дубликатов (без Set)
+// Удалите дубликаты из массива без использования Set.
+// function removeDuplicates(arr) {
+//   let result = []
+//   for (let i = 0; i < arr.length; i++) {
+//     if (!result.includes(arr[i])) {
+//         result.push(arr[i])
+//     }
+//   }
+//   return result
+// }
+
+// function removeDuplicates(arr) {
+//   const seen = {}
+//   return arr.filter(item => {
+//     if (!seen[item]) {
+//       seen[item] = true
+//       return true
+//     }
+//     return false
+//   })
+// }
+
+// console.log(removeDuplicates([1, 2, 2, 3, 4, 4, 5])); // [1, 2, 3, 4, 5]
+
+// 9. Поиск индекса элемента
+// Найдите индекс первого вхождения элемента в массиве.
+// function findIndex(array, element) {
+//   return array.indexOf(element)
+// }
+
+// function findIndex(array, element) {
+//   for (let i = 0; i < array.length; i++) {
+//     if (array[i] === element) return i
+//   }
+//   return -1
+// }
+
+// console.log(findIndex(['apple', 'banana', 'cherry'], 'banana')); // 1
+// console.log(findIndex([1, 2, 3], 5)); // -1
+
+
+// 10. Конвертация температуры
+// Конвертируйте температуру между Цельсием и Фаренгейтом.
+// function convertTemperature(value, from, to) {
+//     if (from === to) return value;
+//     if (from === 'C' && to === 'F') {
+//         return value * 1.8 + 32
+//     } else if (from === 'F' && to === 'C') {
+//         return (value - 32) / 1.8
+//     } else {
+//         throw new Error('Unsupported conversion');
+//     }
+// }
+
+
+// console.log(convertTemperature(0, 'C', 'F')); // 32
+// console.log(convertTemperature(100, 'C', 'F')); // 212
+// console.log(convertTemperature(32, 'F', 'C')); // 0
+
+
 
 
 
