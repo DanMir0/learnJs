@@ -1173,15 +1173,173 @@ console.log(reverseString("JavaScript"))
 //   return fns.reduce((prevFn, nextFn) => (...args) => nextFn(prevFn(...args)))
 // }
 
-function pipe(...fns) {
-  return function(x) {
-    return fns.reduce((result, fn) => fn(result), x)
-  }
+// function pipe(...fns) {
+//   return function(x) {
+//     return fns.reduce((result, fn) => fn(result), x)
+//   }
+// }
+
+// const add5 = x => x + 5;
+// const multiply3 = x => x * 3;
+// const subtract2 = x => x - 2;
+
+// const piped = pipe(subtract2, multiply3, add5);
+// console.log(piped(10)); // (10 - 2) * 3 + 5 = 29
+
+// 1. Promise Retry
+// Создайте функцию, которая повторяет промис указанное количество раз при ошибке.
+// function retry(promiseFn, retries) {
+//  return new Promise((resolve, reject) => {
+//     let attempts = 0;
+
+
+//     function execute() {
+//         attempts++;
+
+
+//         promiseFn()
+//         .then(result => {
+//             resolve(result)
+//         })
+//         .catch(error => {
+//             if (attempts >= retries) {
+//                 reject(error)
+//             } else {
+//                 console.log(`Attempt ${attempts} failed, retrying...`);
+//                 execute();
+//             }
+//         })
+//     }
+//     execute();
+//  })
+// }
+
+
+// const unstablePromise = () => Math.random() > 0.3 ? Promise.resolve('Success') : Promise.reject('Error');
+// retry(unstablePromise, 3).then(console.log).catch(console.log);
+
+
+// 2. Deep Object Comparison
+// Напишите функцию для глубокого сравнения двух объектов.
+// function deepEqual(obj1, obj2) {
+//   if (obj1 == null || typeof obj1 !== 'object' || obj2 == null || typeof obj2 !== 'object') return `Not object`
+
+//   let keys1 = Object.keys(obj1)
+//   let keys2 = Object.keys(obj2)
+
+//   if (keys1.length !== keys2.length) return false
+
+//   for (let key in obj1) {
+//     if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
+//       return deepEqual(obj1[key], obj2[key])
+//     } else if (obj1[key] !== obj2[key]) {
+//       return false
+//     }
+//   }
+//   return true
+// }
+
+// const obj1 = { a: 1, b: { c: 2, d: { g: 5} } };
+// const obj2 = { a: 1, b: { c: 2, d: { g: 5} } };
+// console.log(deepEqual(obj1, obj2)); // true
+
+// 3. Функция Throttle
+// Реализуйте функцию throttle.
+function throttle(func, delay) {
+  // Ваш код
 }
 
-const add5 = x => x + 5;
-const multiply3 = x => x * 3;
-const subtract2 = x => x - 2;
+const throttled = throttle(() => console.log('Called'), 1000);
+// Многократные вызовы будут выполняться не чаще чем раз в delay
 
-const piped = pipe(subtract2, multiply3, add5);
-console.log(piped(10)); // (10 - 2) * 3 + 5 = 29
+// 4. Трансформация дерева
+// Преобразуйте плоский массив в древовидную структуру.
+
+// javascript
+// function buildTree(items, parentId = null) {
+//   // Ваш код
+// }
+
+// const categories = [
+//   { id: 1, name: 'Electronics', parentId: null },
+//   { id: 2, name: 'Phones', parentId: 1 },
+//   { id: 3, name: 'Laptops', parentId: 1 },
+//   { id: 4, name: 'iPhone', parentId: 2 }
+// ];
+
+// console.log(buildTree(categories));
+// 5. Custom Reduce
+// Реализуйте свою функцию reduce.
+
+// javascript
+// function customReduce(array, callback, initialValue) {
+//   // Ваш код
+// }
+
+// const numbers = [1, 2, 3, 4];
+// const sum = customReduce(numbers, (acc, num) => acc + num, 0);
+// console.log(sum); // 10
+// 6. Очередь с приоритетом
+// Создайте простую очередь с приоритетом.
+
+// javascript
+// class PriorityQueue {
+//   constructor() {
+//     // Ваш код
+//   }
+  
+//   enqueue(item, priority) {}
+//   dequeue() {}
+//   peek() {}
+// }
+
+// const pq = new PriorityQueue();
+// pq.enqueue('Task 1', 2);
+// pq.enqueue('Task 2', 1);
+// pq.enqueue('Task 3', 3);
+// console.log(pq.dequeue()); // 'Task 2' (самый высокий приоритет)
+// 7. Функция Memoize с TTL
+// Добавьте время жизни для мемоизации.
+
+// javascript
+// function memoizeWithTTL(fn, ttl) {
+//   // Ваш код
+// }
+
+// const memoized = memoizeWithTTL((a, b) => a + b, 5000);
+// 8. Парсер query string
+// Напишите парсер query string из URL.
+
+// javascript
+// function parseQueryString(queryString) {
+//   // Ваш код
+// }
+
+// console.log(parseQueryString('?name=John&age=30&city=NY'));
+// // { name: 'John', age: '30', city: 'NY' }
+// 9. Генератор уникального ID
+// Создайте функцию для генерации уникального ID.
+
+// javascript
+// function generateId(prefix = '') {
+//   // Ваш код
+// }
+
+// console.log(generateId('user')); // 'user_1a2b3c4d'
+// console.log(generateId()); // '1a2b3c4d'
+// 10. Validation функции
+// Создайте цепочку валидаторов.
+
+// javascript
+// function createValidator(rules) {
+//   // Ваш код
+// }
+
+// const validateUser = createValidator([
+//   value => value.length >= 3 || 'Too short',
+//   value => /^[a-zA-Z]+$/.test(value) || 'Only letters allowed',
+//   value => value[0] === value[0].toUpperCase() || 'Must start with capital'
+// ]);
+
+// console.log(validateUser('John')); // { valid: true, errors: [] }
+// console.log(validateUser('jo')); // { valid: false, errors: ['Too short', 'Must start with capital'] }
