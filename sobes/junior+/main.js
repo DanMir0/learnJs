@@ -1222,17 +1222,15 @@ console.log(reverseString("JavaScript"))
 // 2. Deep Object Comparison
 // Напишите функцию для глубокого сравнения двух объектов.
 // function deepEqual(obj1, obj2) {
-//   if (obj1 == null || typeof obj1 !== 'object' || obj2 == null || typeof obj2 !== 'object') return `Not object`
+//   if (obj1 == null || typeof obj1 !== 'object' || obj2 == null || typeof obj2 !== 'object') return false
 
 //   let keys1 = Object.keys(obj1)
 //   let keys2 = Object.keys(obj2)
 
 //   if (keys1.length !== keys2.length) return false
 
-//   for (let key in obj1) {
-//     if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
-//       return deepEqual(obj1[key], obj2[key])
-//     } else if (obj1[key] !== obj2[key]) {
+//   for (let key in keys1) {
+//     if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
 //       return false
 //     }
 //   }
@@ -1245,19 +1243,67 @@ console.log(reverseString("JavaScript"))
 
 // 3. Функция Throttle
 // Реализуйте функцию throttle.
-function throttle(func, delay) {
-  // Ваш код
-}
+// function throttle(func, delay) {
+//   let isThrottle = false
+//   let saveArgs = null
 
-const throttled = throttle(() => console.log('Called'), 1000);
+//   return (...args) => {
+
+//     if (isThrottle) {
+//       saveArgs = args
+//       return
+//     }
+
+//     func(...args)
+//     isThrottle = true
+
+//     setTimeout(() => {
+//       isThrottle = false
+      
+//       if (saveArgs) {
+//         func(...saveArgs)
+//         isThrottle = true
+//         setTimeout(() => isThrottle = false, delay)
+//       }
+
+//     }, delay)
+//   }
+// }
+
+// const throttled = throttle(() => console.log('Called'), 1000);
 // Многократные вызовы будут выполняться не чаще чем раз в delay
 
 // 4. Трансформация дерева
 // Преобразуйте плоский массив в древовидную структуру.
-
-// javascript
 // function buildTree(items, parentId = null) {
-//   // Ваш код
+//   const children = items.filter(item => item.parentId === parentId)
+//   console.log('sss', children);
+  
+//   return children.map(child => ({
+//     ...child,
+//     children: buildTree(items, child.id)
+//   }))
+// }
+
+// function buildTree(items, parentId = null) {
+//   const map = new Map()
+//   const roots = []
+
+//   items.forEach(item => {
+//     map.set(item.id, {...item, children: []});
+//   })
+
+//   items.forEach(item => {
+//     if (item.parentId === null) {
+//       roots.push(map.get(item.id))
+//     } else {
+//       const parent = map.get(item.parentId);
+//       if (parent) {
+//         parent.children.push(map.get(item.id))
+//       }
+//     }
+//   })
+//   return roots
 // }
 
 // const categories = [
@@ -1268,29 +1314,40 @@ const throttled = throttle(() => console.log('Called'), 1000);
 // ];
 
 // console.log(buildTree(categories));
+
 // 5. Custom Reduce
 // Реализуйте свою функцию reduce.
-
-// javascript
 // function customReduce(array, callback, initialValue) {
-//   // Ваш код
+//   let result = initialValue
+
+//   for (let i = 0; i < array.length; i++) {
+//     result = callback(result, array[i])
+//   }
+//   return result
 // }
 
 // const numbers = [1, 2, 3, 4];
 // const sum = customReduce(numbers, (acc, num) => acc + num, 0);
 // console.log(sum); // 10
+
 // 6. Очередь с приоритетом
 // Создайте простую очередь с приоритетом.
-
-// javascript
 // class PriorityQueue {
 //   constructor() {
-//     // Ваш код
+//     this.items = []
 //   }
   
-//   enqueue(item, priority) {}
-//   dequeue() {}
-//   peek() {}
+//   enqueue(item, priority) {
+//     this.items.push({ item, priority})
+//   }
+//   dequeue() {
+//     this.items.sort((a, b) => a.priority - b.priority)
+//     return this.items.shift().item
+//   }
+//   peek() {
+//     this.items.sort((a, b) => a.priority - b.priority)
+//     return this.items[0].item
+//   }
 // }
 
 // const pq = new PriorityQueue();
@@ -1298,48 +1355,139 @@ const throttled = throttle(() => console.log('Called'), 1000);
 // pq.enqueue('Task 2', 1);
 // pq.enqueue('Task 3', 3);
 // console.log(pq.dequeue()); // 'Task 2' (самый высокий приоритет)
+
 // 7. Функция Memoize с TTL
 // Добавьте время жизни для мемоизации.
-
-// javascript
 // function memoizeWithTTL(fn, ttl) {
-//   // Ваш код
+//   let cache = new Map()
+
+//   setTimeout(() => cache = new Map(), ttl)
+//   return (...args) => {
+//     let key = JSON.stringify(args)
+    
+//     if (cache.has(key)) {
+//       console.log('From cache');
+//       return cache.get(key)
+//     } else {
+//       let result = fn(...args)
+//       console.log('New key');
+//       cache.set(key, result)
+//       return cache.get(key)
+//     }
+//   }
+// }
+
+// function memoizeWithTTL(fn, ttl) {
+//   const cache = new Map();
+  
+//   return (...args) => {
+//     const key = JSON.stringify(args);
+//     const now = Date.now();
+    
+//     if (cache.has(key)) {
+//       const { value, timestamp } = cache.get(key);
+//       if (now - timestamp < ttl) {
+//         console.log('From cache');
+//         return value;
+//       }
+//     }
+    
+//     console.log('New calculation');
+//     const result = fn(...args);
+//     cache.set(key, { value: result, timestamp: now });
+//     return result;
+//   };
 // }
 
 // const memoized = memoizeWithTTL((a, b) => a + b, 5000);
+// console.log(memoized(2, 3)); // 5
+// console.log(memoized(2, 3)); // Должен вернуть из кэша
+// setTimeout(() => {
+//   console.log(memoized(2, 3)); // Должен пересчитать
+// }, 6000);
+// console.log(memoized(1, 1)); // 2
+// console.log(memoized(2, 2)); // 4
+// console.log(memoized(1, 1)); // Должен быть из кэша
+
+
 // 8. Парсер query string
 // Напишите парсер query string из URL.
-
-// javascript
 // function parseQueryString(queryString) {
-//   // Ваш код
-// }
+//    let result = {}
 
+//    queryString = queryString.replace(/\?/, '')
+//    let arr = queryString.split("&")
+//    arr = arr.map(item => item.split("="))
+  
+//    arr.forEach(item => {
+//     result[item[0]] = item[1]
+//    })
+//    return result
+// }
+// function parseQueryString(queryString) {
+//   return Object.fromEntries(
+//     queryString
+//     .replace(/^\?/, '')
+//     .split('&')
+//     .map(pair => pair.split('=').map(decodeURIComponent))
+//   )
+// }
 // console.log(parseQueryString('?name=John&age=30&city=NY'));
-// // { name: 'John', age: '30', city: 'NY' }
+// { name: 'John', age: '30', city: 'NY' }
+
 // 9. Генератор уникального ID
 // Создайте функцию для генерации уникального ID.
-
-// javascript
 // function generateId(prefix = '') {
-//   // Ваш код
+//   let id = ''
+//   const letters = 'abcdefghijklmnopqrstuvwxyz0123456789'
+
+//   if (prefix) {
+//     id = prefix + '_'
+//   }
+
+//   for (let i = 0; i < 8; i++) {
+//     const randomIndex = Math.floor(Math.random() * letters.length)
+//     const randomChar = letters[randomIndex]
+//     id += randomChar
+//   }
+
+//   return id
 // }
 
+// function generateId(prefix = '') {
+//   const id = Math.random().toString(36).substring(2, 10);
+//   return prefix ? `${prefix}_${id}` : id;
+// }
 // console.log(generateId('user')); // 'user_1a2b3c4d'
 // console.log(generateId()); // '1a2b3c4d'
+
 // 10. Validation функции
 // Создайте цепочку валидаторов.
+function createValidator(rules) {
+  return (value) => {
+    const errors = []
 
-// javascript
-// function createValidator(rules) {
-//   // Ваш код
-// }
+    rules.forEach(rule => {
+      result = rule(value)
+      
+      if (typeof result === 'string') {
+        errors.push(result)
+      }
 
-// const validateUser = createValidator([
-//   value => value.length >= 3 || 'Too short',
-//   value => /^[a-zA-Z]+$/.test(value) || 'Only letters allowed',
-//   value => value[0] === value[0].toUpperCase() || 'Must start with capital'
-// ]);
+    })
 
-// console.log(validateUser('John')); // { valid: true, errors: [] }
-// console.log(validateUser('jo')); // { valid: false, errors: ['Too short', 'Must start with capital'] }
+    return {
+      valid: errors.length === 0,
+      errors
+    }
+  }
+}
+
+const validateUser = createValidator([
+  value => value.length >= 3 || 'Too short',
+  value => /^[a-zA-Z]+$/.test(value) || 'Only letters allowed',
+  value => value[0] === value[0].toUpperCase() || 'Must start with capital'
+]);
+
+console.log(validateUser('John')); // { valid: true, errors: [] }
+console.log(validateUser('jo')); // { valid: false, errors: ['Too short', 'Must start with capital'] }
