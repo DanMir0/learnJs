@@ -1463,31 +1463,224 @@ console.log(reverseString("JavaScript"))
 
 // 10. Validation функции
 // Создайте цепочку валидаторов.
-function createValidator(rules) {
-  return (value) => {
-    const errors = []
+// function createValidator(rules) {
+//   return (value) => {
+//     const errors = []
 
-    rules.forEach(rule => {
-      result = rule(value)
+//     rules.forEach(rule => {
+//       result = rule(value)
       
-      if (typeof result === 'string') {
-        errors.push(result)
-      }
+//       if (typeof result === 'string') {
+//         errors.push(result)
+//       }
 
-    })
+//     })
 
-    return {
-      valid: errors.length === 0,
-      errors
+//     return {
+//       valid: errors.length === 0,
+//       errors
+//     }
+//   }
+// }
+
+// const validateUser = createValidator([
+//   value => value.length >= 3 || 'Too short',
+//   value => /^[a-zA-Z]+$/.test(value) || 'Only letters allowed',
+//   value => value[0] === value[0].toUpperCase() || 'Must start with capital'
+// ]);
+
+// console.log(validateUser('John')); // { valid: true, errors: [] }
+// console.log(validateUser('jo')); // { valid: false, errors: ['Too short', 'Must start with capital'] }
+
+//! 1. Фильтрация и трансформация данных
+// function getActiveUsers(users) {
+//   return users.filter(user => user.age >= 18 && user.isActive)
+// }
+
+// const users = [
+//   { name: 'John', age: 25, isActive: true },
+//   { name: 'Jane', age: 17, isActive: true },
+//   { name: 'Bob', age: 30, isActive: false }
+// ];
+
+// console.log(getActiveUsers(users));
+// Ожидаемый результат: ['John']
+
+//! 2. Работа с датами
+// function getNextWeekday(date, weekday) {
+//   let newDate = new Date(  Date.parse(date) )
+ 
+//   let resuslt = new Date(newDate.setDate(newDate.getDate() + weekday))
+//   return resuslt
+//   // Вернуть следующую указанную день недели от заданной даты
+//   // weekday: 0-воскресенье, 1-понедельник, etc.
+// }
+
+// console.log(getNextWeekday(new Date('2024-01-20'), 1)); // Следующий понедельник
+
+//! 3. Обработка ошибок в Promise
+// function fetchWithFallback(url, fallbackData) {
+//     return new Promise((resolve, reject) => {
+//       fetch(url)
+//       .then(() => resolve(url))
+//       .catch(() => reject(fallbackData))
+//     })
+//   // Сделать запрос, при ошибке вернуть fallbackData
+// }
+
+// fetchWithFallback('/api/data', { default: 'data' })
+//   .then(result => console.log('Success:', result))
+//   .catch(e => console.log('Error:', e))
+
+//! 4. Группировка по диапазонам
+// function groupByAgeRange(people) {
+//   let group = {
+//     '0-17': [],
+//     '18-35': []
+//   }
+//   people.forEach(item => {
+//     if (item.age >= 0 && item.age <= 17) {
+//       group['0-17'].push(item)
+//     } else if (item.age >= 18 && item.age <= 35) {
+//       group['18-35'].push(item)
+//     } 
+//   })
+//   return group
+// }
+
+// const people = [
+//   { name: 'John', age: 15 },
+//   { name: 'Jane', age: 25 },
+//   { name: 'Bob', age: 35 }
+// ];
+// console.log(groupByAgeRange(people));
+
+// Ожидаемый результат: { '0-17': ['John'], '18-35': ['Jane', 'Bob'] }
+
+//! 5. Дебаунс для поиска
+// function createSearch(inputElement, onSearch) {
+//   let timeout = null
+
+//   inputElement.addEventListener('input', (event) => {
+    
+//     if (timeout) {
+//       clearTimeout(timeout)
+//     }
+
+//    timeout = setTimeout(() => {
+//       // onSearch(event.target.value)
+//       // onSearch.apply(null, [event.target.value])
+//       onSearch(inputElement.value)
+//     }, 300)
+
+//   })
+// }
+
+// const input = document.getElementById('search')
+// createSearch(input, (searchTerm) => {
+//   console.log('Ищем: ', searchTerm);
+// });
+
+
+//! 6. Валидация формы
+// function validateForm(data) {
+//   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
+//   return data.password.length >= 8 && isValidEmail 
+//   // Проверить: email должен быть валидным, password >= 8 символов
+// }
+
+// console.log(validateForm({ email: 'test@test.com', password: '12345678' })); // true
+
+//! 7. Кэширование результатов API
+// function createCachedFetch() {
+//     const cache = new Map()
+
+//     return async (url) => {
+//         const CACHE_TTL = 5 * 60 * 1000;
+
+//         if (cache.has(url)) {
+//             const cached = cache.get(url);
+//                 if (Date.now() - cached.timestamp < CACHE_TTL) {
+//                     return cached.data;  
+//                 }
+//             }
+
+//         const response = await fetch(url);
+//         const data = await response.json();
+        
+//         // Сохраняем структурированно
+//         cache.set(url, {
+//             data: data,
+//             timestamp: Date.now()
+//         });
+        
+//         return data;
+//     }
+
+  
+//   // Вернуть функцию, которая кэширует результаты fetch на 5 минут
+// }
+// const cachedFetch = createCachedFetch();
+
+// // Первый вызов - сделает реальный запрос
+// cachedFetch('https://api.example.com/data')
+
+// // Повторный вызов (в течение 5 минут) - вернет из кэша  
+// cachedFetch('https://api.example.com/data')
+
+//! 8. Сортировка с кастомным компаратором
+// function sortByMultipleFields(array, fields) {
+//     return array.sort((a,b) => {
+//         for (let value of fields) {            
+//             if (a[value] !== b[value]) {
+//                 return a[value] > b[value] ? 1 : -1
+//             }
+//         }
+//     })
+// }
+
+// const data = [
+//   { name: 'John', age: 25 },
+//   { name: 'Jane', age: 25 },
+//   { name: 'Bob', age: 30 }
+// ];
+// console.log(sortByMultipleFields(data, ['age', 'name']));
+
+// sortByMultipleFields(data, ['age', 'name']) - сначала по age, потом по name
+
+//! 9. Разница между массивами
+// function arrayDifference(arr1, arr2) {
+//   let res = []
+//   let interableArr = arr1.length >= arr2.length ? arr1 : arr2
+//   let isArr1 = arr1.length >= arr2.length
+//   for (let i = 0; i < interableArr.length; i++) {
+//     if (isArr1) {
+//         if (!arr2.includes(arr1[i])) {
+//             res.push(arr1[i])
+//         }
+//     } else {
+//         if (!arr1.includes(arr2[i])) {
+//                 res.push(arr2[i])
+//             }
+//     }  
+//   }
+//   return res
+// }
+
+// console.log(arrayDifference([1, 2, 3,6,7], [2, 3, 4,6,8,7,0,10])); // [1]
+
+//! 10. Форматирование чисел
+function formatNumber(num, options = {}) {
+    const formatOptions = {
+        style: 'currency',
+        currency: options.currency,
+        minimumFractionDigits: 2,   
+        maximumFractionDigits: 2
     }
-  }
+
+    const formatter = new Intl.NumberFormat('en-Us', formatOptions)
+    return formatter.format(num)
+  // Форматировать число: разделители тысяч, валюта, etc.
 }
 
-const validateUser = createValidator([
-  value => value.length >= 3 || 'Too short',
-  value => /^[a-zA-Z]+$/.test(value) || 'Only letters allowed',
-  value => value[0] === value[0].toUpperCase() || 'Must start with capital'
-]);
-
-console.log(validateUser('John')); // { valid: true, errors: [] }
-console.log(validateUser('jo')); // { valid: false, errors: ['Too short', 'Must start with capital'] }
+console.log(formatNumber(1234567.89, { currency: 'USD' })); // "$1,234,567.89"
