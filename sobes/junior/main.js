@@ -1116,7 +1116,101 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 // console.log(convertTemperature(100, 'C', 'F')); // 212
 // console.log(convertTemperature(32, 'F', 'C')); // 0
 
+//! 1 Сумма положительных чисел
+// Напиши функцию sumPositive(arr), которая возвращает сумму только положительных чисел в массиве.
+// function sumPositive(arr) {
+//   return arr.filter(val => val >= 0).reduce((acc, val) => acc += val, 0)
+// }
+// console.log(sumPositive([1, -2, 3, 4, -5]));
+// Пример: [1, -2, 3, 4, -5] → 8
 
+//! 2 Количество заглавных букв
+// Функция countUppercase(str) возвращает количество заглавных букв в строке.
+// function countUppercase(str) {
+//   return str.split("").reduce((acc, val) => val === val.toUpperCase() ? acc + 1 : acc + 0, 0)
+// }
+// console.log(countUppercase('HeLLo'));
+// Пример: 'HeLLo' → 3
 
+//! 3 Последний элемент массива
+// Реализуй lastElement(arr), возвращающую последний элемент массива.
+// Если массив пуст, вернуть null.
+// function lastElement(arr) {
+//   return arr.length === 0 ? null : arr[arr.length-1]
+// }
+// console.log(lastElement([1,2]));
+// console.log(lastElement([]));
 
+//! 4 Проверка подстроки
+// Функция contains(str, subStr) возвращает true, если subStr содержится в str.
+// Без includes()!
+// function contains(str, subStr) {
+//   for (let i = 0; i < str.length; i++) {
+//     if (str.substring(i, i + subStr.length) === subStr) {
+//       return true
+//     }
+//   }
+//   return false
+// }
+// console.log(contains('hihe we', 'we'));
+
+//! 5 Удаление пробелов
+// Функция removeSpaces(str) возвращает строку без пробелов.
+// Пример: 'a b c' → 'abc'
+// function removeSpaces(str) {
+//   // return str.split(" ").join("")
+
+//   return str.split('').filter(char => char !== ' ').join('')
+// }
+// console.log(removeSpaces('a   b  c'));
+
+//! 6 Удвоить элементы массива
+// Напиши doubleArray(arr) → возвращает новый массив, где каждый элемент умножен на 2.
+// function doubleArray(arr) {
+//   return arr.map(item => item * 2)
+// }
+// console.log(doubleArray([1,2,3,4]));
+
+//! 7 Количество чётных чисел
+// Реализуй countEven(arr) — верни количество чётных чисел.
+// function countEven(arr) {
+//   return arr.reduce((acc, item) => item % 2 === 0 ? acc + 1 : acc + 0, 0)
+// }
+// console.log(countEven([1,2,3,4]));
+
+//! 8 Первое вхождение элемента
+// Реализуй findIndex(arr, value) без использования indexOf.
+// function findIndex(arr, value) {
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] === value) {
+//       return i
+//     }
+//   }
+//   return -1
+// }
+// console.log(findIndex([1,2,3,5,6], 5));
+
+//! 9 Сумма цифр числа
+// sumDigits(num) → сумма всех цифр числа.
+// function sumDigits(num) {
+//   num = num.toString()
+//   let result = 0
+//   for (let i = 0; i < num.length; i++) {
+//     result += Number(num[i])
+//   }
+//   return result
+
+//[...num.toString()].reduce((a, b) => a + +b, 0)
+// }
+// console.log(sumDigits(1234));
+// // Пример: 1234 → 10
+
+//! 10 Проверка анаграмм
+// Функция isAnagram(str1, str2) возвращает true, если строки состоят из одинаковых букв (порядок не важен).
+// Пример: 'listen', 'silent' → true
+function isAnagram(str1, str2) {
+  return str1.toLowerCase().split("").sort().join("") === str2.toLowerCase().split("").sort().join("")
+}
+
+console.log(isAnagram('listen', 'silent'));
 
