@@ -1670,17 +1670,238 @@ console.log(reverseString("JavaScript"))
 // console.log(arrayDifference([1, 2, 3,6,7], [2, 3, 4,6,8,7,0,10])); // [1]
 
 //! 10. Форматирование чисел
-function formatNumber(num, options = {}) {
-    const formatOptions = {
-        style: 'currency',
-        currency: options.currency,
-        minimumFractionDigits: 2,   
-        maximumFractionDigits: 2
-    }
+// function formatNumber(num, options = {}) {
+//     const formatOptions = {
+//         style: 'currency',
+//         currency: options.currency,
+//         minimumFractionDigits: 2,   
+//         maximumFractionDigits: 2
+//     }
 
-    const formatter = new Intl.NumberFormat('en-Us', formatOptions)
-    return formatter.format(num)
-  // Форматировать число: разделители тысяч, валюта, etc.
-}
+//     const formatter = new Intl.NumberFormat('en-Us', formatOptions)
+//     return formatter.format(num)
+//   // Форматировать число: разделители тысяч, валюта, etc.
+// }
 
-console.log(formatNumber(1234567.89, { currency: 'USD' })); // "$1,234,567.89"
+// console.log(formatNumber(1234567.89, { currency: 'USD' })); // "$1,234,567.89"
+
+//! 1 Удалить все falsy-значения
+// Напиши compact(arr) — убери все значения: false, 0, '', null, undefined, NaN.
+// function compact(arr) {
+//   return arr.filter(item => item)
+// }
+// console.log(compact([0, 1, false, 2, '', 3]));
+// // Пример: [0, 1, false, 2, '', 3] → [1,2,3]
+
+//! 2 Подсчёт частоты слов
+// Функция wordFrequency(str) возвращает объект, где ключ — слово, значение — количество повторений.
+// function wordFrequency(str) {
+//   // let obj = {}
+//   // str.split(" ").forEach(word => {
+//   //   if (obj[word]) {
+//   //     obj[word] += 1
+//   //   } else {
+//   //     obj[word] = 1
+//   //   }
+//   // })
+//   // return obj
+
+//   return str.split(" ").reduce((acc, word) => {
+//     if (acc[word]) {
+//       acc[word] += 1
+//     } else {
+//       acc[word] = 1
+//     }
+//     return acc
+//   }, {})
+// }
+// console.log(wordFrequency("hello world hello"));
+
+// Пример: "hello world hello" → { hello: 2, world: 1 }
+
+//! 3 Проверка палиндрома (игнорируя регистр и пробелы)
+// isPalindromeAdvanced(str)
+// function isPalindromeAdvanced(str) {
+//   str = str.toLowerCase().replace(/\s+/g, "")
+//   return str === str.split("").reverse().join("")
+// }
+// console.log(isPalindromeAdvanced('A man a plan a canal Panama'));
+// Пример: 'A man a plan a canal Panama' → true
+
+//! 4 Пересечение массивов
+// intersection(arr1, arr2) → верни элементы, которые есть в обоих массивах.
+// function intersection(arr1, arr2) {
+//   let setArr = new Set(arr2)
+//   return arr1.filter(elem => setArr.has(elem))
+//   return  arr1.filter(item => arr2.includes(item)) 
+// }
+// console.log(intersection([1,2,3,5,4], [2,3,4,5]));
+// Пример: [1,2,3] & [2,3,4] → [2,3]
+
+//! 5 Группировка по типу данных
+// groupByType(arr) → верни объект, где ключ — тип данных (typeof), а значение — массив элементов.
+// function groupByType(arr) {
+//   let obj = {}
+//   arr.forEach(item => {
+//     let key = typeof item
+
+//     if (obj[key]) {
+//       obj[key].push(item)
+//     } else {
+//       obj[key] = [item]
+//     }
+//   })
+//   return obj
+// }
+// console.log(groupByType([1, 'a', true, 2]));
+// Пример: [1, 'a', true, 2] → { number: [1,2], string: ['a'], boolean: [true] }
+
+//! 6 Удаление повторяющихся символов
+// removeDuplicateChars(str)
+// function removeDuplicateChars(str) {
+//   return [...new Set([...str])].join('')
+// }
+// console.log(removeDuplicateChars('aabbccdde'));
+// Пример: 'aabbccdde' → 'abcde'
+
+//! 7 Проверка возраста
+// isAdult(users) принимает массив объектов { name, age } и возвращает массив только совершеннолетних.
+// function isAdult(users) {
+//   return users.filter(user => user.age >= 18)
+// }
+// console.log(isAdult([{name:'A',age:17},{name:'B',age:22}]));
+// Пример: [{name:'A',age:17},{name:'B',age:22}] → [{name:'B',age:22}]
+
+//! 8 Разница между максимальным и минимальным числом
+// maxMinDiff(arr)
+// function maxMinDiff(arr) {
+//   return Math.max(...arr) - Math.min(...arr)
+// }
+// console.log(maxMinDiff([5, 10, 2]));
+// Пример: [5, 10, 2] → 8
+
+//! 9 Удаление заданного ключа из объекта
+// removeKey(obj, key)
+// function removeKey(obj, key) {
+// if (obj[key]) не нужна, иначе не удалятся falsy значения (например, 0 или '').
+//   delete obj[key]
+//   
+//   return obj
+// }
+// console.log(removeKey({a:1,b:2}, 'a'));
+// // Пример: {a:1,b:2}, 'a' → {b:2}
+
+//! 10 Подсчёт уникальных слов
+// countUniqueWords(str) — вернуть количество уникальных слов в строке.
+// function countUniqueWords(str) {
+//   return new Set(str.split(" ").filter(Boolean)).size
+// }
+// console.log(countUniqueWords('hi hi hello'));
+// // Пример: 'hi hi hello' → 2
+
+//! 1. Группировка по первому символу
+// Задача:
+// Напиши функцию groupByFirstLetter(words), которая группирует слова по первой букве.
+// function groupByFirstLetter(words) {
+//   let obj = {}
+//   words.forEach(word => {
+//    word = word.toLowerCase()
+//    if (obj[word[0]]) {
+//     obj[word[0]].push(word)
+//    } else {
+//     obj[word[0]] = [word]
+//    }
+//   })
+//   return obj
+// }
+// console.log(groupByFirstLetter(["apple", "banana", "apricot", "cherry"]));
+// Пример:
+// groupByFirstLetter(["apple", "banana", "apricot", "cherry"])
+// // ➜ { a: ["apple", "apricot"], b: ["banana"], c: ["cherry"] }
+
+//! 2. Найти пользователя по id
+// Дан массив пользователей:
+// const users = [
+//   { id: 1, name: 'Alice' },
+//   { id: 2, name: 'Bob' }
+// ];
+// function findUserById(users, id) {
+//   let user = users.find(user => user.id === id)
+//   return user === undefined ? null : user
+// }
+// console.log(findUserById(users, 1));
+// Напиши функцию findUserById(users, id), возвращающую объект пользователя по id (или null, если не найден).
+
+//! 3. Развернуть объект
+// Функция invertObject(obj) должна поменять ключи и значения местами.
+// function invertObject(obj) {
+//   let newObj = {}
+//   for (let key in obj) {
+//     let temp = obj[key]
+//     newObj[temp] = key
+//   }
+//   return newObj
+// }
+// console.log(invertObject({ a: 1, b: 2, c: 3 }));
+// Пример:
+// invertObject({ a: 1, b: 2, c: 3 })
+// // ➜ { 1: 'a', 2: 'b', 3: 'c' }
+
+//! 4. Сумма значений по ключу
+// Дан массив объектов с числовыми значениями:
+// [{x: 2}, {x: 5}, {x: 3}]
+// Напиши sumByKey(arr, key) → сумма всех значений key.
+// let arr = [{x: 2}, {x: 5}, {x: 3}]
+
+// function sumByKey(arr, key) {
+//   let res = 0
+//   arr.forEach(item => {
+//     if (item[key]) {
+//       res += item[key]
+//     }
+//   })
+//   return res
+// }
+// console.log(sumByKey([{x: 2}, {x: 5}, {x: 3}], 'x'));
+// Пример:
+// sumByKey([{x: 2}, {x: 5}, {x: 3}], 'x') // ➜ 10
+
+//! 5. Удалить дубликаты объектов по ключу
+// Напиши функцию uniqueByKey(arr, key), которая удаляет дубликаты по указанному ключу.
+// function uniqueByKey(arr, key) {
+//   let seen = {}
+//   let result = []
+//   arr.forEach(user => {
+//     if (!seen[user[key]]) {
+//       let currentKey = user[key]
+//       seen[currentKey] = true
+//       result.push(user)
+//     }
+//   })
+//   return result
+// }
+
+// // Пример:
+// console.log(uniqueByKey([
+//   { id: 1, name: "A" },
+//   { id: 2, name: "B" },
+//   { id: 1, name: "C" }
+// ], "id"));
+// // ➜ [{id:1,name:"A"}, {id:2,name:"B"}]
+
+//! 6. Проверка, что массив отсортирован
+// isSorted(arr) → возвращает true, если массив чисел отсортирован по возрастанию.
+// function isSorted(arr) {
+//   for (let i = 1; i < arr.length; i++) {
+//     if (arr[i] < arr[i - 1]) {
+//       return false
+//     }
+//   }
+//   return true
+// }
+// console.log(isSorted([1, 2, 3]));
+// console.log(isSorted([3, 2, 1]));
+// Пример:
+// isSorted([1, 2, 3]) // true  
+// isSorted([3, 2, 1]) // false
+
