@@ -1826,6 +1826,7 @@ console.log(reverseString("JavaScript"))
 //   { id: 2, name: 'Bob' }
 // ];
 // function findUserById(users, id) {
+//   return users.find(user => user.id === id) || null
 //   let user = users.find(user => user.id === id)
 //   return user === undefined ? null : user
 // }
@@ -1842,7 +1843,7 @@ console.log(reverseString("JavaScript"))
 //   }
 //   return newObj
 // }
-// console.log(invertObject({ a: 1, b: 2, c: 3 }));
+// console.log(invertObject({ a: 1, b: 2, c: 3, b: 5 })); //«Если значения не уникальны — последние перезапишут предыдущие». Это покажет глубину понимания.
 // Пример:
 // invertObject({ a: 1, b: 2, c: 3 })
 // // ➜ { 1: 'a', 2: 'b', 3: 'c' }
@@ -1854,6 +1855,7 @@ console.log(reverseString("JavaScript"))
 // let arr = [{x: 2}, {x: 5}, {x: 3}]
 
 // function sumByKey(arr, key) {
+//   return arr.reduce((sum, obj) => sum + (obj[key] ||0), 0)
 //   let res = 0
 //   arr.forEach(item => {
 //     if (item[key]) {
@@ -1905,3 +1907,63 @@ console.log(reverseString("JavaScript"))
 // isSorted([1, 2, 3]) // true  
 // isSorted([3, 2, 1]) // false
 
+//! 7. Фильтр уникальных значений
+// unique(arr) → верни новый массив только с уникальными элементами (без Set).
+// function unique(arr) {
+//   let result = []
+//   for (let i = 0; i < arr.length; i++) {
+//     if (!result.includes(arr[i])) {
+//       result.push(arr[i])
+//     }
+//   }
+//   return result
+// }
+// console.log(unique([1,2,2,3,1]));
+// Пример:
+// unique([1,2,2,3,1]) // ➜ [1,2,3]
+
+//! 8. Среднее значение массива
+// average(arr) → верни среднее арифметическое чисел.
+// function average(arr) {
+//  return arr.reduce((acc, num) => acc + num, 0) / arr.length
+// }
+// console.log(average([2,4,6,8]));
+// Пример:
+// average([2,4,6,8]) // ➜ 5
+
+//! 9. Глубокое клонирование объекта
+// deepClone(obj) → верни глубокую копию объекта (без structuredClone).
+// function deepClone(obj) {
+//   if (obj === null || typeof obj !== 'object') return obj
+
+//   if (Array.isArray(obj)) return obj.map(item => deepClone(item))
+  
+//   let copy = {}
+
+//   for (let key in obj) {
+//     copy[key] = deepClone(obj[key])
+//   }
+//   return copy
+// }
+// // Пример:
+// const a = {x: 1, y: {z: 2}};
+// const b = deepClone(a);
+// b.y.z = 10;
+// console.log(a.y.z); // 2
+
+//! 10. Самое длинное слово в строке
+// longestWord(str) → верни самое длинное слово в строке.
+function longestWord(str) {
+  let arr = str.split(" ")
+  let max = 0
+  let res = ''
+  arr.forEach(word => {
+    if (word.length > max) {
+      max = word.length
+      res = word
+    }
+  });
+  return res
+}
+// Пример:
+console.log(longestWord("I love programming so much")); // ➜ "programming"
