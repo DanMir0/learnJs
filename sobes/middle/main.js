@@ -1277,3 +1277,67 @@
 
 // LRU Cache (упрощённо)
 // Реализуй класс LRUCache с методами get и put (ограниченная память).
+
+//! 1. removeDuplicatesInPlace
+// Удалить дубликаты на месте (без Set и без создания нового массива).
+// Возвращает новый length без дубликатов.
+
+// [1,1,2,2,3] → [1,2,3] (length = 3)
+// function removeDuplicatesInPlace(arr) {
+//   return arr.sort((a, b) => a - b).filter((item, index, arr) => arr[index] !== arr[index + 1]).length
+// }
+// console.log(removeDuplicatesInPlace([1,1,2,2,3]));
+
+//! 2. chunkArray
+// Разбить массив на подмассивы фиксированной длины size.
+// chunkArray([1,2,3,4,5], 2) → [[1,2],[3,4],[5]]
+// function chunkArray(arr, size) {
+//     let res = []
+//     for (let i = 0; i < arr.length; i += size) {
+//         res.push(arr.slice(i, i + size))
+//     }
+//     return res
+// }
+// console.log( chunkArray([1,2,3,4,5], 2));
+
+//! 3. debounce
+// Реализовать debounce(fn, delay) — функция должна вызываться только после того, как пользователь перестал вызывать её delay миллисекунд.
+// function debounce(fn, delay) {
+//     let timeout = null
+
+//     return (...args) => {
+
+//         if (timeout) {
+//             clearTimeout(timeout)
+//         }
+
+//         timeout = setTimeout(() => {
+//             return fn(...args)
+//         }, delay)
+//     }
+// }
+
+// // 💡 Пример:
+// const log = debounce(() => console.log("done"), 500);
+// log(); log(); log(); // Выведется только один раз через 500 мс
+
+// 4. flattenDeep
+// Расплющить массив любой глубины (аналог flat(Infinity)).
+
+// [1, [2, [3, [4]]]] → [1,2,3,4]
+// function flattenDeep(arr) {
+//     if (!Array.isArray(arr)) return arr
+
+//     let res = []
+
+//     arr.forEach(item => {
+//         if (Array.isArray(item)) {
+//            res = res.concat(flattenDeep(item))
+//         } else {
+//             res.push(item)
+//         }
+//     })
+//     return res
+// }
+// console.log(flattenDeep([1, 3, [2, [3, [4]]], 2, 5]));
+
