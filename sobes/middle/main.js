@@ -1284,7 +1284,15 @@
 
 // [1,1,2,2,3] → [1,2,3] (length = 3)
 // function removeDuplicatesInPlace(arr) {
-//   return arr.sort((a, b) => a - b).filter((item, index, arr) => arr[index] !== arr[index + 1]).length
+//     if (arr.length === 0) return 0
+//     let i = 0
+//     for (let j = 1; j < arr.length; j++) {
+//         if (arr[j] !== arr[i]) {
+//         i++
+//         arr[i] = arr[j]
+//         }
+//     }
+//     return i + 1 // новая длина без дубликатов
 // }
 // console.log(removeDuplicatesInPlace([1,1,2,2,3]));
 
@@ -1321,10 +1329,13 @@
 // const log = debounce(() => console.log("done"), 500);
 // log(); log(); log(); // Выведется только один раз через 500 мс
 
-// 4. flattenDeep
+//! 4. flattenDeep
 // Расплющить массив любой глубины (аналог flat(Infinity)).
 
 // [1, [2, [3, [4]]]] → [1,2,3,4]
+// const flattenDeep = arr =>
+//   arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flattenDeep(val) : val), []);
+
 // function flattenDeep(arr) {
 //     if (!Array.isArray(arr)) return arr
 
@@ -1341,3 +1352,160 @@
 // }
 // console.log(flattenDeep([1, 3, [2, [3, [4]]], 2, 5]));
 
+//! 5. deepEqual
+// Проверить, равны ли два объекта по значениям, включая вложенные объекты.
+// deepEqual({a:1,b:{c:2}}, {a:1,b:{c:2}}) → true
+// function deepEqual(obj1, obj2) {
+//     if (obj1 === obj2) return true
+//   if (obj1 === null || obj2 === null || typeof obj1 !== 'object' || typeof obj2 !== 'object') {
+//     return false
+//   }
+
+//     let keys1 = Object.keys(obj1)
+//     let keys2 = Object.keys(obj2)
+
+//     if (keys1.length !== keys2.length) return false
+
+//     for (let key of keys1) {
+//         if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) return false
+//     }
+//     return true
+// }
+// console.log(deepEqual({a:1,b:{c:2}}, {a:1,b:{c:2}}));
+
+//! 6. getNestedValue
+// Получить значение по пути из строки "a.b.c" внутри объекта.
+// function getNestedValue(obj, path) {
+//     let keys = path.split(".")
+//     let result;
+//     let currentPath = obj;
+//     for (let key of keys) {
+//         if (currentPath[key]) {
+//             currentPath = currentPath[key]
+//             result = currentPath
+//         }
+//     }
+//     return result
+// }
+// function getNestedValue(obj, path) {
+//   return path.split('.').reduce((acc, key) => acc?.[key], obj)
+// }
+
+// console.log(getNestedValue({a:{b:{c:10}}}, "a.b.c"));
+// getNestedValue({a:{b:{c:10}}}, "a.b.c") → 10
+
+//! 7. LRU Cache (упрощённо)
+// Реализовать класс LRUCache с методами get(key) и put(key, value).
+// При превышении лимита — удаляется наименее используемый элемент.
+
+// class LRUCache {
+//   constructor(limit) {
+//     this.limit = limit;
+//     this.cache = new Map()
+//   }
+
+//   get(key) {
+//     if (this.cache.has(key)) {
+//         const value = this.cache.get(key)
+//         this.cache.delete(key)
+//         this.cache.set(key, value)
+//         return value
+//     }
+//     return undefined
+//   }
+
+//   put(key, value) {
+//     if (this.cache.has(key)) {
+//         this.cache.delete(key)
+//     } else if (this.cache.size >= this.limit) {
+//         const oldestKey = this.cache.keys().next().value;
+//         this.cache.delete(oldestKey);
+//     }
+//     this.cache.set(key, value)
+//   }
+// }
+
+
+// // 💡 Пример:
+// const cache = new LRUCache(2);
+// cache.put("a", 1);
+// cache.put("b", 2);
+// cache.get("a"); // "a" становится самым новым
+// cache.put("c", 3); // "b" удаляется
+// console.log(cache);
+
+//! 8. throttle
+// Реализовать throttle(fn, limit) — ограничивает количество вызовов функции не чаще, чем раз в limit мс.
+// function throttle(fn, limit) {
+//     let isThrottled  = false
+//     let saveArgs = null
+
+//     return (...args) => {
+//         if (isThrottled ) {
+//             saveArgs = args
+//             return
+//         }
+        
+//         fn(...args)
+//         isThrottled  = true
+
+
+//         setTimeout(() => {
+//             isThrottled = false
+
+//             if (saveArgs) {
+//                 fn(...saveArgs)
+//                 saveArgs = null
+//             }
+//         }, limit)
+//     }
+// }
+
+// // 💡 Пример:
+// const log = throttle(() => console.log("click"), 3000);
+// window.addEventListener("click", log);
+
+//! 9. sumNested
+// Посчитать сумму всех чисел в массиве любой вложенности.
+// function sumNested(arr) {
+//     return arr.reduce((sum, val) => sum + (Array.isArray(val) ? sumNested(val) : val), 0)
+//     let newArr = arr.flat(Infinity)
+//     return newArr.reduce((acc, val) => acc + val, 0)
+// }
+// console.log(sumNested([1,[2,[3,4]],5]));// sumNested([1,[2,[3,4]],5]) → 15
+
+//! 10. binarySearch
+// Реализовать бинарный поиск по отсортированному массиву.
+// Возвращает индекс найденного элемента или -1.
+
+// binarySearch([1,2,3,4,5], 4) → 3
+function binarySearch(arr, target) {
+    // Литнейный поиск
+//   let middle = Math.floor(arr.length / 2)
+  
+//   if (target == arr[middle]) {
+//     return middle
+//   } else if (target > arr[middle]) {
+//     for (let i = middle; i < arr.length; i++) {
+//         if (target === arr[i]) return i
+//     }
+//   } else {
+//      for (let i = 0; i < middle; i++) {
+//         if (target === arr[i]) return i
+//     }
+//   }
+  
+// Правильная версия
+//     let left = 0
+//     let right = arr.length - 1
+
+//     while (left <= right) {
+//         const mid = Math.floor((left + right) / 2)
+        
+//         if (arr[mid] === target) return mid
+//         else if (arr[mid] < target) left = mid + 1
+//         else right = mid - 1
+//     }
+//     return i - 1
+// }
+// console.log(binarySearch([1,2,3,4,5], 4));
