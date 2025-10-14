@@ -1953,17 +1953,148 @@ console.log(reverseString("JavaScript"))
 
 //! 10. Самое длинное слово в строке
 // longestWord(str) → верни самое длинное слово в строке.
-function longestWord(str) {
-  let arr = str.split(" ")
-  let max = 0
-  let res = ''
-  arr.forEach(word => {
-    if (word.length > max) {
-      max = word.length
-      res = word
-    }
-  });
-  return res
-}
+// function longestWord(str) {
+//   let arr = str.split(" ")
+//   let max = 0
+//   let res = ''
+//   arr.forEach(word => {
+//     if (word.length > max) {
+//       max = word.length
+//       res = word
+//     }
+//   });
+//   return res
+// }
+// // Пример:
+// console.log(longestWord("I love programming so much")); // ➜ "programming"
+
+//! 1 uniqueBy
+
+// Напиши функцию uniqueBy(arr, key), которая убирает дубликаты объектов по определённому ключу.
+// function uniqueBy(arr, key) {
+//     if (!Array.isArray(arr)) return arr
+//     let seen = new Set()
+//     let result = []
+
+//     for (let i = 0; i < arr.length; i++) {
+//         const currentItem = arr[i];
+//         const propValue = currentItem[key]
+
+//         if (!seen.has(propValue)) {
+//             seen.add(propValue)
+//             result.push(currentItem)
+//         }
+        
+//     }
+//     return result
+// }
+// // // Пример:
+// console.log(uniqueBy([
+//   {id: 1, name: 'a'},
+//   {id: 2, name: 'b'},
+//   {id: 1, name: 'c'}
+// ], 'id'));
+// // → [{id:1,name:'a'}, {id:2,name:'b'}]
+
+//! 2 groupBy
+// Реализуй функцию groupBy(arr, key), которая группирует элементы массива по значению ключа.
+// function groupBy(arr, key) {
+//     let result = {}
+
+//     for (let i = 0; i < arr.length; i++) {
+//         const currentItem = arr[i]
+         
+//         if (currentItem[key]) {
+//             const currentValue = currentItem[key]
+            
+//             if (result[currentValue]) {
+//                 result[currentValue].push({name: currentItem.name})
+//             } else {
+//                 result[currentValue] = [{name: currentItem.name}]
+//             }
+//         }
+//     }
+//     return result
+// }
 // Пример:
-console.log(longestWord("I love programming so much")); // ➜ "programming"
+// console.log(groupBy([
+//   { type: 'fruit', name: 'apple' },
+//   { type: 'vegetable', name: 'carrot' },
+//   { type: 'fruit', name: 'banana' }
+// ], 'type'));
+// → {
+//   fruit: [{name:'apple'}, {name:'banana'}],
+//   vegetable: [{name:'carrot'}]
+// }
+
+//! 3 once
+// Создай функцию once(fn), которая позволяет вызвать fn только один раз.
+// Все последующие вызовы должны возвращать первый результат.
+// function once(fn) {
+//     let isActive = false
+//     let result = null
+
+//    return (...args) => {
+//      if (!isActive)  {
+//         isActive = true
+//         result = fn.apply(this, args)
+//      }
+//     return result
+    
+//    }
+// }
+// const hello = once(() => "Hi!");
+// console.log(hello()); // "Hi!"
+// console.log(hello()) // "Hi!" (но функция уже не выполняется повторно)
+
+//! 4 compose
+// Реализуй функцию compose(f, g), которая возвращает новую функцию,
+// выполняющую f(g(x)).
+// function compose(f, g) {
+//     return function(x) {
+//         let value = g(x)
+//         return f(value)
+//     }
+// }
+// const add1 = x => x + 1;
+// const double = x => x * 2;
+// const add1ThenDouble = compose(double, add1);
+// console.log(add1ThenDouble(2)); // 6
+
+//! 5 arrayDiff
+// Напиши функцию arrayDiff(a, b), которая возвращает массив a,
+// из которого удалены все элементы, встречающиеся в b.
+// function arrayDiff(a, b) {
+//     for (let i = 0; i < b.length; i++) {
+//       for (let j = a.length; j > 0 ; j--) {
+//           if (a[j] == b[i]) {
+//             a.splice(j, 1)
+//         }
+//       }
+//     }
+//     return a
+// }
+// console.log(arrayDiff([1,2,2,3], [2])); // → [1,3]
+
+//!6 flattenObject
+// Преобразуй вложенный объект в плоский с ключами через точку.
+// function flattenObject(obj) {
+//     let res = {}
+
+//     for (let key in obj) {
+//         if (typeof obj[key] === 'object') {
+//             let flattened = flattenObject(obj[key])
+//             for (let subKey in flattened) {
+//                 let newKey = key + '.' + subKey
+//                 res[newKey] = flattened[subKey]
+//             }
+            
+//         } else {
+//             res[key] = obj[key]
+//         }
+//     }
+//     return res
+// }
+// console.log(flattenObject({ a: { b: { c: 1 } }, d: 2 }));
+// // → { "a.b.c": 1, d: 2 }
+
