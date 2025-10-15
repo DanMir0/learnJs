@@ -1479,7 +1479,7 @@
 // Возвращает индекс найденного элемента или -1.
 
 // binarySearch([1,2,3,4,5], 4) → 3
-function binarySearch(arr, target) {
+//function binarySearch(arr, target) {
     // Литнейный поиск
 //   let middle = Math.floor(arr.length / 2)
   
