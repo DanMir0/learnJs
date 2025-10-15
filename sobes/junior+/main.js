@@ -2098,3 +2098,79 @@ console.log(reverseString("JavaScript"))
 // console.log(flattenObject({ a: { b: { c: 1 } }, d: 2 }));
 // // → { "a.b.c": 1, d: 2 }
 
+//! 7 deepClone
+// Реализуй глубокое копирование объекта без использования structuredClone или _.cloneDeep.
+// function deepClone(obj) {
+//     if (obj === null || typeof obj !== 'object') return obj
+
+//     if (Array.isArray(obj)) return obj.map(item => deepClone(item))
+
+//     let copy = {}
+
+//     for (let key in obj) {
+//         copy[key] = deepClone(obj[key])
+//     }
+
+//     return copy
+// }
+// const obj = { a:1, b:{ c:2 } }
+// const copy = deepClone(obj)
+// obj.b.c = 5
+// console.log(copy.b.c) // 2
+
+//! 8 intersection
+// Реализуй функцию intersection(arr1, arr2), которая возвращает массив общих элементов без дубликатов.
+// function intersection(arr1, arr2) {
+//     let set = new Set(arr2)
+//     return arr1.filter(item => set.has(item))
+// }
+// console.log(intersection([1,2,3,4], [3,4,5,6]) );// → [3,4]
+
+//! 9 deepMerge
+// Напиши функцию deepMerge(obj1, obj2), которая рекурсивно объединяет два объекта.
+// Если значения — объекты, нужно объединять их, иначе перезаписывать.
+// function deepMerge(obj1, obj2) {
+//     let result = deepClone(obj1)
+
+//     for (key in obj2) {
+//         if (typeof result[key] === 'object' && 
+//             typeof obj2[key] === 'object' && 
+//             result[key] !== null && 
+//             obj2[key] !== null) {
+//             result[key] = deepMerge(result[key], obj2[key])
+//         } else {
+//             result[key] = obj2[key]
+//         }
+//     }
+//     return result
+// }
+// function deepClone(obj) {
+//     if (obj === null || typeof obj !== 'object') return obj
+
+//     if (Array.isArray(obj)) return obj.map(item => deepClone(item))
+
+//     let copy = {}
+
+//     for (let key in obj) {
+//         copy[key] = obj[key]
+//     }
+
+//     return copy
+// }
+// console.log(deepMerge({a:1,b:{c:2}}, {b:{d:3},e:4})); // → {a:1,b:{c:2,d:3},e:4}
+
+//! 10 sleep
+// Создай функцию sleep(ms), которая возвращает промис,
+// резолвящийся через ms миллисекунд.
+// Добавь пример использования с async/await.
+// function sleep(ms) {
+//     return new Promise((resolve) => setTimeout(() => resolve(), ms))
+//     return new Promise(resolve => setTimeout(resolve, ms));
+// }
+// (async function() {
+//     console.log("Start");
+//     await sleep(1000);
+//     console.log("1 секунда прошла");
+//     await sleep(2000);
+//     console.log("Еще 2 секунды прошли");
+// })();
