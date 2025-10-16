@@ -1272,12 +1272,6 @@
 // }
 // console.log(maxSubArray([[1,2,3],[7,7,7],[9,2,9,9]]));
 
-// LinkedList → Array
-// Реализуй функцию, которая преобразует связанный список в массив.
-
-// LRU Cache (упрощённо)
-// Реализуй класс LRUCache с методами get и put (ограниченная память).
-
 //! 1. removeDuplicatesInPlace
 // Удалить дубликаты на месте (без Set и без создания нового массива).
 // Возвращает новый length без дубликатов.
@@ -1509,3 +1503,120 @@
 //     return i - 1
 // }
 // console.log(binarySearch([1,2,3,4,5], 4));
+
+//! 1. LRU Cache (Least Recently Used)
+// Реализуй структуру данных с методами:
+// class LRUCache {
+//     constructor(limit) {
+//         this.limit = limit
+//         this.cache = new Map()
+//     }
+
+//     get(key) {
+//         if (!this.cache.has(key)) {
+//             return null
+//         }
+//         const value = this.cache.get(key)
+//         this.map.delete(key)
+//         this.map.set(key, value)
+//         return value
+//     }
+
+//     put(key, value) {
+//         if (this.map.has(key)) this.map.delete(key)
+//         else if (this.map.size >= this.limit) {
+//             const oldSet = this.map.get(key)
+//             this.map.delete(oldSet)
+//         }
+//         this.map.set(key, oldSet)
+//     }
+// }
+// const cache = new LRUCache(2);
+// cache.put('a', 1);
+// cache.put('b', 2);
+// cache.get('a');
+// cache.put('c', 3);
+// console.log([...cache.map]);
+
+//! 2. debounce(fn, delay)
+// Реализуй debounce, который вызывает функцию не чаще, чем раз в delay миллисекунд после последнего вызова.
+// Пример:
+// function debounce(fn, ms) {
+//     let timeout = null
+
+//     return (...args) => {
+//         if (timeout) clearTimeout(timeout)
+
+//         timeout = setTimeout(() => {
+//             fn(args)
+//         }, ms)
+//     }
+   
+// }
+// const debounced = debounce(() => console.log('Hi'), 1000);
+// debounced(); debounced(); debounced(); // выведет "Hi" один раз через 1с
+
+//! 3. throttle(fn, delay)
+// Сделай функцию throttle, которая вызывает fn не чаще одного раза в delay миллисекунд.
+// function throttle(fn, delay) {
+//     let isThrottle = false
+//     let saveArgs = null
+
+//     return (...args) => {
+//         if (isThrottle) {
+//             saveArgs = args
+//             return
+//         }
+
+//         fn(...args)
+//         isThrottle = true
+
+//         setTimeout(() => {
+//             isThrottle = false
+
+//             if (saveArgs) {
+//                 fn(saveArgs)
+//                 saveArgs = null
+//             }
+//         }, delay)
+//     }
+// }
+// const click = throttle(() => console.log('click...'), 2000);
+// window.addEventListener('click', click);
+
+//! 4. EventEmitter
+// Реализуй класс с методами:
+// on(event, listener)
+// off(event, listener)
+// emit(event, ...args)
+// class EventEmitter {
+//     constructor() {
+//         this.events = {}
+//     }
+
+//     on(event, listener) {
+//         if (!this.events[event]) {
+//             this.events[event] = []
+//         } 
+//         this.events[event].push(listener)
+//     }
+  
+//     off(event, listener) {
+//        if (!this.events[event]) return 
+//         this.events[event] = this.events[event].filter(fn => fn !== listener)
+//     }
+  
+//     emit(event, ...args) {
+//         if (!this.events[event]) return
+
+//         this.events[event].forEach(fn => fn(...args))
+//     }
+// }
+// const emitter = new EventEmitter();
+// function greet(name) { console.log(`Hello ${name}`); }
+// emitter.on('hi', greet);
+// emitter.emit('hi', 'Alex'); // Hello Alex
+// emitter.off('hi', greet);
+// console.log(emitter);
+
+
