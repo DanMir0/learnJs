@@ -1517,18 +1517,18 @@
 //             return null
 //         }
 //         const value = this.cache.get(key)
-//         this.map.delete(key)
-//         this.map.set(key, value)
+//         this.cache.delete(key)
+//         this.cache.set(key, value)
 //         return value
 //     }
 
 //     put(key, value) {
-//         if (this.map.has(key)) this.map.delete(key)
-//         else if (this.map.size >= this.limit) {
-//             const oldSet = this.map.get(key)
-//             this.map.delete(oldSet)
+//         if (this.cache.has(key)) this.cache.delete(key)
+//         else if (this.cache.size >= this.limit) {
+//             const oldSet = this.cache.get(key)
+//             this.cache.delete(oldSet)
 //         }
-//         this.map.set(key, oldSet)
+//         this.cache.set(key, oldSet)
 //     }
 // }
 // const cache = new LRUCache(2);
@@ -1548,7 +1548,7 @@
 //         if (timeout) clearTimeout(timeout)
 
 //         timeout = setTimeout(() => {
-//             fn(args)
+//             fn(...args)
 //         }, ms)
 //     }
    
@@ -1575,7 +1575,7 @@
 //             isThrottle = false
 
 //             if (saveArgs) {
-//                 fn(saveArgs)
+//                 fn(...saveArgs)
 //                 saveArgs = null
 //             }
 //         }, delay)
@@ -1619,4 +1619,172 @@
 // emitter.off('hi', greet);
 // console.log(emitter);
 
+//! 6. Implement Promise.all
+// Реализуй собственную версию Promise.all(promises), которая возвращает массив результатов,
+// или ошибку, если хотя бы один промис отклонён.
+// function PromiseAll(promises) {
+//     return new Promise((resolve, reject) => {
+//         let results = []
+//         let completed = 0
 
+//         promises.forEach((promise, index) => {
+//             promise.then((value) => {
+//                 results[index] = value
+//                 completed++
+//                 if (completed === promises.length) {
+//                     resolve(results)
+//                 }
+//             }).catch(reject)
+//         })
+//     })
+// }
+
+// const promises = [
+//     Promise.resolve(1),
+//     Promise.resolve(2),
+//     Promise.resolve(3)
+// ];
+
+// PromiseAll(promises).then(console.log);
+
+//! 7. Deep Compare
+// Напиши функцию deepEqual(obj1, obj2), которая сравнивает объекты и вложенные структуры по значению,
+// а не по ссылке.
+// function deepEqual(obj1, obj2) {
+//     if (obj1 === obj2) return true
+
+//     if (obj1 === null || obj2 === null || typeof obj1 !== 'object' || typeof obj2 !== 'object') {
+//         return false
+//     }
+
+//     let keys1 = Object.keys(obj1)
+//     let keys2 = Object.keys(obj2)
+
+//     if (keys1.length !== keys2.length) return false
+
+//     for (let key of keys1) {
+//         if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+//             return false
+//         }
+//     }
+//     return true
+// }
+// console.log(deepEqual({ a:1, b:{ c:2 } }, { a:1, b:{ c:2 } })); // trye
+// console.log(deepEqual({ a:1, b:2 }, { a:1, b:3 })); // false
+
+//! 8. Retry Function
+// Напиши функцию retry(fn, times), которая выполняет fn() и, если она кидает ошибку,
+// повторяет попытку до times раз.
+// function retry(fn, times) {
+//     return fn().catch(err => {
+//         if (times <= 1) throw err
+//         return retry(fn, times - 1)
+//     })
+// }
+
+// function retry(fn, times) {
+//     return new Promise((resolve, reject) => {
+//         function attempt() {
+//             fn()
+//             .then(resolve)
+//             .catch(error =>{
+//                 times--
+//                 if (times === 0) reject(error)
+//                 else attempt()
+//             })
+//         }
+//         attempt()
+//     })
+// }
+
+// let attempts = 0;
+
+// const unstableFn = () => {
+//   attempts++;
+//   if (attempts < 3) throw new Error("Ошибка!");
+//   return "Успех!";
+// };
+
+// retry(unstableFn, 5)
+//   .then(console.log)
+//   .catch(console.error);
+
+//! 9. Limit Concurrent Promises
+// Напиши функцию limitConcurrency(promises, limit),
+// которая запускает одновременно не больше limit промисов.
+// function limitConcurrency(promises, limit) {
+//     const results = new Array(promises.length)
+//     let activeCount = 0
+//     let currentIndex = 0
+
+//     return new Promise((resolve) => {
+//         function runNext() {
+//             if (currentIndex >= promises.length && activeCount === 0) {
+//                 resolve(results)
+//                 return
+//             }
+            
+//             // Перенесем цикл ВНУТРЬ runNext
+//             while (activeCount < limit && currentIndex < promises.length) {
+//                 const index = currentIndex;
+//                 const promiseFactory = promises[currentIndex];
+
+//                 activeCount++
+//                 currentIndex++
+
+//                 promiseFactory()
+//                     .then(result => {
+//                         results[index] = result
+//                     })
+//                     .catch(error => {
+//                         results[index] = error
+//                     })
+//                     .finally(() => {
+//                         activeCount--;
+//                         runNext()
+//                     })
+//             }
+//         }
+        
+//         runNext() // ← ТОЛЬКО ОДИН вызов!
+//     })
+// }
+
+// const wait = ms => new Promise(res => setTimeout(res, ms));
+
+// const tasks = [
+//   () => wait(1000).then(() => 1),
+//   () => wait(500).then(() => 2),
+//   () => wait(300).then(() => 3),
+//   () => wait(400).then(() => 4)
+// ];
+
+// limitConcurrency(tasks, 2).then(console.log);
+
+//! 10. Memoize
+// Реализуй функцию memoize(fn), которая кеширует результаты вызова fn по аргументам.
+function memoize(fn) {
+    let cache = {}
+
+    return (...args) => {
+        if (cache[args]) {
+            return cache[args]
+        } else {
+            let result = fn(...args)
+            cache[args] = result
+            return cache[args]
+        }
+    }
+}
+
+let calls = 0;
+const slowSquare = n => {
+  calls++;
+  return n * n;
+};
+
+const fastSquare = memoize(slowSquare);
+
+console.log(fastSquare(5)); // 25
+console.log(fastSquare(5)); // 25 — из кэша
+console.log(calls); // 1
