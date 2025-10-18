@@ -2174,3 +2174,85 @@ console.log(reverseString("JavaScript"))
 //     await sleep(2000);
 //     console.log("Еще 2 секунды прошли");
 // })();
+
+//! filterFalsy
+// Удаляет из массива все falsy значения (false, 0, "", null, undefined, NaN).
+// function filterFalsy(arr) {
+//   return arr.filter(Boolean)
+// }
+// console.log(filterFalsy([0, 1, false, 2, '', 3, null])); // → [1, 2, 3]
+
+//! wordFrequency
+// Подсчитывает частоту каждого слова в строке.
+// function wordFrequency(str) {
+//   return str.split(" ").reduce((acc, word) => {
+//     if (acc[word]) {
+//       acc[word] += 1
+//     } else {
+//       acc[word] = 1
+//     }
+//     return acc
+//   }, {})
+// }
+// console.log(wordFrequency("hello world hello")) // → { hello: 2, world: 1 }
+
+//! isPalindromeAdvanced
+// Проверяет строку, игнорируя регистр и пробелы.
+// function isPalindromeAdvanced(str) {
+//   str = str.toLowerCase().replace(/[^a-zа-я0-9]/gi, "")
+//   return str === str.split("").reverse().join("")
+
+// }
+// console.log(isPalindromeAdvanced("A man a plan a canal Panama")); // → true
+// console.log(isPalindromeAdvanced("Hello")); // → false
+
+//! intersection
+// Находит пересечение двух массивов (общие элементы).
+// function intersection(arr1, arr2) {
+//   //return arr1.filter(item => arr2.includes(item))
+//   // Если нужны уникальные
+//   let set = new Set(arr2)
+//   return arr1.filter(item => set.has(item))
+// }
+// console.log(intersection([1,2,3,4], [3,4,5]) )// → [3,4]
+
+//! groupByType
+// Группирует элементы массива по типу (typeof).
+// function groupByType(arr) {
+//   let results = {}
+  
+//   arr.forEach(element => {
+//     const key = typeof element
+
+//     if (results[key]) {
+//       results[key].push(element)
+//     } else {
+//       results[key] = [element]
+//     }
+//   });
+//   return results
+// }
+// console.log(groupByType([1, 'a', true, 2])) // → { number: [1,2], string: ['a'], boolean: [true] }
+
+//! removeDuplicateChars
+// Удаляет повторяющиеся символы в строке, оставляя первый вариант.
+// function removeDuplicateChars(str) {
+//   return [...new Set(str.split(""))].join("").toString()
+// }
+// console.log(removeDuplicateChars('aabbccdde')) // → 'abcde'
+
+//! isAdult
+// Отбирает пользователей старше или равных 18 лет.
+// function isAdult(arr) {
+//   return arr.filter(user => user?.age > 18)
+// }
+// console.log(isAdult([{ name:'A', age:17},{ name:'A',}, { name:'B', age:22 }])) // → [{name:'B', age:22}]
+
+//! maxMinDiff
+// Вычитание: максимум минус минимум в массиве.
+function maxMinDiff(arr) {
+  return Math.max(...arr) - Math.min(...arr)
+}
+console.log(maxMinDiff([5,10,2])) // → 8
+
+
