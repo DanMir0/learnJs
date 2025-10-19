@@ -2250,9 +2250,16 @@ console.log(reverseString("JavaScript"))
 
 //! maxMinDiff
 // Вычитание: максимум минус минимум в массиве.
-function maxMinDiff(arr) {
-  return Math.max(...arr) - Math.min(...arr)
+// function maxMinDiff(arr) {
+//   return Math.max(...arr) - Math.min(...arr)
+// }
+// console.log(maxMinDiff([5,10,2])) // → 8
+
+
+//! removeKey
+// Удаляет свойство из объекта по ключу.
+function removeKey(obj, key) {
+  delete obj[key]
+  return obj
 }
-console.log(maxMinDiff([5,10,2])) // → 8
-
-
+console.log(removeKey({a:1, b:2}, 'a')) // → { b:2 }
