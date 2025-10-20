@@ -2258,8 +2258,111 @@ console.log(reverseString("JavaScript"))
 
 //! removeKey
 // Удаляет свойство из объекта по ключу.
-function removeKey(obj, key) {
-  delete obj[key]
-  return obj
+// function removeKey(obj, key) {
+//   delete obj[key]
+//   return obj
+// }
+// console.log(removeKey({a:1, b:2}, 'a')) // → { b:2 }
+
+//! countUniqueWords
+// Считает количество уникальных слов в строке.
+// function countUniqueWords(str) {
+//   return [...new Set(str.split(" "))].length
+// }
+// console.log(countUniqueWords("hi hi hello")); // → 2
+
+//! uniqueBy
+// Убирает дубликаты объектов по заданному ключу.
+// function uniqueBy(arr, key) {
+//   let seen = new Set()
+//   let results = []
+//   arr.forEach(obj => {
+//     if (!seen.has(obj[key])) {
+//       seen.add(obj[key])
+//       results.push(obj)
+//     }
+//   })
+//   return results
+// }
+// console.log(uniqueBy([
+//   {id:1, name:'A'},
+//   {id:2, name:'B'},
+//   {id:1, name:'C'}
+// ], 'id')); // → [{id:1, name:'A'}, {id:2, name:'B'}]
+
+//! once
+// Функция, которую можно вызвать только один раз — последующие вызовы возвращают тот же результат.
+// function once(fn) {
+//   let isActive = false
+//   let result = null
+
+//   if (isActive) return result
+
+//   return (...args) => {
+//     isActive = true
+//     result = fn(...args)
+//   }
+// }
+// const sayHi = once(() => console.log("Hello"));
+// sayHi(); // → "Hello"
+// sayHi(); // → "Hello", но не вызывает оригинальную функцию вновь
+
+//! compose
+// Композиция функций: compose(f, g)(x) = f(g(x)).
+// function compose(f, g) {
+//   return (x) => {
+//       let res = g(x)
+//       return f(res)
+//   }
+// }
+// const add = x => x + 1;
+// const mul2 = x => x * 2;
+// const f = compose(mul2, add);
+// console.log(f(3)); // → 8 (add(3)=4, mul2(4)=8)
+
+//! arrayDiff
+// Удаление всех элементов из a, которые присутствуют в b.
+// function arrayDiff(a, b) {
+//   return a.filter(item => !b.includes(item))
+// }
+// console.log(arrayDiff([1,2,2,3], [2])) // → [1,3]
+
+
+//! flattenObject
+// Преобразование вложенного объекта в “плоский” с ключами через точки.
+function flattenObject(obj, prefix = '') {
+    let res = {}
+    
+    for (let key in obj) {
+        const newKey = prefix ? `${prefix}.${key}` : key;
+        
+        if (typeof obj[key] === 'object') {
+            // Рекурсия с новым префиксом
+            Object.assign(res, flattenObject(obj[key], newKey));
+        } else {
+            res[newKey] = obj[key];
+        }
+    }
+    
+    return res;
 }
-console.log(removeKey({a:1, b:2}, 'a')) // → { b:2 }
+
+function flattenObject(obj) {
+    let res = {}
+
+    for (let key in obj) {
+        if (typeof obj[key] === 'object') {
+            let flattened = flattenObject(obj[key])
+            for (let subKey in flattened) {
+                let newKey = key + '.' + subKey
+                res[newKey] = flattened[subKey]
+            }
+            
+        } else {
+            res[key] = obj[key]
+        }
+    }
+    return res
+}
+
+console.log(flattenObject({ a:{ b:{ c:1 } }, d:2 })) // → { "a.b.c": 1, d: 2 }
