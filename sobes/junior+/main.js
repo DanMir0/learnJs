@@ -2244,7 +2244,7 @@ console.log(reverseString("JavaScript"))
 //! isAdult
 // Отбирает пользователей старше или равных 18 лет.
 // function isAdult(arr) {
-//   return arr.filter(user => user?.age > 18)
+//   return arr.filter(user => user?.age >= 18)
 // }
 // console.log(isAdult([{ name:'A', age:17},{ name:'A',}, { name:'B', age:22 }])) // → [{name:'B', age:22}]
 
@@ -2296,11 +2296,12 @@ console.log(reverseString("JavaScript"))
 //   let isActive = false
 //   let result = null
 
-//   if (isActive) return result
-
 //   return (...args) => {
-//     isActive = true
-//     result = fn(...args)
+//     if (!isActive) {
+//         isActive = true
+//         result = fn(...args)
+//     }
+//     return result
 //   }
 // }
 // const sayHi = once(() => console.log("Hello"));
@@ -2330,39 +2331,162 @@ console.log(reverseString("JavaScript"))
 
 //! flattenObject
 // Преобразование вложенного объекта в “плоский” с ключами через точки.
-function flattenObject(obj, prefix = '') {
-    let res = {}
+// function flattenObject(obj, prefix = '') {
+//     let res = {}
     
-    for (let key in obj) {
-        const newKey = prefix ? `${prefix}.${key}` : key;
+//     for (let key in obj) {
+//         const newKey = prefix ? `${prefix}.${key}` : key;
         
-        if (typeof obj[key] === 'object') {
-            // Рекурсия с новым префиксом
-            Object.assign(res, flattenObject(obj[key], newKey));
-        } else {
-            res[newKey] = obj[key];
-        }
-    }
+//         if (typeof obj[key] === 'object' && obj[key] !== null) {
+//             // Рекурсия с новым префиксом
+//             Object.assign(res, flattenObject(obj[key], newKey));
+//         } else {
+//             res[newKey] = obj[key];
+//         }
+//     }
     
-    return res;
-}
+//     return res;
+// }
 
-function flattenObject(obj) {
-    let res = {}
+// function flattenObject(obj) {
+//     let res = {}
 
-    for (let key in obj) {
-        if (typeof obj[key] === 'object') {
-            let flattened = flattenObject(obj[key])
-            for (let subKey in flattened) {
-                let newKey = key + '.' + subKey
-                res[newKey] = flattened[subKey]
-            }
+//     for (let key in obj) {
+//         if (typeof obj[key] === 'object') {
+//             let flattened = flattenObject(obj[key])
+//             for (let subKey in flattened) {
+//                 let newKey = key + '.' + subKey
+//                 res[newKey] = flattened[subKey]
+//             }
             
-        } else {
-            res[key] = obj[key]
-        }
-    }
-    return res
-}
+//         } else {
+//             res[key] = obj[key]
+//         }
+//     }
+//     return res
+// }
 
-console.log(flattenObject({ a:{ b:{ c:1 } }, d:2 })) // → { "a.b.c": 1, d: 2 }
+// console.log(flattenObject({ a:{ b:{ c:1 } }, d:2 })) // → { "a.b.c": 1, d: 2 }
+
+//! 1. deepClone
+// Сделай глубокое копирование объекта (включая вложенные объекты и массивы).
+// function deepClone(obj) {
+//     if (obj === null || typeof obj !== 'object') {
+//         return obj
+//     }
+
+//     if (Array.isArray(obj)) return obj.map(item = deepClone(item))
+
+//     let copy = {}
+
+//     for (let key in obj) {
+//         copy[key] = deepClone(obj[key])
+//     }
+//     return copy
+// }
+// const obj = { a: 1, b: { c: 2 } };
+// let copy = deepClone(obj) // → { a: 1, b: { c: 2 } } (новый объект)
+// obj.a = 2
+// console.log(copy);
+// console.log(obj);
+
+//! 2. chunkArray
+// Разбей массив на подмассивы длиной n.
+// function chunkArray(arr, size) {
+//     if (!Array.isArray(arr) || arr === null) return arr
+
+//     let results = []
+
+//     for (let i = 0; i < arr.length; i+= size) {
+//         let subArr = arr.slice(i, i + size)
+//         results.push(subArr)
+//     }
+//     return results
+// }
+// console.log(chunkArray([1,2,3,4,5], 2)) // → [[1,2], [3,4], [5]]
+
+//! 3. flattenArray
+// "Сплющи" многомерный массив в одномерный.
+// function flattenArray(arr) {
+//     let result = []
+//     if (!Array.isArray(arr) || arr === null) return arr
+//     arr.forEach(item => {
+//         if (Array.isArray(item)) {
+//             result = result.concat(flattenArray(item))
+//         } else {
+//             result.push(item)
+//         }
+//     })
+//     return result
+//     // return arr.flat(Infinity)
+// }
+// console.log(flattenArray([1, [2, [3, [4]]]])) // → [1,2,3,4]
+
+//! 4. uniqueValues
+// Верни массив уникальных значений (без Set).
+// function uniqueValues(arr) {
+//     if (!Array.isArray(arr) || arr === null) return arr
+//     return arr.reduce((acc, item) => {
+//         if (!acc.includes(item)) {
+//             acc.push(item)
+//         }
+//         return acc
+//     }, [])
+// }
+// console.log(uniqueValues([1,2,2,3,1])) // → [1,2,3]
+
+//! 5. countChars
+// Подсчитай количество каждого символа в строке.
+// function countChars(str) {
+//    const arr = str.split("")
+//    return arr.reduce((acc, char) => {
+//         if(acc[char]) {
+//             acc[char] += 1
+//         } else {
+//             acc[char] = 1
+//         }
+//         return acc
+//    },{})
+// }
+// console.log(countChars("hello")) // → { h:1, e:1, l:2, o:1 }
+
+//! 6. invertObject
+// Поменяй местами ключи и значения в объекте.
+// function invertObject(obj) {
+//     let newObj = {}
+//     for (let key in obj) {
+//         const value = obj[key]
+//         newObj[value] = key
+//     }
+//     return newObj
+// }
+// console.log(invertObject({ a: 1, b: 2 })) // → { 1: 'a', 2: 'b' }
+
+//! 7. capitalizeWords
+// Сделай первую букву каждого слова заглавной.
+// function capitalizeWords(str) {
+//     let arrWords = str.split(" ")
+//     return arrWords.map(word => word[0].toUpperCase() + word.slice(1)).join(" ").toString()
+// }
+// console.log(capitalizeWords("hello world from js") )// → "Hello World From Js"
+
+//! 8. findPairs
+// Найди все пары чисел, сумма которых равна заданному числу.
+// function findPairs(arr, search) {
+//     if (!Array.isArray(arr) || arr === null) return arr
+//     let results = []
+//     let seen = new Set()
+
+//     for (let i = 0; i < arr.length; i++) {
+
+//         let findPairs = search - arr[i]
+
+//         if (seen.has(findPairs)) {
+//             results.push([findPairs, arr[i]])
+//         }
+
+//         seen.add(arr[i])
+//     }
+//     return results
+// }
+// console.log(findPairs([1, 2, 3, 4, 5], 5)) // → [[1,4],[2,3]]
