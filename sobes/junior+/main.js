@@ -2375,7 +2375,7 @@ console.log(reverseString("JavaScript"))
 //         return obj
 //     }
 
-//     if (Array.isArray(obj)) return obj.map(item = deepClone(item))
+//     if (Array.isArray(obj)) return obj.map(item => deepClone(item))
 
 //     let copy = {}
 
@@ -2490,3 +2490,157 @@ console.log(reverseString("JavaScript"))
 //     return results
 // }
 // console.log(findPairs([1, 2, 3, 4, 5], 5)) // → [[1,4],[2,3]]
+
+//! 9. debounce
+// Создай функцию-декоратор, которая откладывает вызов функции до тех пор, пока не прекратятся частые вызовы.
+// function debounce(fn, delay) {
+//   let timeoutId = null
+ 
+//   return (...args) => {
+//      if (timeoutId) {
+//       clearTimeout(timeoutId)
+//     }
+
+//     timeoutId = setTimeout(() => {
+      
+//       return fn(...args)
+//     }, delay)
+//   }
+// }
+// const fn = () => console.log('run');
+// const debounced = debounce(fn, 500);
+// debounced(); debounced(); debounced(); // → вызов только один, через 500 мс
+
+//! 10. getPathValue
+// Достань значение из объекта по пути в виде строки.
+// function getPathValue(obj, path = '') {
+//   const keys = path.split('.')
+//   let current = obj
+ 
+//   for (let key of keys) {
+//     if (current && typeof current === 'object') {
+//       current = current[key]
+//     } else {
+//       return undefined
+//     }
+//   }
+//   return current
+// }
+// function getPathValue(obj, path = '') {
+//   const keys = path.split('.')
+
+//   if (keys.length === 0) return obj
+
+//   const currentkey = keys[0]
+//   const remainingPath = keys.slice(1).join('.')
+
+//   if (obj && typeof obj === 'object' && currentkey in obj) {
+//     return getPathValue(obj[currentkey], remainingPath)
+//   }
+
+//   return undefined
+// }
+// const obj = { a: { b: { c: 42 } } };
+// console.log(getPathValue(obj, 'a.b.c')) // → 42
+
+//! 11. sumByKey
+// Посчитай сумму чисел по ключу у массива объектов.
+// function sumByKey(arr, key) {
+//   return arr.reduce((acc, obj) => {
+//     if (obj[key]) {
+//       acc += obj[key]
+//     }
+//     return acc
+//   } ,0)
+// }
+// console.log(sumByKey([{a:10},{a:20},{a:5}], 'a')) // → 35
+
+//! 12. isAnagram
+// Проверь, являются ли две строки анаграммами.
+// function isAnagram(str1, str2) {
+//   str1 = str1.toLowerCase().split('').sort().join("")
+//   str2 = str2.toLowerCase().split('').sort().join("")
+//   return str1 === str2
+// }
+// console.log(isAnagram("listen", "silent")) // → true
+// console.log(isAnagram("apple", "pale")) // → false
+
+//! 13. sleep
+// Создай функцию, возвращающую Promise, который выполнится через n миллисекунд.
+// function sleep(delay) {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(resolve, delay)
+//   })
+    
+// }
+// async function test() {
+//   console.log(await sleep(1000))
+//   console.log('1 секунда прошла');
+// }
+// test()
+
+//! 14. pipe
+// Создай функцию pipe, которая принимает несколько функций и выполняет их по цепочке:
+// function pipe(fn1, fn2) {
+//   return (...args) => {
+//     const res = fn1(...args)
+//     return fn2(res)
+//   }
+// }
+// function pipe(...fns) {
+//   return function(...args) {
+//     return fns.reduce((currentValue, currentFn) => {
+//       return currentFn(currentValue)
+//     }, args[0])
+//   }
+// }
+// function pipe(...fns) {
+//   return function(...args) {
+//     return fns.reduce((acc, fn) => fn(acc), args[0]);
+//   };
+// }
+// const add1 = x => x + 1;
+// const double = x => x * 2;
+// console.log(pipe(add1, double)(3)); // → 8 (сначала 3+1=4, потом *2=8)
+
+//! 15. mergeArraysById
+// Объедини два массива объектов по id, сохранив уникальные.
+// function mergeArraysById(arr1, arr2) {
+//   let results = []
+//   let seen = new Set()
+//   arr1.forEach(obj => {
+  
+//      if (!seen.has(obj.id)) {
+//       results.push(obj);
+//       seen.add(obj.id);
+//     }
+
+//   })
+
+//   arr2.forEach(obj => {
+  
+//     if (!seen.has(obj.id)) {
+//       results.push(obj)
+//       seen.add(obj.id)
+//     } else {
+//       const index = results.findIndex(item => item.id === obj.id)
+//       if (index !== -1) {
+//         results[index] = obj
+//       }
+//     }    
+//   })
+
+//   return results
+// }
+// function mergeArraysById(arr1, arr2) {
+//   const map = new Map()
+
+//   arr1.forEach(obj => map.set(obj.id, obj));
+//   arr2.forEach(obj => map.set(obj.id, obj))
+
+//   return Array.from(map.values())
+// }
+// const arr1 = [{id:1, name:'A'}, {id:2, name:'B'}];
+// const arr2 = [{id:2, name:'C'}, {id:3, name:'D'}];
+// console.log(mergeArraysById(arr1, arr2));
+// → [{id:1,name:'A'}, {id:2,name:'C'}, {id:3,name:'D'}]
