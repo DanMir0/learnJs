@@ -1763,28 +1763,173 @@
 
 //! 10. Memoize
 // Реализуй функцию memoize(fn), которая кеширует результаты вызова fn по аргументам.
-function memoize(fn) {
-    let cache = {}
+// function memoize(fn) {
+//     let cache = {}
 
-    return (...args) => {
-        if (cache[args]) {
-            return cache[args]
-        } else {
-            let result = fn(...args)
-            cache[args] = result
-            return cache[args]
-        }
-    }
-}
+//     return (...args) => {
+//         if (cache[args]) {
+//             return cache[args]
+//         } else {
+//             let result = fn(...args)
+//             cache[args] = result
+//             return cache[args]
+//         }
+//     }
+// }
 
-let calls = 0;
-const slowSquare = n => {
-  calls++;
-  return n * n;
-};
+// let calls = 0;
+// const slowSquare = n => {
+//   calls++;
+//   return n * n;
+// };
 
-const fastSquare = memoize(slowSquare);
+// const fastSquare = memoize(slowSquare);
 
-console.log(fastSquare(5)); // 25
-console.log(fastSquare(5)); // 25 — из кэша
-console.log(calls); // 1
+// console.log(fastSquare(5)); // 25
+// console.log(fastSquare(5)); // 25 — из кэша
+// console.log(calls); // 1
+
+//! 1. Promise.allSettled
+// Реализуй свою версию Promise.allSettled(promises)
+// Она должна возвращать массив с объектами формата {status: 'fulfilled', value} или {status: 'rejected', reason}.
+// function allSettled(promises) {
+//   const wrappedPromises = promises.map(promise => {
+//     return promise
+//       .then(value => ({status: 'fulfilled', value}))
+//       .catch(reason => ({status: 'rejected', reason}))
+//   })
+
+//   return Promise.all(wrappedPromises)
+// }
+// const p1 = Promise.resolve(1);
+// const p2 = Promise.reject('err');
+// Promise.allSettled([p1, p2])
+// → [{status:'fulfilled', value:1}, {status:'rejected', reason:'err'}]
+
+//! 2. Timeout Promise
+// Создай функцию timeout(promise, ms), которая отклоняет промис, если тот не завершился за ms миллисекунд.
+// function timeout(promise, ms) {
+//   const a = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       reject(new Error("Timeoit"))
+//     }, ms)
+//   })
+//   const result = Promise.race([promise, a])
+//   return result
+// }
+// function fetchData() {
+//     return new Promise(resolve => {
+//         setTimeout(() => {
+//             resolve("Data received")
+//         }, 100)
+//     })
+// }
+// timeout(fetchData(), 1000)
+// → Reject, если fetchData() дольше 1 сек
+
+//! 3. Sequential Promises
+// Реализуй выполнение массива промисов по очереди, а не одновременно.
+
+// sequentialPromises([() => delay(1000, 'a'), () => delay(500, 'b')])
+// // → ['a','b'] (после 1.5 сек)
+
+// 4. Promise Pool
+
+// Реализуй функцию promisePool(tasks, limit), которая выполняет не более limit промисов одновременно.
+
+// promisePool([t1, t2, t3, t4], 2)
+// // → выполняет максимум 2 промиса одновременно
+
+// 5. Async Queue
+
+// Сделай очередь задач, где новые промисы добавляются, а выполняется только один за раз.
+
+// queue.add(() => fetch('a'))
+// queue.add(() => fetch('b'))
+// // → b выполнится только после a
+// 6. Once
+
+// Создай функцию once(fn), которая позволяет вызвать fn только один раз.
+
+// const sayHi = once(() => console.log("Hi"));
+// sayHi(); sayHi(); // → "Hi" (только один раз)
+
+// 7. Throttle
+
+// Напиши реализацию throttle(fn, delay), которая вызывает fn не чаще, чем раз в delay мс.
+
+// const fn = () => console.log('run');
+// const throttled = throttle(fn, 1000);
+// throttled(); throttled(); throttled(); // → вызовется 1 раз в 1 сек
+
+// 8. Curry
+
+// Реализуй каррирование функции любого числа аргументов.
+
+// function add(a,b,c){return a+b+c}
+// curry(add)(1)(2)(3) // → 6
+
+// 9. Compose
+
+// Реализуй compose(fn1, fn2, fn3) — выполняет функции справа налево.
+
+// const add1 = x => x + 1;
+// const double = x => x * 2;
+// const square = x => x ** 2;
+// compose(add1, double, square)(2); // square(2)=4 → double(4)=8 → add1(8)=9
+
+// 10. Partial
+
+// Реализуй частичное применение аргументов.
+
+// function add(a,b,c){return a+b+c}
+// const add5 = partial(add, 2, 3);
+// add5(4) // → 9
+
+// 🔹 Алгоритмы и структуры данных
+// 11. Group By
+
+// Сгруппируй элементы массива по ключу.
+
+// groupBy([{a:1},{a:2},{a:1}], 'a')
+// // → {1:[{a:1},{a:1}], 2:[{a:2}]}
+
+// 12. Deep Merge
+
+// Объедини два объекта рекурсивно (вложенные объекты тоже объединяются).
+
+// deepMerge({a:{b:1}}, {a:{c:2}})
+// // → {a:{b:1,c:2}}
+
+// 13. Binary Search
+
+// Реализуй бинарный поиск по отсортированному массиву.
+
+// binarySearch([1,3,5,7,9], 7) // → 3 (индекс)
+
+// 14. LRU Cache
+
+// Реализуй простую версию LRU Cache с методами get, set.
+
+// const cache = new LRUCache(2);
+// cache.set('a',1);
+// cache.set('b',2);
+// cache.get('a'); // → 1
+// cache.set('c',3); // → удаляется 'b' (самый старый)
+
+// 15. EventEmitter
+
+// Создай класс EventEmitter с методами on, off, emit.
+
+// const e = new EventEmitter();
+// e.on('say', msg => console.log(msg));
+// e.emit('say', 'Hello'); // → Hello
+
+// 16. Priority Queue
+
+// Реализуй очередь с приоритетом — элементы с большим приоритетом обрабатываются первыми.
+
+// const q = new PriorityQueue();
+// q.enqueue('low', 1);
+// q.enqueue('high', 5);
+// q.dequeue(); // → 'high'
