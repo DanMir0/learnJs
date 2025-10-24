@@ -1208,9 +1208,31 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 //! 10 Проверка анаграмм
 // Функция isAnagram(str1, str2) возвращает true, если строки состоят из одинаковых букв (порядок не важен).
 // Пример: 'listen', 'silent' → true
-function isAnagram(str1, str2) {
-  return str1.toLowerCase().split("").sort().join("") === str2.toLowerCase().split("").sort().join("")
-}
+// function isAnagram(str1, str2) {
+//   return str1.toLowerCase().split("").sort().join("") === str2.toLowerCase().split("").sort().join("")
+// }
 
-console.log(isAnagram('listen', 'silent'));
+// console.log(isAnagram('listen', 'silent'));
 
+//! Сумма четных чисел в массиве
+// function sumEvenNumbers(arr) {
+//   return arr.reduce((acc, val) => val % 2 === 0 ? acc + val : acc + 0, 0)
+// }
+
+// console.log(sumEvenNumbers([1, 2, 3, 4, 5, 6])); // 12
+
+//! Поиск самого длинного слова
+// function findLongestWord(sentence) {
+//   let arr = sentence.split(" ")
+//   let result = null
+//   let max = 0
+//   arr.forEach(item => {
+//     if (item.length >= max) {
+//       max = item.length
+//       result = item
+//     }
+//   })
+//   return result
+// }
+
+// console.log(findLongestWord("The quick brown fox jumps")); // "jumps"
