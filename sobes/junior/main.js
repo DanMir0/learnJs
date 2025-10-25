@@ -1236,3 +1236,19 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 // }
 
 // console.log(findLongestWord("The quick brown fox jumps")); // "jumps"
+
+//! Подсчет определенной буквы
+// function countLetter(str, letter) {
+//   return str.split("").reduce((acc, char) => char === letter ? acc += 1 : acc += 0, 0)
+// }
+
+// console.log(countLetter("Hello world", "l")); // 3
+
+//! Проверка на анаграмму
+// function isAnagram(str1, str2) {
+//   let sortStr1  = str1.toLowerCase().split("").sort().join("")
+//   let sortStr2  = str2.toLowerCase().split("").sort().join("")
+//   return sortStr1 === sortStr2
+// }
+
+// console.log(isAnagram("listen", "silent")); // true
