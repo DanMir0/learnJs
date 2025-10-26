@@ -1252,3 +1252,69 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 // }
 
 // console.log(isAnagram("listen", "silent")); // true
+
+//! Разворот числа
+// function reverseNumber(num) {
+//   return Number(num.toString().split("").reverse().join(""))
+// }
+
+// console.log(reverseNumber(12345)); // 54321
+
+//! 6. Удаление ложных значений
+// function removeFalsy(arr) {
+//   return arr.filter(Boolean)
+// }
+
+// console.log(removeFalsy([0, 1, false, 2, "", 3])); // [1, 2, 3]
+
+//! 7. Поиск недостающего числа
+// function findMissingNumber(arr) {
+//   const n = arr.length + 1
+//   const expectedSum = n * (n + 1) / 2
+//   const actualSum = arr.reduce((sum, num) => sum + num, 0)
+//   return expectedSum - actualSum
+// }
+
+// function findMissingNumber(arr) {
+//     for (let i = 0; i < arr.length - 1; i++) {
+//         if (arr[i + 1] - arr[i] > 1) {
+//             return arr[i] + 1;
+//         }
+//     }
+//     // Если пропущено последнее число
+//     return arr.length + 1;
+// }
+
+// function findMissingNumber(arr) {
+//     const numSet = new Set(arr);
+    
+//     for (let i = 1; i <= arr.length + 1; i++) {
+//         if (!numSet.has(i)) {
+//             return i;
+//         }
+//     }
+// }
+
+// console.log(findMissingNumber([1, 2, 3, 5, 6])); // 4
+
+//! 8. Форматирование имени
+// function capitalizeName(name) {
+//   return name.split(" ").map(word => word[0].toUpperCase() + word.slice(1)).join(" ").toString()
+// }
+
+// console.log(capitalizeName("john doe")); // "John Doe"
+
+//! 9. Сумма цифр числа
+// function sumDigits(num) {
+//   return num.toString().split("").reduce((acc, item) => acc + Number(item), 0)
+// }
+
+//console.log(sumDigits(123)); // 6
+
+//! 10. Проверка на палиндром
+// function isPalindrome(str) {
+//   str = str.toLowerCase().trim()
+//   return str === str.split("").reverse().join("")
+// }
+
+// console.log(isPalindrome("racecar")); // true
