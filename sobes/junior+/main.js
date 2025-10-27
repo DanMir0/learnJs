@@ -2644,3 +2644,89 @@ console.log(reverseString("JavaScript"))
 // const arr2 = [{id:2, name:'C'}, {id:3, name:'D'}];
 // console.log(mergeArraysById(arr1, arr2));
 // → [{id:1,name:'A'}, {id:2,name:'C'}, {id:3,name:'D'}]
+
+//! 1. Глубокое клонирование объекта
+// function deepClone(obj) {
+//     if (obj === null || typeof obj !== 'object') return obj
+
+//     if (Array.isArray(obj)) return obj.map(item => deepClone(item))
+
+//     let copy = {}
+
+//     for (let key in obj) {
+//       copy[key] = deepClone(obj[key])
+//     }
+//     return copy
+// }
+
+// const obj = { a: 1, b: { c: 2 } };
+// const clone = deepClone(obj);
+// obj.b.c = 4
+// console.log(clone);
+// console.log(obj);
+
+//! 2. Promise с таймаутом
+// function promiseWithTimeout(promise, timeoutMs) {
+//   const timeoutPromise = new Promise((resolve, reject) => {  
+//     setTimeout(() => {
+//       reject(new Error("Timeout"));
+//     }, timeoutMs);
+//   });
+  
+//   return Promise.race([promise, timeoutPromise]);
+// }
+
+// promiseWithTimeout(fetch('/api'), 5000)
+//   .then(console.log)
+//   .catch(console.error);
+
+//! 3. Функция мемоизации
+// function memoize(fn) {
+//   let cache = new Map()
+
+//   return (...args) => {
+//     const res = fn(...args)
+//     if (!cache[res]) {
+//       console.log('new cache');
+//       cache[res] = res
+//     }
+//     return cache[res]
+//   }
+// }
+
+// const memoizedSum = memoize((a, b) => a + b);
+// console.log(memoizedSum(5,1));
+// console.log(memoizedSum(5,1));
+
+//! 4. Группировка объектов по свойству
+// function groupBy(arr, key) {
+//   let newObj = {}
+//   arr.forEach(item => {
+//     if (item[key]) {
+//       if (newObj[item[key]]) {
+//         newObj[item[key]].push({name: item.name})
+//       } else {
+//         newObj[item[key]] = [{name: item.name}]
+//       }
+//     }
+//   })
+//   return newObj
+// }
+
+// const users = [
+//   { name: 'John', age: 25 },
+//   { name: 'Jane', age: 25 },
+//   { name: 'Bob', age: 30 }
+// ];
+// console.log(groupBy(users, 'age'));
+// { 25: [{name: 'John'}, {name: 'Jane'}], 30: [{name: 'Bob'}] }
+
+//! 5. Функция compose
+function compose(...fns) {
+  return fns.reduceRight((prevFn, currentFn) => (...args) => currentFn(prevFn(...args)))
+}
+
+const add5 = x => x + 5;
+const multiply3 = x => x * 3;
+const composed = compose(add5, multiply3);
+console.log(composed(10)); // 35
