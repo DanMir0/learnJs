@@ -2722,11 +2722,130 @@ console.log(reverseString("JavaScript"))
 // { 25: [{name: 'John'}, {name: 'Jane'}], 30: [{name: 'Bob'}] }
 
 //! 5. Функция compose
-function compose(...fns) {
-  return fns.reduceRight((prevFn, currentFn) => (...args) => currentFn(prevFn(...args)))
-}
+// function compose(...fns) {
+//   return fns.reduceRight((prevFn, currentFn) => (...args) => currentFn(prevFn(...args)))
+// }
 
-const add5 = x => x + 5;
-const multiply3 = x => x * 3;
-const composed = compose(add5, multiply3);
-console.log(composed(10)); // 35
+// const add5 = x => x + 5;
+// const multiply3 = x => x * 3;
+// const composed = compose(add5, multiply3);
+// console.log(composed(10)); // 35
+
+//! 6 Разница между объектами
+// function objectDiff(obj1, obj2) {
+//   const allKeys = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);
+
+//   let results = {}
+
+//   for (let key of allKeys) {
+//     if (obj1.hasOwnProperty(key) && obj2.hasOwnProperty(key) && obj1[key] !== obj2[key]) {
+//       results[key] = obj1[key]
+//     } else if (obj1.hasOwnProperty(key) && !obj2.hasOwnProperty(key)) {
+//       results[key] = undefined
+//     } else if (obj2.hasOwnProperty(key) && !obj1.hasOwnProperty(key)) {
+//       results[key] = obj2[key]
+//     }
+//   }
+// return results
+// }
+
+// console.log(objectDiff(
+//   { a: 1, b: 2, c: 3 },
+//   { a: 1, b: 5, d: 4 }
+// )); // { b: 2, c: undefined, d: 4 }
+
+
+//! 7. Сортировка по нескольким полям
+// function sortByFields(arr, fields) {
+//  return arr.sort((a, b) => {
+//     for (let field of fields) {
+//       if (a[field] !== b[field]) {
+//         if (typeof a[field] === 'number') {
+//           return a[field] - b[field]
+//         } else {
+//           return a[field].localeCompare(b[field])
+//         }
+//       }
+//     }
+//     return 0
+//   })
+// }
+
+// const data = [
+//   { name: 'John', age: 25 },
+//   { name: 'Jane', age: 25 },
+//   { name: 'Bob', age: 30 }
+// ];
+// console.log(sortByFields(data, ['age', 'name']));
+// Сначала по age, потом по name
+
+//! 8. Уникальные значения по свойству
+// function uniqueBy(arr, prop) {
+//   const seen = new Set()
+//   const result = []
+
+//   arr.forEach(item => {
+//     if (!seen.has(item[prop])) {
+//       seen.add(item[prop])
+//       result.push(item)
+//     }
+//   })
+//   return result
+// }
+
+// const items = [
+//   { id: 1, category: 'fruit' },
+//   { id: 2, category: 'vegetable' },
+//   { id: 3, category: 'fruit' }
+// ];
+// console.log(uniqueBy(items, 'category'));
+
+// [{id:1, category:'fruit'}, {id:2, category:'vegetable'}]
+
+//! 9. Функция throttle
+// function throttle(func, delay) {
+//   let isThrottle = false
+//   let saveArgs = null
+
+//   return (...args) => {
+//     if (isThrottle) {
+//       saveArgs = args
+//       return
+//     }
+
+//     func(...args)
+//     isThrottle = true
+
+//     setTimeout(() => {
+//       isThrottle = false
+
+//       if (saveArgs) {
+//         func(...args)
+//         saveArgs = null
+//       }
+
+//     },delay)
+//   }
+// }
+
+// const throttled = throttle(() => console.log('Hello'), 1000);
+// throttled(); throttled(); throttled();
+
+//! 10. Цепочка промисов с задержкой
+// async function runWithDelay(promises, delay) {
+//   for (promiseFunc of promises) {
+//     const result = await promiseFunc
+//     console.log(result);
+//     await new Promise(resolve => setTimeout(resolve, delay))
+//   }
+// }
+
+// const tasks = [
+//   () => Promise.resolve('Task 1'),
+//   () => Promise.resolve('Task 2'),
+//   () => Promise.resolve('Task 3')
+// ];
+
+// console.log(runWithDelay(tasks, 2000));
+
+// // Выполнить с задержкой между задачами
