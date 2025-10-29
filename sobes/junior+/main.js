@@ -2685,12 +2685,12 @@ console.log(reverseString("JavaScript"))
 //   let cache = new Map()
 
 //   return (...args) => {
-//     const res = fn(...args)
-//     if (!cache[res]) {
+//     const key = JSON.stringify(args)
+//     if (!cache.has(key)) {
 //       console.log('new cache');
-//       cache[res] = res
+//       cache.set(key, fn(...args))
 //     }
-//     return cache[res]
+//     return cache.get(key)
 //   }
 // }
 
@@ -2749,11 +2749,23 @@ console.log(reverseString("JavaScript"))
 // return results
 // }
 
+// function objectDiff(obj1, obj2) {
+//   const allKeys = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);
+
+//   let diff = {}
+
+//   for (let key of allKeys) {
+//     if (obj1[key] !== obj2[key]) {
+//       diff[key] = {pld: obj1[key], new: obj2[key]}
+//     }
+//   }
+//   return diff
+// }
+
 // console.log(objectDiff(
 //   { a: 1, b: 2, c: 3 },
 //   { a: 1, b: 5, d: 4 }
 // )); // { b: 2, c: undefined, d: 4 }
-
 
 //! 7. Сортировка по нескольким полям
 // function sortByFields(arr, fields) {
@@ -2820,7 +2832,7 @@ console.log(reverseString("JavaScript"))
 //       isThrottle = false
 
 //       if (saveArgs) {
-//         func(...args)
+//         func(...saveArgs)
 //         saveArgs = null
 //       }
 
@@ -2834,18 +2846,26 @@ console.log(reverseString("JavaScript"))
 //! 10. Цепочка промисов с задержкой
 // async function runWithDelay(promises, delay) {
 //   for (promiseFunc of promises) {
-//     const result = await promiseFunc
+//     const result = await promiseFunc()
 //     console.log(result);
 //     await new Promise(resolve => setTimeout(resolve, delay))
 //   }
 // }
+async function runWithDelay(promises, delay) {
+  for (promiseFunc of promises) {
+    const result = await promiseFunc()
+    console.log(result);
+    if (promiseFunc !== promises[promises.length - 1]) {
+          await new Promise(resolve => setTimeout(resolve, delay))
+    }
+  }
+}
+const tasks = [
+  () => Promise.resolve('Task 1'),
+  () => Promise.resolve('Task 2'),
+  () => Promise.resolve('Task 3')
+];
 
-// const tasks = [
-//   () => Promise.resolve('Task 1'),
-//   () => Promise.resolve('Task 2'),
-//   () => Promise.resolve('Task 3')
-// ];
-
-// console.log(runWithDelay(tasks, 2000));
+console.log(runWithDelay(tasks, 2000));
 
 // // Выполнить с задержкой между задачами

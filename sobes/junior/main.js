@@ -1318,3 +1318,145 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 // }
 
 // console.log(isPalindrome("racecar")); // true
+
+//! 1. Поиск второго максимального числа
+// function findSecondMax(arr) {
+//   arr = arr.sort((a, b) => b - a)
+//   const result = Array.from(new Set(arr))
+//   return result[1]
+// }
+// function findSecondMax(arr) {
+//   let max = -Infinity;
+//   let secondMax = -Infinity;
+//   console.log(max);
+  
+//   for (const num of arr) {
+//     if (num > max) {
+//       secondMax = max;
+//       max = num;
+//     } else if (num > secondMax && num < max) {
+//       secondMax = num;
+//     }
+//   }
+//   return secondMax;
+// }
+// console.log(findSecondMax([3, 1, 4, 1, 5, 9, 2])); // 5
+
+//! 2. Подсчет повторяющихся элементов
+// function countDuplicates(arr) {
+//   const result = []
+//   const sortArr = arr.sort((a, b) => a - b)
+//   for (let i = 1; i < sortArr.length; i++) {
+//     if (arr[i] === arr[i - 1]) {
+//       result.push(arr[i])
+//     }
+//   }
+//   return result.length
+// }
+
+// console.log(countDuplicates([1, 2, 2, 3, 4, 4, 4, 5])); // 3 (элементы 2,4,4)
+
+//! 3. Проверка на простое число
+// function isPrime(num) {
+//   if (num < 2) return false
+//   for (let i = 2; i <= Math.sqrt(num); i++) {
+//     if (num % i === 0) {
+//         return false
+//     }
+//   }
+//   return true
+// }
+
+// console.log(isPrime(7)); // true
+// console.log(isPrime(10)); // false
+
+//! 4. Разница между двумя массивами
+// function arrayDiff(arr1, arr2) {
+//   let diff = []
+//   let set = new Set(arr2)
+//   return arr1.filter(item => !set.has(item))
+// }
+
+// console.log(arrayDiff([1, 2, 3], [2, 3, 4])); // [1]
+
+//! 5. Форматирование номера телефона
+// function formatPhoneNumber(numbers) {
+//   const areaCode = numbers.slice(0,3).join("")
+//   const prefix = numbers.slice(3,6).join("")
+//   const lineNumber = numbers.slice(6).join("")
+
+//   return `(${areaCode}) ${prefix}-${lineNumber}`
+// }
+
+// console.log(formatPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])); // "(123) 456-7890"
+
+//! 6. Поиск наиболее частого элемента
+// function findMostFrequent(arr) {
+//   let freqMap = arr.reduce((acc, item) => {
+//     acc[item] = (acc[item] || 0) + 1;
+//     return acc;
+//   }, {});
+  
+//   let maxCount = 0;
+//   let mostFrequent = null;
+  
+//   for (const [item, count] of Object.entries(freqMap)) {
+//     if (count > maxCount) {
+//       maxCount = count;
+//       mostFrequent = item; 
+//     }
+//   }
+  
+//   return Number(mostFrequent); // Преобразуем строку в число
+// }
+// console.log(findMostFrequent([1, 3, 2, 3, 4, 3, 1])); // 3
+
+//! 7. Сумма квадратов четных чисел
+// function sumOfEvenSquares(arr) {
+//     return arr.filter(item => item % 2 === 0).reduce((acc, item) => acc + Math.pow(item, 2), 0)
+// }
+
+// console.log(sumOfEvenSquares([1, 2, 3, 4, 5])); // 20 (4 + 16)
+
+//! 8. Проверка на возрастающую последовательность
+// function isIncreasingSequence(arr) {
+//   let sortArr = arr.map(item => item).sort((a,b) => a - b)
+  
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] !== sortArr[i]) {
+//       return false
+//     }
+//   }
+//   return true 
+// }
+
+// function isIncreasingSequence(arr) {
+//   for (let i = 1; i < arr.length; i++) {
+//     if (arr[i] <= arr[i - 1]) return false;
+//   }
+//   return true;
+// }
+// console.log(isIncreasingSequence([1, 2, 3, 4])); // true
+// console.log(isIncreasingSequence([1, 3, 2, 4])); // false
+
+//! 9. Удаление первого и последнего элемента
+// function removeFirstAndLast(str) {
+//   return str.slice(1, str.length - 1)
+// }
+
+// console.log(removeFirstAndLast("hello")); // "ell"
+
+//! 10. Конвертация CamelCase в Snake_case
+// function camelToSnake(str) {
+//   let result = ``
+//   for (let i = 0; i < str.length; i++) {
+//     if (str[i] === str[i].toUpperCase()) {
+//       result += `_${str[i].toLowerCase()}`
+//     } else {
+//       result += `${str[i]}`
+//     }
+//   }
+//   return result
+// }
+
+// console.log(camelToSnake("helloWorldExample")); // "hello_world_example"
