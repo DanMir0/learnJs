@@ -2851,21 +2851,88 @@ console.log(reverseString("JavaScript"))
 //     await new Promise(resolve => setTimeout(resolve, delay))
 //   }
 // }
-async function runWithDelay(promises, delay) {
-  for (promiseFunc of promises) {
-    const result = await promiseFunc()
-    console.log(result);
-    if (promiseFunc !== promises[promises.length - 1]) {
-          await new Promise(resolve => setTimeout(resolve, delay))
-    }
-  }
-}
-const tasks = [
-  () => Promise.resolve('Task 1'),
-  () => Promise.resolve('Task 2'),
-  () => Promise.resolve('Task 3')
-];
+// async function runWithDelay(promises, delay) {
+//   for (promiseFunc of promises) {
+//     const result = await promiseFunc()
+//     console.log(result);
+//     if (promiseFunc !== promises[promises.length - 1]) {
+//           await new Promise(resolve => setTimeout(resolve, delay))
+//     }
+//   }
+// }
+// const tasks = [
+//   () => Promise.resolve('Task 1'),
+//   () => Promise.resolve('Task 2'),
+//   () => Promise.resolve('Task 3')
+// ];
 
-console.log(runWithDelay(tasks, 2000));
+// console.log(runWithDelay(tasks, 2000));
 
-// // Выполнить с задержкой между задачами
+// // // Выполнить с задержкой между задачами
+
+//! 1. Функция каррирования
+// function curry(fn) {
+//   return function curried(...args) {
+//     if (args.length >= fn.length) {
+//       return fn.apply(this, args)
+//     } else {
+//       // return (...nextArgs) => curried(...args, ...nextArgs);
+//       //return curried.bind(null, ...args);
+//       return function(...nextArgs) {
+//         return curried.apply(this, args.concat(nextArgs))
+//       }
+//     }
+//   }
+// }
+
+// const sum = (a, b, c) => a + b + c;
+// const curriedSum = curry(sum);
+// console.log(curriedSum(1)(2)(3)); // 6
+
+//! 2. Promise.all с ограничением одновременных запросов
+// async function promiseAllWithLimit(promises, limit) {
+//    const results = []
+//    const active = []
+
+//    while (promises.length > 0) {
+//     while (active.length < limit && promises.length > 0) {
+//       const promise = promises.shift()()
+//       active.push(promise)
+//     }
+
+//     const completed = await Promise.race(active)
+//     results.push(active)
+
+//     active.splice(active.indexOf(completed), 1)
+//    }
+
+//    await Promise.all(active)
+//    return results
+// }
+
+// const promises = [
+//   () => fetch('/api/1'),
+//   () => fetch('/api/2'),
+//   () => fetch('/api/3'),
+//   () => fetch('/api/4')
+// ];
+// console.log(promiseAllWithLimit(promises));
+// // Выполнять не более limit промисов одновременно
+
+//! 3. Глубокий поиск в объекте
+// function findInObject(obj, predicate) {
+//   for (let key in obj) {
+//     if (predicate(obj[key])) {
+//       return obj[key]
+//     } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+//       const result = findInObject(obj[key], predicate)
+//       if (result !== undefined) {
+//         return result
+//       }
+//     }
+//   }
+//   return undefined
+// }
+
+// const obj = { a: 1, b: { c: 2, d: { e: 3 } } };
+// console.log(findInObject(obj, val => val === 3)); // 3
