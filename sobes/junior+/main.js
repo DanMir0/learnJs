@@ -2936,3 +2936,116 @@ console.log(reverseString("JavaScript"))
 
 // const obj = { a: 1, b: { c: 2, d: { e: 3 } } };
 // console.log(findInObject(obj, val => val === 3)); // 3
+
+//! 4. Функция partial application
+// function partial(fn, ...args) {
+//   return (...newArgs) => {
+//     let currentArgs = args.concat(...newArgs)
+//     let res = fn(...currentArgs)
+//     return res
+//   }
+// }
+
+// const multiply = (a, b, c) => a * b * c;
+// const multiplyByTwo = partial(multiply, 2);
+// console.log(multiplyByTwo(3, 4)); // 24
+
+//! 5. Трансформация ключей объекта
+// function transformObject(obj, transformer) {
+//   if (obj === null || typeof obj !== 'object') {
+//     return obj
+//   }
+//   let result = {}
+//   for (key in obj) {
+//     const newKey = transformer(key)
+//     result[newKey] = obj[key]
+//   }
+//   return result
+// }
+// const user = { firstName: 'John', lastName: 'Doe' };
+// console.log(transformObject(user, key => key.toUpperCase()));
+// // { FIRSTNAME: 'John', LASTNAME: 'Doe' }
+
+//! 6. Генератор диапазона чисел
+// function range(start, end, step = 1) {
+//   const res = []
+//   for (let i = start; i <= end; i += step ) {
+//     res.push(i)
+//   }
+//   return res
+// }
+
+// console.log([...range(1, 5)]); // [1, 2, 3, 4, 5]
+// console.log([...range(0, 10, 2)]); // [0, 2, 4, 6, 8, 10]
+
+//! 7. Функция pipe
+// function pipe(...fns) {
+//   return (...args) => {
+//     return fns.reduce((prevFn, nextFn) => nextFn(prevFn), args)
+//   }
+// }
+
+// const add5 = x => x + 5;
+// const multiply3 = x => x * 3;
+// const subtract2 = x => x - 2;
+
+// const piped = pipe(subtract2, multiply3, add5);
+// console.log(piped(10)); // (10 - 2) * 3 + 5 = 29
+
+//! 8. Валидатор объектов по схеме
+// function createValidator(schema) {
+//   return (obj) => {
+//     for (let key in schema) {
+//       const validator = schema[key]
+//       const value = obj[key]
+
+//       if (!validator(value)) {
+//         return false
+//       }
+//     }
+//     return true
+//   }
+// }
+
+// const userSchema = {
+//   name: value => typeof value === 'string',
+//   age: value => typeof value === 'number' && value >= 0
+// };
+
+// const validateUser = createValidator(userSchema);
+// console.log(validateUser({ name: 'John', age: 25, })); // true
+
+//! 9. Функция retry с экспоненциальной задержкой
+// function retryWithBackoff(fn, retries, initialDelay = 1000) {
+//   return fn().catch(error => {
+//     if (retries === 0) throw 0
+   
+//     return new Promise(resolve => setTimeout(resolve, initialDelay))
+//     .then(() => retryWithBackoff(fn, retries - 1, initialDelay * 2))
+//   })
+// }
+// let attempts = 0;
+// const successOnThirdTry = () => {
+//   attempts++;
+//   console.log(`Attempt ${attempts}`);
+//   if (attempts < 3) return Promise.reject('Error');
+//   return Promise.resolve('Success!');
+// };
+
+// retryWithBackoff(successOnThirdTry, 3, 1000)
+//   .then(console.log)  // "Success!" после 3 попыток
+//   .catch(console.error);
+
+//! 10. Декорator функции
+function withLogging(fn) {
+  return function(...args) {
+    console.log(`Calling function with arguments: ${args.join(', ')}`);
+    const result = fn(...args)
+    console.log(`Function returned: ${result}`);
+    
+  }
+}
+
+const sum = (a, b) => a + b;
+const loggedSum = withLogging(sum);
+loggedSum(2, 3); // Должен залогировать вызов и результат
