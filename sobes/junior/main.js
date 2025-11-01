@@ -1460,3 +1460,86 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 // }
 
 // console.log(camelToSnake("helloWorldExample")); // "hello_world_example"
+
+//! Форматирование даты
+// function formatDate(date) {
+//   // return date.toLocaleDateString()
+//   const day = String(date.getDate()).padStart(2, '0')
+//   const month = String(data.getMonth() + 1).padStart(2, '0')
+//   const year = date.getFullYear()
+//   return `${day}.${month}.${year}`
+// }
+
+//console.log(formatDate(new Date('2024-01-15'))); // "15.01.2024"
+
+//! Поиск общих элементов в массивах
+// function findCommonElements(arr1, arr2) {
+//     const seen = new Set(arr1)
+//     return arr2.filter(item => seen.has(item))
+// }
+
+// console.log(findCommonElements([1, 2, 3], [2, 3, 4])); // [2, 3]
+
+//! 3. Подсчет среднего значения
+// function calculateAverage(arr) {
+//     return arr.reduce((acc, item) => acc + item, 0) / arr.length
+// }
+
+// console.log(calculateAverage([1, 2, 3, 4, 5])); // 3
+
+//! 4. Фильтрация по длине строк
+// function filterByLength(strings, minLen, maxLen) {
+//   return strings.filter(word => word.length >= minLen && word.length <= maxLen)
+// }
+
+// console.log(filterByLength(['cat', 'elephant', 'dog', 'mouse'], 3, 5)); // ['cat', 'dog', 'mouse']
+
+//! 5. Проверка на палиндром (игнорируя регистр и пробелы)
+// function isPalindromeIgnoreCase(str) {
+//     str = str.toLowerCase().trim().replace(/[^a-zа-я0-9]/gi,"")
+//     return str === str.split("").reverse().join("")
+// }
+
+// console.log(isPalindromeIgnoreCase("A man a plan a canal Panama")); // true
+
+//! 6. Сумма положительных чисел
+// function sumPositiveNumbers(arr) {
+//   return arr.filter(item => item > 0).reduce((acc, item) => acc + item)
+// }
+
+// console.log(sumPositiveNumbers([-1, 2, -3, 4, 5])); // 11
+
+//! 7. Удаление элемента из массива
+// function removeElement(arr, element) {
+//   return arr.filter(item => item !== element)
+// }
+
+// console.log(removeElement([1, 2, 3, 2, 4], 2)); // [1, 3, 4]
+
+//! 8. Подсчет слов в тексте
+function wordCount(text) {
+  return text.trim().split(/\s+/).filter(Boolean).length
+}
+
+console.log(wordCount("Hello world from JavaScript")); // 4
+
+//! 9. Генератор случайного пароля
+// function generatePassword(length = 8) {
+//   const allCharactersString = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|\\;\':",.<>/?`~';
+//   let password = ``
+//   for (let i = 0; i < length; i++) {
+//     const rand = Math.floor(Math.random() * (allCharactersString.length - 0) + 0)
+//     password += allCharactersString[rand]
+//   }
+//   return password
+// }
+
+//console.log(generatePassword(10)); // "aB3#k9$mN2"
+
+//! 10. Проверка на четность/нечетность
+function checkParity(num) {
+  return num % 2 === 0 ? "even" : "odd"
+}
+
+console.log(checkParity(4)); // "even"
+console.log(checkParity(7)); // "odd"
