@@ -2897,7 +2897,7 @@ console.log(reverseString("JavaScript"))
 //    while (promises.length > 0) {
 //     while (active.length < limit && promises.length > 0) {
 //       const promise = promises.shift()()
-//       active.push(promise)
+//       active.push(active)
 //     }
 
 //     const completed = await Promise.race(active)
@@ -2917,7 +2917,7 @@ console.log(reverseString("JavaScript"))
 //   () => fetch('/api/4')
 // ];
 // console.log(promiseAllWithLimit(promises));
-// // Выполнять не более limit промисов одновременно
+// Выполнять не более limit промисов одновременно
 
 //! 3. Глубокий поиск в объекте
 // function findInObject(obj, predicate) {
@@ -2981,10 +2981,16 @@ console.log(reverseString("JavaScript"))
 //! 7. Функция pipe
 // function pipe(...fns) {
 //   return (...args) => {
-//     return fns.reduce((prevFn, nextFn) => nextFn(prevFn), args)
+//     return fns.reduce((result, fn) => fn(result), args[0])
 //   }
 // }
-
+// function pipe(...fns) {
+//   return (...args) => {
+//     return fns.reduce((result, fn) => {
+//       return Array.isArray(result) ? fn(...result) : fn(result);
+//     }, args);
+//   };
+// }
 // const add5 = x => x + 5;
 // const multiply3 = x => x * 3;
 // const subtract2 = x => x - 2;
@@ -3037,15 +3043,47 @@ console.log(reverseString("JavaScript"))
 //   .catch(console.error);
 
 //! 10. Декорator функции
-function withLogging(fn) {
-  return function(...args) {
-    console.log(`Calling function with arguments: ${args.join(', ')}`);
+// function withLogging(fn) {
+//   return function(...args) {
+//     console.log(`Calling function with arguments: ${args.join(', ')}`);
+//     const result = fn(...args)
+//     console.log(`Function returned: ${result}`);
+//     return result
+//   }
+// }
+
+// const sum = (a, b) => a + b;
+// const loggedSum = withLogging(sum);
+// loggedSum(2, 3); // Должен залогировать вызов и результат
+
+//! Функция memoize с TTL и сериализацией ключей
+function memoizeWithTTL(fn, ttl = 5000) {
+  const cache = new Map();
+
+  return (...args) => {
+    const key = JSON.stringify(args);
+
+    if (cache.has(key)) {
+      const cached = cache.get(key);
+
+      if (Date.now() - cached.timestamp < ttl) {
+        console.log('Возвращаем из кэша:', cached.value);
+        return cached.value;
+      } else {
+        cache.delete(key)
+      }
+    } 
+
     const result = fn(...args)
-    console.log(`Function returned: ${result}`);
-    
+    cache.set(key, {
+      value: result,
+      timestamp: Date.now();
+    })
+
+    console.log('Вычисляем новый результат:', result);
+    return result;
   }
 }
 
-const sum = (a, b) => a + b;
-const loggedSum = withLogging(sum);
-loggedSum(2, 3); // Должен залогировать вызов и результат
+const expensiveCalc = (a, b) => a + b;
+const memoized = memoizeWithTTL(expensiveCalc, 3000);
