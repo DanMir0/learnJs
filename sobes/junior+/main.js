@@ -3057,33 +3057,118 @@ console.log(reverseString("JavaScript"))
 // loggedSum(2, 3); // Должен залогировать вызов и результат
 
 //! Функция memoize с TTL и сериализацией ключей
-function memoizeWithTTL(fn, ttl = 5000) {
-  const cache = new Map();
+// function memoizeWithTTL(fn, ttl = 5000) {
+//   const cache = new Map();
 
-  return (...args) => {
-    const key = JSON.stringify(args);
+//   return (...args) => {
+//     const key = JSON.stringify(args);
 
-    if (cache.has(key)) {
-      const cached = cache.get(key);
+//     if (cache.has(key)) {
+//       const cached = cache.get(key);
 
-      if (Date.now() - cached.timestamp < ttl) {
-        console.log('Возвращаем из кэша:', cached.value);
-        return cached.value;
-      } else {
-        cache.delete(key)
-      }
-    } 
+//       if (Date.now() - cached.timestamp < ttl) {
+//         console.log('Возвращаем из кэша:', cached.value);
+//         return cached.value;
+//       } else {
+//         cache.delete(key)
+//       }
+//     } 
 
-    const result = fn(...args)
-    cache.set(key, {
-      value: result,
-      timestamp: Date.now();
-    })
+//     const result = fn(...args)
+//     cache.set(key, {
+//       value: result,
+//       timestamp: Date.now();
+//     })
 
-    console.log('Вычисляем новый результат:', result);
-    return result;
-  }
-}
+//     console.log('Вычисляем новый результат:', result);
+//     return result;
+//   }
+// }
 
-const expensiveCalc = (a, b) => a + b;
-const memoized = memoizeWithTTL(expensiveCalc, 3000);
+// const expensiveCalc = (a, b) => a + b;
+// const memoized = memoizeWithTTL(expensiveCalc, 3000);
+
+//! Пагинация данных
+// function paginate(data, page, perPage) {
+//   const total = data.length
+//   const totalPages = Math.floor(total / perPage)
+
+//   const startIndex = (page - 1) * perPage
+//   const endIndex = startIndex + perPage;
+
+//   return {
+//     data: data.slice(startIndex, endIndex),
+//     total: total,
+//     page: page,
+//     totalPages, totalPages
+//   }
+// }
+
+// const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// console.log(paginate(data, 2, 3)); // { data: [4,5,6], total: 9, page: 2, totalPages: 3 }
+
+//!3. Deep merge объектов
+// function deepMerge(target, source) {
+//   let copy = deepClone(target)
+
+//   for (let key in source) {
+//     if (copy[key] && typeof copy[key] === 'object' && typeof source[key] === 'object') {
+//       copy[key] = deepMerge(copy[key], source[key])
+//     } else {
+//       copy[key] = source[key]
+//     }
+//   }
+//   return copy
+// }
+
+// function deepClone(obj) {
+//   if (obj === null || typeof obj !== 'object') return obj
+
+//   if (Array.isArray(obj)) return obj.map(item => deepClone(item))
+
+//   let copy = {}
+
+//   for (let key in obj) {
+//     copy[key] = deepClone(obj[key])
+//   }
+//   return copy
+// }
+
+// const obj1 = { a: 1, b: { x: 10 } };
+// const obj2 = { b: { y: 20 }, c: 3 };
+// console.log(deepMerge(obj1, obj2)); // { a:1, b: {x:10, y:20}, c:3 }
+
+//! 4. Очередь с приоритетом (упрощенная)
+// class SimplePriorityQueue {
+//   constructor() {
+//     this.items = []
+//   }
+  
+//   enqueue(item, priority) {
+//     this.items.push({item: item, priority: priority})
+//   }
+//   dequeue() {
+//     if (this.isEmpty()) return null
+
+//     let minIndex= 0
+
+//     for (let i = 1; i < this.items.length; i++) {
+//       if (this.items[i].priority < this.items[minIndex].priority) {
+//         minIndex = i
+//       }
+//     }
+
+//     return this.items.splice(minIndex, 1)[0].item
+//   }
+//   isEmpty() {
+//     return this.items.length === 0
+//   }
+// }
+// const pq = new SimplePriorityQueue();
+// pq.enqueue('Task 1', 2);
+// pq.enqueue('Task 2', 1);
+// pq.enqueue('Task 3', 3);
+
+// console.log(pq.dequeue()); // 'Task 2' (самый высокий приоритет)
+// console.log(pq.dequeue()); // 'Task 1'
+// console.log(pq.dequeue()); // 'Task 3'
