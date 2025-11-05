@@ -3172,3 +3172,160 @@ console.log(reverseString("JavaScript"))
 // console.log(pq.dequeue()); // 'Task 2' (самый высокий приоритет)
 // console.log(pq.dequeue()); // 'Task 1'
 // console.log(pq.dequeue()); // 'Task 3'
+
+//! 5. Валидация JSON схемы
+// function validateBySchema(data, schema) {
+//   for (let key in data) {
+//     const validator = schema[key]
+//     const value = data[key]
+
+//     if (typeof validator === 'string') {
+//       if (typeof value !== validator) return false
+//     } else if (typeof validator === 'number') {
+//       if (typeof value !== validator) return false
+//     } else if (typeof validator === 'function') {
+//       if (!validator(value)) return false
+//     }
+//   }
+//   return true
+// }
+
+// const schema = {
+//   name: 'string',
+//   age: 'number',
+//   email: value => /.+@.+\..+/.test(value)
+// };
+// console.log(validateBySchema({ name: 'John', age: 25, email: 'test@test.com' }, schema)); // true
+
+//! 6. Трансформация данных API response
+// function transformApiResponse(apiData) {
+//     return apiData.users.map(user => ({id: user.id, name: user.user_name, age: user.user_age}))
+// }
+
+// const apiResponse = {
+//   users: [
+//     { id: 1, user_name: 'john', user_age: 25 },
+//     { id: 2, user_name: 'jane', user_age: 30 }
+//   ]
+// };
+// console.log(transformApiResponse(apiResponse));
+// // Преобразовать в: [{ id: 1, name: 'john', age: 25 }, ...]
+
+//! 7. Функция retry с кастомными условиями
+// function retryWithCondition(fn, shouldRetry, maxRetries = 3) {
+//   let attempts = 0
+
+//   while (attempts <= maxRetries) {
+//     try {
+//       return fn()
+//     } catch (error) {
+//       attempts++
+
+//       if (attempts > maxRetries) {
+//         throw new Error(`Все ${maxRetries} попыток исчерпаны`)
+//       }
+
+//       if (!shouldRetry(error)) {
+//         throw error
+//       }
+
+//       console.log(`Попытка ${attempts}/${maxRetries} failed, retrying...`);
+//     }
+//   }
+// }
+// function fetchData() {
+//   const errors = [
+//     { status: 500, message: 'Server Error' },
+//     { status: 404, message: 'Not Found' },
+//     { status: 200, message: 'Success' }
+//   ];
+  
+//   const error = errors[Math.floor(Math.random() * errors.length)];
+//   if (error.status !== 200) {
+//     throw error;
+//   }
+//   return 'Data loaded!';
+// }
+
+// retryWithCondition(
+//   fetchData,
+//   error => error.status !== 404, // Не повторять для 404 ошибок
+//   5
+// );
+
+//! 8. Кэширующий прокси
+// function createCacheProxy(fn, ttl = 60000) {
+//   let cache = {}
+//   return (...args) => {
+//     const key = JSON.stringify(args)
+
+//     if (cache[key] && Date.now() - cache[key].timestamp < ttl) {
+//       console.log('возвращаем Кэш');
+//       return cache[key].value
+//     }
+//     console.log('Новый');
+//     const result = fn(...args)
+//     cache[key] = {
+//       value: result,
+//       timestamp: Date.now()
+//     }
+
+//     return result
+//   }
+// }
+
+// const slowFunction = (a, b) => {
+//   console.log('Выполняю сложные вычисления...');
+//   return a + b;
+// };
+
+// const cached = createCacheProxy(slowFunction, 3000);
+
+// console.log(cached(2, 3)); // "Вычисляем новый результат: 5"
+// console.log(cached(2, 3)); // "Возвращаем из кэша: 5" (первые 3 сек)
+
+//! 9. Сортировка с кастомным компаратором
+// function sortWithComparator(array, comparator) {
+//   return array.sort(comparator)
+// }
+
+// const users = [
+//   { name: 'John', score: 85 },
+//   { name: 'Jane', score: 92 },
+//   { name: 'Bob', score: 85 }
+// ];
+
+// const sorted = sortWithComparator(users, (a,b) => {
+//   if (a.score > b.score) return - 1
+//   if (a.score < b.score) return 1
+
+//   return a.name.localeCompare(b.name)
+// })
+// console.log(sorted);
+// // Сортировка по score (убывание), затем по name (по возрастанию)
+
+//! 10. Генератор уникальных ID с префиксом
+function createIdGenerator(prefix = '') {
+    let counter = 1
+    return () => {
+        const chars = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890"
+        let id = ''
+        if (prefix) {
+          id = `${prefix}_${counter}`
+          counter++
+          return id
+        }
+        for (let i = 0; i < 8; i++) {
+          const index = Math.floor(Math.random() * chars.length)
+          id += chars[index]
+        }
+        return id
+    }
+
+}
+
+const userIdGenerator = createIdGenerator('user');
+console.log(userIdGenerator()); // "user_1"
+console.log(userIdGenerator()); // "user_2"
+const userIdGenerator2 = createIdGenerator('');
+console.log(userIdGenerator2());
