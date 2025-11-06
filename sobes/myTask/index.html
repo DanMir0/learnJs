@@ -4,9 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+     <style>
+    .container {
+      height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+    }
+    
+    .item {
+      padding: 20px;
+      margin: 10px 0;
+      background: #f5f5f5;
+      border-radius: 5px;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+    }
+    
+    .end {
+      text-align: center;
+      padding: 20px;
+      color: #999;
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
-    <div>
+    <!-- <div>
         <button class="btn"></button>
         <button class="btn" disabled></button>
         <button class="btn" disabled></button>
@@ -16,7 +44,11 @@
         <button class="btn"></button>
         <button class="btn" disabled></button>
         <button class="btn" disabled></button>
-    </div>
+    </div> -->
+    <div class="container" id="scrollContainer">
+    <div id="content"></div>
+    <div id="status"></div>
+  </div>
     <script src="main.js"></script>
 </body>
 </html>

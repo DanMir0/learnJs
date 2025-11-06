@@ -1245,37 +1245,141 @@ function isAnagram(str1, str2) {
 // setInterval(mouseMove, 1000)
 
 // Необходимо написать функцию которая преобразует полученный на вход массив - в строку, сворачивая соседние по числовому ряду числа в диапазон
-const range = (arr) => {
-  let subArr = []
-  let newArr = []
-  let res = ``
+// const range = (arr) => {
+//   let subArr = []
+//   let newArr = []
+//   let res = ``
 
-    arr.sort((a,b) => a - b) 
+//     arr.sort((a,b) => a - b) 
      
-    for (let i = 0; i < arr.length; i++) {
-       if (subArr.length === 0) {
-        subArr.push(arr[i])
-      } else if (arr[i] === subArr[subArr.length - 1] + 1) {
-        subArr.push(arr[i])
-      } else {
-        newArr.push(subArr)
-        subArr = [arr[i]]
-      }
-    }
+//     for (let i = 0; i < arr.length; i++) {
+//        if (subArr.length === 0) {
+//         subArr.push(arr[i])
+//       } else if (arr[i] === subArr[subArr.length - 1] + 1) {
+//         subArr.push(arr[i])
+//       } else {
+//         newArr.push(subArr)
+//         subArr = [arr[i]]
+//       }
+//     }
 
-    if (subArr.length > 0) {
-        newArr.push(subArr);
-    }
+//     if (subArr.length > 0) {
+//         newArr.push(subArr);
+//     }
 
-    newArr.forEach(arr => {
-        if (arr.length === 1) {
-            res += `${arr[0]},`;
-        } else {
-            res += `${arr[0]}-${arr[arr.length-1]},`;
-        }
-    });
+//     newArr.forEach(arr => {
+//         if (arr.length === 1) {
+//             res += `${arr[0]},`;
+//         } else {
+//             res += `${arr[0]}-${arr[arr.length-1]},`;
+//         }
+//     });
     
-    return res.slice(0, -1); // убираем последнюю запятую
+//     return res.slice(0, -1); // убираем последнюю запятую
+// }
+
+// console.log('range', range([1,4,5,2,3,9,8,11,0]));
+
+//! 1. Обработчик infinite scroll
+// function createInfiniteScroll(loadMore, options = {}) {
+//   const {
+//     threshold = 100,     // За сколько пикселей до конца начинать загрузку
+//     container = window,  // Контейнер для скролла (window или элемент)
+//     enabled = true       // Включен/выключен
+//   } = options;
+
+//   let isLoading = false;
+//   let hasMore = true;
+
+//   const checkPosition = async () => {
+//     if (!enabled || isLoading || !hasMore) return;
+
+//     const { scrollTop, scrollHeight, clientHeight } = getScrollData();
+    
+//     // Проверяем, достигли ли мы порога для загрузки
+//     if (scrollTop + clientHeight >= scrollHeight - threshold) {
+//       await loadMoreData();
+//     }
+//   };
+
+//   const getScrollData = () => {
+//     if (container === window) {
+//       return {
+//         scrollTop: window.pageYOffset || document.documentElement.scrollTop,
+//         scrollHeight: document.documentElement.scrollHeight,
+//         clientHeight: window.innerHeight
+//       };
+//     } else {
+//       return {
+//         scrollTop: container.scrollTop,
+//         scrollHeight: container.scrollHeight,
+//         clientHeight: container.clientHeight
+//       };
+//     }
+//   };
+
+//   const loadMoreData = async () => {
+//     isLoading = true;
+    
+//     try {
+//       const result = await loadMore();
+      
+//       // Если loadMore вернул false или пустой массив - больше данных нет
+//       if (result === false || (Array.isArray(result) && result.length === 0)) {
+//         hasMore = false;
+//         destroy(); // Отключаем скролл когда данные закончились
+//       }
+//     } catch (error) {
+//       console.error('Error loading more data:', error);
+//     } finally {
+//       isLoading = false;
+//     }
+//   };
+
+//   const handleScroll = () => {
+//     // Дебаунс чтобы не вызывать слишком часто
+//     clearTimeout(handleScroll.timeout);
+//     handleScroll.timeout = setTimeout(checkPosition, 100);
+//   };
+
+//   // Подписываемся на события скролла
+//   container.addEventListener('scroll', handleScroll);
+  
+//   // Функция для отключения бесконечного скролла
+//   const destroy = () => {
+//     container.removeEventListener('scroll', handleScroll);
+//     clearTimeout(handleScroll.timeout);
+//   };
+
+//   // Публичные методы
+//   return {
+//     destroy,
+//     enable: () => { enabled = true; },
+//     disable: () => { enabled = false; },
+//     setHasMore: (value) => { hasMore = value; }
+//   };
+// }
+
+//! 2. Debounce для resize события
+function createResizeHandler(callback, delay = 250) {
+  let timeoutId;
+
+  const handler = () => {
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => {
+      callback()
+    }, delay)
+  }
+
+  window.addEventListener('resize', handler)
+
+  return () => {
+    window.removeEventListener('resize', handler);
+    clearTimeout(timeoutId)
+  }
 }
 
-console.log('range', range([1,4,5,2,3,9,8,11,0]));
+createResizeHandler(() => {
+  console.log('Window resized:', window.innerWidth);
+});
+
