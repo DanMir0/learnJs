@@ -3175,17 +3175,17 @@ console.log(reverseString("JavaScript"))
 
 //! 5. Валидация JSON схемы
 // function validateBySchema(data, schema) {
-//   for (let key in data) {
+//   for (let key in schema) {
 //     const validator = schema[key]
 //     const value = data[key]
 
 //     if (typeof validator === 'string') {
 //       if (typeof value !== validator) return false
-//     } else if (typeof validator === 'number') {
-//       if (typeof value !== validator) return false
 //     } else if (typeof validator === 'function') {
 //       if (!validator(value)) return false
 //     }
+
+//     if (!(key in data)) return false
 //   }
 //   return true
 // }
@@ -3323,7 +3323,12 @@ function createIdGenerator(prefix = '') {
     }
 
 }
-
+function createIdGenerator(prefix = '') {
+  let counter = 1;
+  return () => {
+    return prefix ? `${prefix}_${counter++}` : Math.random().toString(36).substr(2, 8);
+  };
+}
 const userIdGenerator = createIdGenerator('user');
 console.log(userIdGenerator()); // "user_1"
 console.log(userIdGenerator()); // "user_2"
