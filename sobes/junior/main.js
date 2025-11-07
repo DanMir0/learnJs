@@ -1517,11 +1517,11 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 // console.log(removeElement([1, 2, 3, 2, 4], 2)); // [1, 3, 4]
 
 //! 8. Подсчет слов в тексте
-function wordCount(text) {
-  return text.trim().split(/\s+/).filter(Boolean).length
-}
+// function wordCount(text) {
+//   return text.trim().split(/\s+/).filter(Boolean).length
+// }
 
-console.log(wordCount("Hello world from JavaScript")); // 4
+// console.log(wordCount("Hello world from JavaScript")); // 4
 
 //! 9. Генератор случайного пароля
 // function generatePassword(length = 8) {
@@ -1537,9 +1537,38 @@ console.log(wordCount("Hello world from JavaScript")); // 4
 //console.log(generatePassword(10)); // "aB3#k9$mN2"
 
 //! 10. Проверка на четность/нечетность
-function checkParity(num) {
-  return num % 2 === 0 ? "even" : "odd"
+// function checkParity(num) {
+//   return num % 2 === 0 ? "even" : "odd"
+// }
+
+// console.log(checkParity(4)); // "even"
+// console.log(checkParity(7)); // "odd"
+
+//! Фильтрация товаров по цене
+// function filterProducts(products, minPrice, maxPrice) {
+//   return products.filter(item => item.price >= minPrice && item.price <= maxPrice)
+// }
+
+// const products = [
+//   { name: 'Phone', price: 500 },
+//   { name: 'Laptop', price: 1000 },
+//   { name: 'Tablet', price: 300 }
+// ];
+// console.log(filterProducts(products, 400, 800)); // [{name: 'Phone', price: 500}]
+
+//! Форматирование даты заказа
+function formatOrderDate(dateString) {
+  const date = new Date(dateString)
+  const day = date.getDate()
+  const month = date.getMonth()
+  const year = date.getFullYear()
+
+  const months = [
+  'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+  'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+];
+
+return `${day} ${months[month]} ${year}`
 }
 
-console.log(checkParity(4)); // "even"
-console.log(checkParity(7)); // "odd"
+console.log(formatOrderDate('2024-01-15')); // "15 января 2024"
