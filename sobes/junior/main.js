@@ -1557,18 +1557,73 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 // console.log(filterProducts(products, 400, 800)); // [{name: 'Phone', price: 500}]
 
 //! Форматирование даты заказа
-function formatOrderDate(dateString) {
-  const date = new Date(dateString)
-  const day = date.getDate()
-  const month = date.getMonth()
-  const year = date.getFullYear()
+// function formatOrderDate(dateString) {
+//   const date = new Date(dateString)
+//   const day = date.getDate()
+//   const month = date.getMonth()
+//   const year = date.getFullYear()
 
-  const months = [
-  'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-  'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
-];
+//   const months = [
+//   'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+//   'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+// ];
 
-return `${day} ${months[month]} ${year}`
+// return `${day} ${months[month]} ${year}`
+// }
+
+// console.log(formatOrderDate('2024-01-15')); // "15 января 2024"
+
+//! Поиск пользователя по email
+// function findUserByEmail(users, email) {
+//   // Найти пользователя по email (регистронезависимо)
+//   return users.find(user => user.email.toLowerCase() === email.toLowerCase())
+// }
+
+// const users = [
+//   { name: 'John', email: 'john@test.com' },
+//   { name: 'Jane', email: 'JANE@test.com' }
+// ];
+// console.log(findUserByEmail(users, 'JANE@test.com')); // {name: 'Jane', email: 'JANE@test.com'}
+
+//! Подсчет общей стоимости заказа
+// function calculateOrderTotal(order) {
+//   // Посчитать сумму товаров с учетом количества
+//   return order.items.reduce((acc, item) => {
+//     if (item.quantity > 1) {
+//       while (item.quantity !== 0) {
+//         acc += item.price 
+//         item.quantity--
+//       }
+//     } else {
+//       acc += item.price
+//     }
+//     return acc
+//   }, 0)
+// }
+
+// const order = {
+//   items: [
+//     { name: 'Phone', price: 500, quantity: 2 },
+//     { name: 'Case', price: 20, quantity: 1 }
+//   ]
+// };
+// console.log(calculateOrderTotal(order)); // 1020
+
+//! Валидация пароля
+function validatePassword(password) {
+  // Проверить: минимум 8 символов, есть цифра и заглавная буква
+  if (password.length < 8) return false
+
+  let hasDigit = false
+  let hasUppercase = false
+
+  for (let char of password) {
+    if (char >= '0' && char <= '9') hasDigit = true
+    if (char >= 'A' && char <= 'Z') hasUppercase = true 
+  }
+
+  return hasDigit && hasUppercase
 }
 
-console.log(formatOrderDate('2024-01-15')); // "15 января 2024"
+console.log(validatePassword('Secret123')); // true
+console.log(validatePassword('weak')); // false
