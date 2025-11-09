@@ -3305,32 +3305,196 @@ console.log(reverseString("JavaScript"))
 // // Сортировка по score (убывание), затем по name (по возрастанию)
 
 //! 10. Генератор уникальных ID с префиксом
-function createIdGenerator(prefix = '') {
-    let counter = 1
-    return () => {
-        const chars = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890"
-        let id = ''
-        if (prefix) {
-          id = `${prefix}_${counter}`
-          counter++
-          return id
-        }
-        for (let i = 0; i < 8; i++) {
-          const index = Math.floor(Math.random() * chars.length)
-          id += chars[index]
-        }
-        return id
-    }
+// function createIdGenerator(prefix = '') {
+//     let counter = 1
+//     return () => {
+//         const chars = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890"
+//         let id = ''
+//         if (prefix) {
+//           id = `${prefix}_${counter}`
+//           counter++
+//           return id
+//         }
+//         for (let i = 0; i < 8; i++) {
+//           const index = Math.floor(Math.random() * chars.length)
+//           id += chars[index]
+//         }
+//         return id
+//     }
 
-}
-function createIdGenerator(prefix = '') {
-  let counter = 1;
-  return () => {
-    return prefix ? `${prefix}_${counter++}` : Math.random().toString(36).substr(2, 8);
-  };
-}
-const userIdGenerator = createIdGenerator('user');
-console.log(userIdGenerator()); // "user_1"
-console.log(userIdGenerator()); // "user_2"
-const userIdGenerator2 = createIdGenerator('');
-console.log(userIdGenerator2());
+// }
+// function createIdGenerator(prefix = '') {
+//   let counter = 1;
+//   return () => {
+//     return prefix ? `${prefix}_${counter++}` : Math.random().toString(36).substr(2, 8);
+//   };
+// }
+// const userIdGenerator = createIdGenerator('user');
+// console.log(userIdGenerator()); // "user_1"
+// console.log(userIdGenerator()); // "user_2"
+// const userIdGenerator2 = createIdGenerator('');
+// console.log(userIdGenerator2());
+
+//! Кэширование результатов API
+// function createApiCache(ttl = 5 * 60 * 1000) {
+//   // Вернуть функцию, которая кэширует результаты fetch на 5 минут
+//   let cache = new Map()
+
+//   return async (url, options = {}) => {
+//     const cacheKey = JSON.stringify({url, options})
+
+//     if (cache.has(cacheKey)) {
+//       const cached = cache.get(cacheKey)
+
+//       if (Date.now() - cached.timestamp < ttl) {
+//         console.log('Кэш', url);
+//         return cached.data.clone()
+//       } else {
+//         cache.delete(cacheKey)
+//       }
+//     }
+
+//     console.log('🔄 Загружаем данные:', url);
+
+//     try {
+//       const response = await fetch(url, options)
+
+//       if (response.ok) {
+//          cache.set(cacheKey, {
+//           data: response.clone(), // Сохраняем клон Response
+//           timestamp: Date.now()
+//         });
+//       }
+
+//       return response
+//     } catch (error) {
+//         console.error('Ошибка загрузки:', error);
+//       throw error;
+//     }
+//   }
+// }
+
+// // Создаем кэшированную версию fetch
+// const cachedFetch = createApiCache(10000); // 30 секунд TTL
+
+// // Использование
+// async function loadUserData(userId) {
+//   try {
+//     const response = await cachedFetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
+//     const user = await response.json();
+//     console.log('Данные пользователя:', user);
+//     return user;
+//   } catch (error) {
+//     console.error('Ошибка загрузки:', error);
+//   }
+// }
+
+// // Тестируем
+// async function testCache() {
+//   console.log('=== Первый вызов (должен загрузить) ===');
+//   await loadUserData(1); // Загрузит данные
+  
+//   console.log('=== Второй вызов (должен взять из кэша) ===');
+//   await loadUserData(1); // Возьмет из кэша
+  
+//   console.log('=== Третий вызов (другой пользователь) ===');
+//   await loadUserData(2); // Загрузит новые данные
+  
+//   // Ждем 20 секунд и проверяем снова
+//   setTimeout(async () => {
+//     console.log('=== Через 20 секунд (должен перезагрузить) ===');
+//     await loadUserData(1); // Перезагрузит, так как TTL истек
+//   }, 2000);
+// }
+
+// testCache();
+
+//! Пагинация с поиском
+// function searchWithPagination(items, query, page, perPage) {
+//   // Вернуть { results: [...], total, page, totalPages }
+//   // + поиск по query
+
+  
+//   let results = []
+//   items.forEach(element => {
+//     if (element.toLowerCase().includes(query.toLowerCase())) {
+//       results.push(element)
+//     }
+//   });
+//   const total = results.length
+//   const totalPages = Math.ceil(results.length / perPage)
+
+//   const startIndex = (page - 1) * perPage;
+//   const endIndex = startIndex + perPage;
+//   return {
+//     results: results.slice(startIndex, endIndex),
+//     total: total,
+//     page: page,
+//     totalPages: totalPages,
+//   }
+// }
+
+// const products = ['iPhone', 'Samsung', 'iPad', 'MacBook'];
+// console.log(searchWithPagination(products, 'i', 1, 2)); // {results: ['iPhone', 'iPad'], total: 3, ...}
+
+//! 3. Дебаунс для поиска в реальном времени
+// function createSearchHandler(onSearch, delay = 300) {
+//   let timeout = null;
+
+//   return (...args) => {
+//     if (timeout) {
+//       clearTimeout(timeout)
+//     }
+
+//     timeout = setTimeout(() => {
+//       onSearch(...args)
+//     }, delay)
+//   }
+// }
+
+// const searchHandler = createSearchHandler(query => {
+//   console.log('Searching for:', query);
+// });
+
+// let input = document.getElementById('search')
+// input.addEventListener('input', (event) => {
+//   searchHandler(event.target.value)
+// });
+
+//! 4. Валидация формы с динамическими правилами
+// function createFormValidator(rules) {
+//   // Вернуть функцию валидации объекта по правилам
+//   return (formatData) => {
+//      for (let field in rules) {
+//       if (!rules[field](formatData[field])) {
+//         return false
+//       }
+//   }
+//   return true
+//   }
+// }
+
+// const userValidator = createFormValidator({
+//   name: value => value.length >= 2,
+//   age: value => value >= 18
+// });
+// console.log(userValidator({ name: 'John', age: 25 })); // true
+
+//! 5. Трансформация данных из API
+// function transformApiData(apiResponse) {
+//   // Преобразовать данные для фронтенда
+//   return {
+//     name:  apiResponse.user_data.user_name,
+//     age:  apiResponse.user_data.user_age,
+//     email:  apiResponse.user_data.contact_info.email
+//   }
+// }
+
+// const apiResponse = {
+//   user_data: {
+//     user_name: 'john_doe',
+//     user_age: 25,
+//     contact_info: { email: 'john@test.com' }
+//   }
+// };
+// // → { name: 'john_doe', age: 25, email: 'john@test.com' }
