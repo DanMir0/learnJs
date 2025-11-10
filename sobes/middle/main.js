@@ -1933,3 +1933,161 @@
 // q.enqueue('low', 1);
 // q.enqueue('high', 5);
 // q.dequeue(); // → 'high'
+
+//! Promise pool с ограничением
+// async function runPromisesWithLimit(promises, limit) {
+//   let active = []; 
+//   let results = [];
+//   let index = 0;
+
+//   while (index < promises.length || active.length > 0) {
+//     // Запускаем новые промисы если есть место
+//     while (active.length < limit && index < promises.length) {
+//       const promise = promises[index]();
+//       const wrappedPromise = promise.then(result => ({ index, result }));
+      
+//       active.push(wrappedPromise);
+//       index++;
+//     }
+
+//     // Ждем завершения любого промиса
+//     if (active.length > 0) {
+//       const completed = await Promise.race(active);
+//       active = active.filter(p => p !== completed);
+//       results[completed.index] = completed.result;
+//     }
+//   }
+
+//   return results;
+// }
+// const promises = [
+//   () => fetch('/api/1'),
+//   () => fetch('/api/2'),
+//   () => fetch('/api/3'),
+//   () => fetch('/api/4')
+// ];
+
+//! 2. Deep diff объектов
+// function deepObjectDiff(obj1, obj2) {
+//     const result = {}
+
+//     for (let key in obj1) {
+//         if (!(key in obj2)) {
+//             result[key] = obj1[key]
+//         }
+//     }
+
+//     for (let key in obj2) {
+//         if (!(key in obj1)) {
+//             result[key] = obj2[key]
+//         } else if (obj1[key] !== obj2[key]) {
+//             if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object') {
+//                 result[key] = deepObjectDiff(obj1[key], obj2[key])
+//             } else {
+//                 result[key] = {old: obj1[key], new: obj2[key]}
+//             }
+//         }
+//     }
+//     return result
+// }
+
+// const obj1 = { a: 1, b: { x: 10, y: 20 } };
+// const obj2 = { a: 1, b: { x: 15, z: 30 } };
+// console.log(deepObjectDiff(obj1, obj2));
+// // → { b: { x: { old: 10, new: 15 }, y: 20, z: 30 } }
+
+//! 3. Event Emitter
+// class EventEmitter {
+//   // Реализовать: on, emit, off, once
+//   constructor () {
+//     this.events = {}
+//   }
+
+//   on(eventName, listener) {
+//     if (!this.events[eventName]) {
+//         this.events[eventName] = []
+//     }
+//     this.events[eventName].push(listener)
+//   }
+//   emit(eventName, data) {
+//     if (this.events[eventName]) {
+//         this.events[eventName].forEach(listener => {
+//             listener(data)
+//         })
+//     }
+//   }
+//   off(eventName, listenerToRemove) {
+//     if (this.events[eventName]) {
+//         this.events[eventName] = this.events[eventName].filter(listener => listener !== listenerToRemove)
+//     }
+//   }
+//   once(eventName, listener) {
+//     const onceWrapper = (data) => {
+//         listener(data)
+//         this.off(eventName, onceWrapper)
+//     }
+//     this.on(eventName, onceWrapper)
+//   }
+// }
+
+// const emitter = new EventEmitter();
+
+// // Подписываемся
+// emitter.on('login', user => console.log(`Welcome ${user.name}!`));
+
+// // Срабатывает много раз
+// emitter.emit('login', { name: 'John' }); // "Welcome John!"
+// emitter.emit('login', { name: 'Jane' }); // "Welcome Jane!"
+
+// // Один раз
+// emitter.once('logout', () => console.log('Bye!'));
+// emitter.emit('logout'); // "Bye!"
+// emitter.emit('logout'); // Ничего не произойдет
+
+//! 4. LRU Cache
+// class LRUCache {
+//   constructor(capacity) {
+//     // Реализовать LRU кэш с ограничением по размеру
+//     this.capacity = capacity;
+//     this.cache = new Map()
+//   }
+  
+//   get(key) {
+//     if (!this.cache.has(key)) return -1
+
+//     const value = this.cache.get(key)
+//     this.cache.delete(key)
+//     this.cache.set(key, value)
+
+//     return value
+//   }
+//   put(key, value) {
+//     if (this.cache.has(key)) {
+//         this.cache.delete(key) // удаляем старый
+//     } else if (this.cache.size >= this.capacity) {
+//         // Удаляем самый старый (первый в Map)
+//         const oldestKey = this.cache.keys().next().value
+//         this.cache.delete(oldestKey)
+//     }
+
+//     this.cache.set(key, value)
+//   }
+// }
+
+//! 5. Функция compose с контекстом
+// function compose(...fns) {
+//   // Реализовать композицию функций с передачей контекста
+//   return function(...args) {
+//     let result = fns[0].apply(this, args)
+//     for (let i = 1; i < fns.length; i++) {
+//         result = fns[i](result)
+//     }
+//     return result
+//   }
+// }
+
+// const user = { name: 'John' };
+// const greet = function() { return `Hello, ${this.name}`; };
+// const exclaim = str => str + '!';
+// const composed = compose(greet, exclaim);
+// console.log(composed.call(user)); // "Hello, John!"
