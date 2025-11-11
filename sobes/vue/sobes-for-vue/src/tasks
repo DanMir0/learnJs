@@ -1,0 +1,83 @@
+6. Кастомная директива v-click-outside
+Vue.directive('click-outside', {
+bind(el, binding, vnode) {
+// Закрывать элемент при клике вне его
+}
+})
+
+// Использование: <div v-click-outside="closeMenu">Меню</div>
+
+7. Компонент модального окна
+<template>
+    <!-- Переиспользуемый модальный компонент -->
+</template>
+
+<script>
+export default {
+    props: ['show'],
+    emits: ['close'],
+    watch: {
+        show(val) {
+            if (val) document.body.style.overflow = 'hidden'
+            else document.body.style.overflow = ''
+        }
+    }
+}
+</script>
+
+8. Композабл useApi
+// composition API
+export function useApi(url) {
+const data = ref(null)
+const loading = ref(false)
+const error = ref(null)
+
+const fetchData = async () => {
+// Реализовать загрузку данных
+}
+
+return { data, loading, error, fetchData }
+}
+
+// Использование в компоненте:
+// const { data, loading, fetchData } = useApi('/users')
+
+9. Миксин для уведомлений
+export const notificationMixin = {
+methods: {
+showSuccess(message) {
+// Показать успешное уведомление
+},
+showError(message) {
+// Показать ошибку
+}
+}
+}
+
+// Использование в компоненте: this.showSuccess('Успех!')
+
+10. Динамические компоненты с keep-alive
+vue
+<template>
+    <!-- Переключение между табами с сохранением состояния -->
+    <button @click="currentTab = 'tab1'">Tab 1</button>
+    <button @click="currentTab = 'tab2'">Tab 2</button>
+
+    <keep-alive>
+        <component :is="currentTab"></component>
+    </keep-alive>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            currentTab: 'tab1'
+        }
+    },
+    components: {
+        tab1: { /* ... */ },
+        tab2: { /* ... */ }
+    }
+}
+</script>
