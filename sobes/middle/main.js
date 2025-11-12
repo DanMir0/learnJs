@@ -1829,28 +1829,116 @@
 
 //! 3. Sequential Promises
 // Реализуй выполнение массива промисов по очереди, а не одновременно.
+// async function sequentialPromises(promiseFunctions) {
+//     const results = []
 
-// sequentialPromises([() => delay(1000, 'a'), () => delay(500, 'b')])
-// // → ['a','b'] (после 1.5 сек)
+//     for (const promiseFn of promiseFunctions) {
+//         const result = await promiseFn()
+//         results.push(result)
+//     }
+//     return results
+// }
+// function delay(ms, value) {
+//     return new Promise(resolve => setTimeout(() => resolve(value), ms))
+// }
+// sequentialPromises([() => delay(1000, 'a'), () => delay(500, 'b')]).then(results => console.log(results))
+// → ['a','b'] (после 1.5 сек)
 
-// 4. Promise Pool
-
+//! 4. Promise Pool
 // Реализуй функцию promisePool(tasks, limit), которая выполняет не более limit промисов одновременно.
+// function promisePool(tasks, limit) {
+//     const active = []
+//     const results = []
+//     let index = 0
 
+//     function runNext() {
+//         if (index >= tasks.length || active.length >= limit) {
+//             return
+//         }
+
+//         const taskIndex = index++
+//         const promise = tasks[taskIndex]();
+
+//         const trackedPromise = promise.then(result => {
+//             results[taskIndex] = result
+//             active.splice(active.indexOf(trackedPromise), 1)
+//             runNext()
+//         })
+//         active.push(trackedPromise)
+//         runNext()
+//     }
+//     runNext();
+
+//     return Promise.allSettled(active).then(() => results);
+// }
 // promisePool([t1, t2, t3, t4], 2)
-// // → выполняет максимум 2 промиса одновременно
+// → выполняет максимум 2 промиса одновременно
 
-// 5. Async Queue
-
+//! 5. Async Queue
 // Сделай очередь задач, где новые промисы добавляются, а выполняется только один за раз.
+// class TaskQueue {
+//     constructor() {
+//         this.queue = [];
+//         this.isProcessing = false
+//     }
 
-// queue.add(() => fetch('a'))
-// queue.add(() => fetch('b'))
-// // → b выполнится только после a
-// 6. Once
+//     add(task) {
+//         return new Promise((resolve, reject) => {
+//             this.queue.push({task, resolve, reject})
 
+//             if (!this.isProcessing) {
+//                 this.isProcessing()
+//             }
+//         })
+//     }
+
+//     async process() {
+//         if (this.isProcessing) return
+//         this.isProcessing = true
+
+//         while (this.queue.length > 0) {
+//             const { task, resolve, reject } = this.queue.shift();
+      
+//             try {
+//                 const result = await task();
+//                 resolve(result);
+//             } catch (error) {
+//                 reject(error);
+//             }
+//         }
+//         this.isProcessing = false;
+//     }
+// }
+// class TaskQueue {
+//   constructor() {
+//     this.promiseChain = Promise.resolve();
+//   }
+
+//   add(task) {
+//     this.promiseChain = this.promiseChain.then(() => task());
+//     return this.promiseChain;
+//   }
+// }
+// let queue = new TaskQueue()
+// queue.add(() => fetch('/api/a').then(r => r.json()))
+//   .then(result => console.log('A completed:', result));
+
+// queue.add(() => fetch('/api/b').then(r => r.json()))  
+//   .then(result => console.log('B completed:', result));
+// → b выполнится только после a
+
+//! 6. Once
 // Создай функцию once(fn), которая позволяет вызвать fn только один раз.
-
+// function once(fn) {
+//     let isActive = false
+//     let result;
+//     return (...args) => {
+//         if (isActive) return
+//         isActive = true
+//         result = fn(...args)
+//         return result
+//     }
+// }
 // const sayHi = once(() => console.log("Hi"));
 // sayHi(); sayHi(); // → "Hi" (только один раз)
 

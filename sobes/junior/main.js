@@ -1601,6 +1601,9 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 //   }, 0)
 // }
 
+// function calculateOrderTotal(order) {
+//   return order.items.reduce((acc, item) => acc + (item.price * item.quantity), 0)
+// }
 // const order = {
 //   items: [
 //     { name: 'Phone', price: 500, quantity: 2 },
@@ -1609,21 +1612,21 @@ console.log(flatten([1, [2, [3, 4], 5]])) // [1, 2, 3, 4, 5]*/
 // };
 // console.log(calculateOrderTotal(order)); // 1020
 
-//! Валидация пароля
-function validatePassword(password) {
-  // Проверить: минимум 8 символов, есть цифра и заглавная буква
-  if (password.length < 8) return false
+// //! Валидация пароля
+// function validatePassword(password) {
+//   // Проверить: минимум 8 символов, есть цифра и заглавная буква
+//   if (password.length < 8) return false
 
-  let hasDigit = false
-  let hasUppercase = false
+//   let hasDigit = false
+//   let hasUppercase = false
 
-  for (let char of password) {
-    if (char >= '0' && char <= '9') hasDigit = true
-    if (char >= 'A' && char <= 'Z') hasUppercase = true 
-  }
+//   for (let char of password) {
+//     if (char >= '0' && char <= '9') hasDigit = true
+//     if (char >= 'A' && char <= 'Z') hasUppercase = true 
+//   }
 
-  return hasDigit && hasUppercase
-}
+//   return hasDigit && hasUppercase
+// }
 
-console.log(validatePassword('Secret123')); // true
-console.log(validatePassword('weak')); // false
+// console.log(validatePassword('Secret123')); // true
+// console.log(validatePassword('weak')); // false
