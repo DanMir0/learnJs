@@ -1943,12 +1943,34 @@
 // sayHi(); sayHi(); // → "Hi" (только один раз)
 
 // 7. Throttle
-
 // Напиши реализацию throttle(fn, delay), которая вызывает fn не чаще, чем раз в delay мс.
+function throttle(fn, delay) {
+    let saveArgs = null
+    let isThrottle = false
 
-// const fn = () => console.log('run');
-// const throttled = throttle(fn, 1000);
-// throttled(); throttled(); throttled(); // → вызовется 1 раз в 1 сек
+    return (...args) => {
+        if (isThrottle) {
+            saveArgs = args
+            return
+        }
+
+        fn(...args)
+        isThrottle = true
+
+        setTimeout(() => {
+            isThrottle = false
+
+            if (saveArgs) {
+                fn(...saveArgs)
+                saveArgs = null
+            }
+        }, delay)
+
+    }
+}
+const fn = () => console.log('run');
+const throttled = throttle(fn, 1000);
+throttled(); throttled(); throttled(); // → вызовется 1 раз в 1 сек
 
 // 8. Curry
 
