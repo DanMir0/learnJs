@@ -1944,40 +1944,49 @@
 
 // 7. Throttle
 // Напиши реализацию throttle(fn, delay), которая вызывает fn не чаще, чем раз в delay мс.
-function throttle(fn, delay) {
-    let saveArgs = null
-    let isThrottle = false
+// function throttle(fn, delay) {
+//     let saveArgs = null
+//     let isThrottle = false
 
-    return (...args) => {
-        if (isThrottle) {
-            saveArgs = args
-            return
-        }
+//     return (...args) => {
+//         if (isThrottle) {
+//             saveArgs = args
+//             return
+//         }
 
-        fn(...args)
-        isThrottle = true
+//         fn(...args)
+//         isThrottle = true
 
-        setTimeout(() => {
-            isThrottle = false
+//         setTimeout(() => {
+//             isThrottle = false
 
-            if (saveArgs) {
-                fn(...saveArgs)
-                saveArgs = null
+//             if (saveArgs) {
+//                 fn(...saveArgs)
+//                 saveArgs = null
+//             }
+//         }, delay)
+
+//     }
+// }
+// const fn = () => console.log('run');
+// const throttled = throttle(fn, 1000);
+// throttled(); throttled(); throttled(); // → вызовется 1 раз в 1 сек
+
+//! 8. Curry
+// Реализуй каррирование функции любого числа аргументов.
+function curry(fns) {
+    return function curried(...args) {
+        if (args.length >= fns.length) {
+            return fns.apply(this, args)
+        } else {
+            return function(...nextArgs) {
+                return curried.apply(this, args.concat(nextArgs))
             }
-        }, delay)
-
+        }
     }
 }
-const fn = () => console.log('run');
-const throttled = throttle(fn, 1000);
-throttled(); throttled(); throttled(); // → вызовется 1 раз в 1 сек
-
-// 8. Curry
-
-// Реализуй каррирование функции любого числа аргументов.
-
-// function add(a,b,c){return a+b+c}
-// curry(add)(1)(2)(3) // → 6
+function add(a,b,c){return a+b+c}
+curry(add)(1)(2)(3) // → 6
 
 // 9. Compose
 
