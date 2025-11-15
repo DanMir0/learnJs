@@ -1974,37 +1974,42 @@
 
 //! 8. Curry
 // Реализуй каррирование функции любого числа аргументов.
-function curry(fns) {
-    return function curried(...args) {
-        if (args.length >= fns.length) {
-            return fns.apply(this, args)
-        } else {
-            return function(...nextArgs) {
-                return curried.apply(this, args.concat(nextArgs))
-            }
-        }
-    }
-}
-function add(a,b,c){return a+b+c}
-curry(add)(1)(2)(3) // → 6
+// function curry(fns) {
+//     return function curried(...args) {
+//         if (args.length >= fns.length) {
+//             return fns.apply(this, args)
+//         } else {
+//             return function(...nextArgs) {
+//                 return curried.apply(this, args.concat(nextArgs))
+//             }
+//         }
+//     }
+// }
+// function add(a,b,c){return a+b+c}
+// curry(add)(1)(2)(3) // → 6
 
-// 9. Compose
-
+//! 9. Compose
 // Реализуй compose(fn1, fn2, fn3) — выполняет функции справа налево.
+// function compose(...fns) {
+//     return fns.reduceRight((prevFn, nextFn) => (...args) => nextFn(prevFn(...args)))
+// }
 
 // const add1 = x => x + 1;
 // const double = x => x * 2;
 // const square = x => x ** 2;
-// compose(add1, double, square)(2); // square(2)=4 → double(4)=8 → add1(8)=9
+// console.log(compose(add1, double, square)(2));// square(2)=4 → double(4)=8 → add1(8)=9
 
-// 10. Partial
-
+//! 10. Partial
 // Реализуй частичное применение аргументов.
-
-// function add(a,b,c){return a+b+c}
-// const add5 = partial(add, 2, 3);
-// add5(4) // → 9
-
+function partial(fn, ...fixedArgs) {
+    return function(...remainingArgs) {
+        return fn(...fixedArgs, ...remainingArgs)
+    }
+}
+function add(a,b,c){return a+b+c}
+const add5 = partial(add, 2, 3);
+console.log(add5(4)) // → 9
+ 
 // 🔹 Алгоритмы и структуры данных
 // 11. Group By
 
