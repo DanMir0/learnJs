@@ -2001,29 +2001,58 @@
 
 //! 10. Partial
 // Реализуй частичное применение аргументов.
-function partial(fn, ...fixedArgs) {
-    return function(...remainingArgs) {
-        return fn(...fixedArgs, ...remainingArgs)
-    }
-}
-function add(a,b,c){return a+b+c}
-const add5 = partial(add, 2, 3);
-console.log(add5(4)) // → 9
+// function partial(fn, ...fixedArgs) {
+//     return function(...remainingArgs) {
+//         return fn(...fixedArgs, ...remainingArgs)
+//     }
+// }
+// function add(a,b,c){return a+b+c}
+// const add5 = partial(add, 2, 3);
+// console.log(add5(4)) // → 9
  
-// 🔹 Алгоритмы и структуры данных
-// 11. Group By
-
+//! 11. Group By
 // Сгруппируй элементы массива по ключу.
+// function groupBy(arr, key) {
+//     let results = {}
+//     arr.forEach(item => {
+//         if (results[item[key]]) {
+//             results[item[key]].push(item)
+//         } else {
+//             results[item[key]] = [item]
+//         }
+//     })
+//     return results
+// }
+// console.log(groupBy([{a:1},{a:2},{a:1}], 'a'))
+// → {1:[{a:1},{a:1}], 2:[{a:2}]}
 
-// groupBy([{a:1},{a:2},{a:1}], 'a')
-// // → {1:[{a:1},{a:1}], 2:[{a:2}]}
-
-// 12. Deep Merge
-
+//! 12. Deep Merge
 // Объедини два объекта рекурсивно (вложенные объекты тоже объединяются).
+function deepMerge(obj1, obj2) {
+    let result = deepClone(obj1)
 
-// deepMerge({a:{b:1}}, {a:{c:2}})
-// // → {a:{b:1,c:2}}
+    for (let key in obj2) {
+        if (typeof result[key] === 'object' && typeof obj2[key] === 'object') {
+            result[key] = deepMerge(result[key], obj2[key])
+        } else {
+            result[key] = obj2[key]
+        }
+    }
+
+    return result
+}
+function deepClone(obj) {
+    if (obj === null || typeof obj !== 'object') return obj
+    if (Array.isArray(obj)) return obj.map(item => deepClone(item))
+    
+    let copy = {}
+    for (let key in obj) {
+        copy[key] = deepClone(obj[key])
+    }
+    return copy
+}
+console.log(deepMerge({a:{b:1}}, {a:{c:2}}))
+// → {a:{b:1,c:2}}
 
 // 13. Binary Search
 
