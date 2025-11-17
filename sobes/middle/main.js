@@ -2028,40 +2028,51 @@
 
 //! 12. Deep Merge
 // Объедини два объекта рекурсивно (вложенные объекты тоже объединяются).
-function deepMerge(obj1, obj2) {
-    let result = deepClone(obj1)
+// function deepMerge(obj1, obj2) {
+//     let result = deepClone(obj1)
 
-    for (let key in obj2) {
-        if (typeof result[key] === 'object' && typeof obj2[key] === 'object') {
-            result[key] = deepMerge(result[key], obj2[key])
-        } else {
-            result[key] = obj2[key]
-        }
-    }
+//     for (let key in obj2) {
+//         if (typeof result[key] === 'object' && typeof obj2[key] === 'object') {
+//             result[key] = deepMerge(result[key], obj2[key])
+//         } else {
+//             result[key] = obj2[key]
+//         }
+//     }
 
-    return result
-}
-function deepClone(obj) {
-    if (obj === null || typeof obj !== 'object') return obj
-    if (Array.isArray(obj)) return obj.map(item => deepClone(item))
+//     return result
+// }
+// function deepClone(obj) {
+//     if (obj === null || typeof obj !== 'object') return obj
+//     if (Array.isArray(obj)) return obj.map(item => deepClone(item))
     
-    let copy = {}
-    for (let key in obj) {
-        copy[key] = deepClone(obj[key])
-    }
-    return copy
-}
-console.log(deepMerge({a:{b:1}}, {a:{c:2}}))
+//     let copy = {}
+//     for (let key in obj) {
+//         copy[key] = deepClone(obj[key])
+//     }
+//     return copy
+// }
+// console.log(deepMerge({a:{b:1}}, {a:{c:2}}))
 // → {a:{b:1,c:2}}
 
-// 13. Binary Search
-
+//! 13. Binary Search
 // Реализуй бинарный поиск по отсортированному массиву.
+// function binarySearch(arr, search) {
+//     let left = 0;
+//     let right = arr.length - 1;
 
-// binarySearch([1,3,5,7,9], 7) // → 3 (индекс)
+//     while (left <= right) {
+//         const mid = Math.floor((left + right) / 2)
 
-// 14. LRU Cache
+//         if (arr[mid] === search) return mid
+//         if (arr[mid] < search) left = mid + 1
+//         else right = mid - 1
+//     }
 
+//     return -1
+// }
+// console.log(binarySearch([1,3,5,7,9], 7)) // → 3 (индекс)
+
+//! 14. LRU Cache
 // Реализуй простую версию LRU Cache с методами get, set.
 
 // const cache = new LRUCache(2);
