@@ -2074,29 +2074,96 @@
 
 //! 14. LRU Cache
 // Реализуй простую версию LRU Cache с методами get, set.
+// class LRUCache {
+//     constructor(capacity) {
+//         this.capacity = capacity
+//         this.cache = new Map()
+//     }
 
+//     get(key) {
+//         if (!this.cache.has(key)) {
+//             return undefined
+//         }
+
+//         const value = this.cache.get(key)
+//         this.cache.delete(key)
+//         this.cache.set(key, value)
+//         return value
+//     }
+//     set(key, val) {
+//         if (this.cache.has(key)) {
+//             this.cache.delete(key)
+//         } else if (this.cache.size >= this.capacity) {
+//             const firstKey = this.cache.keys().next().value
+//             this.cache.delete(firstKey)
+//         }
+//             this.cache.set(key, value);
+//     }
+// }
 // const cache = new LRUCache(2);
 // cache.set('a',1);
 // cache.set('b',2);
 // cache.get('a'); // → 1
 // cache.set('c',3); // → удаляется 'b' (самый старый)
 
-// 15. EventEmitter
-
+//! 15. EventEmitter
 // Создай класс EventEmitter с методами on, off, emit.
+// class EventEmitter {
+//     constructor() {
+//         this.events = {}
+//     }
+//     on(event, callback) {
+//         if (!this.events[event]) {
+//             this.events[event] = []
+//         }
+//         this.events[event].push(callback)
+//     }
+//     emit(event, data) {
+//         if (!this.events[event]) {
+//             return
+//         }
 
+//         this.events[event].forEach(callback => {
+//             callback(data)
+//         });
+//     }
+// }
 // const e = new EventEmitter();
 // e.on('say', msg => console.log(msg));
 // e.emit('say', 'Hello'); // → Hello
 
-// 16. Priority Queue
-
+//! 16. Priority Queue
 // Реализуй очередь с приоритетом — элементы с большим приоритетом обрабатываются первыми.
+class PriorityQueue {
+    constructor() {
+        this.items = []
+    }
 
-// const q = new PriorityQueue();
-// q.enqueue('low', 1);
-// q.enqueue('high', 5);
-// q.dequeue(); // → 'high'
+    enqueue(value, priority) {
+        this.items.push({value: value, priority: priority})
+    }
+    dequeue() {
+        if (this.items.length === 0) {
+            return undefined
+        }
+
+        let highestPriorityIndex = 0;
+        for (let i = 1; i < this.items.length; i++) {
+            if (this.items[i].priority > this.items[highestPriorityIndex].priority) {
+                highestPriorityIndex = i
+            }
+        }
+
+        const highestPriorityItem = this.items[highestPriorityIndex]
+        this.items.splice(highestPriorityIndex, 1)
+        return highestPriorityItem.value
+    }
+}
+const q = new PriorityQueue();
+q.enqueue('low', 1);
+q.enqueue('high', 5);
+console.log(q.dequeue());  // → 'high'
+
 
 //! Promise pool с ограничением
 // async function runPromisesWithLimit(promises, limit) {
