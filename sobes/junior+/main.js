@@ -3498,3 +3498,25 @@ console.log(reverseString("JavaScript"))
 //   }
 // };
 // // → { name: 'john_doe', age: 25, email: 'john@test.com' }
+
+// Реализовать наследование без классов
+function Animal(name) {
+  this.name = name;
+}
+
+Animal.prototype.speak = function() {
+  return `${this.name} makes a sound`;
+};
+
+function Dog(name, breed) {
+  Animal.call(this, name)
+  this.breed = breed
+}
+
+Dog.prototype = Object.create(Animal.prototype)
+Dog.prototype.constructor = Dog;
+
+Dog.prototype.bark = function() {
+  return `${this.name} barks!`
+}
+// Создать цепочку прототипов: Dog → Animal → Object
