@@ -3500,23 +3500,48 @@ console.log(reverseString("JavaScript"))
 // // → { name: 'john_doe', age: 25, email: 'john@test.com' }
 
 // Реализовать наследование без классов
-function Animal(name) {
-  this.name = name;
-}
+// function Animal(name) {
+//   this.name = name;
+// }
 
-Animal.prototype.speak = function() {
-  return `${this.name} makes a sound`;
-};
+// Animal.prototype.speak = function() {
+//   return `${this.name} makes a sound`;
+// };
 
-function Dog(name, breed) {
-  Animal.call(this, name)
-  this.breed = breed
-}
+// function Dog(name, breed) {
+//   Animal.call(this, name)
+//   this.breed = breed
+// }
 
-Dog.prototype = Object.create(Animal.prototype)
-Dog.prototype.constructor = Dog;
+// Dog.prototype = Object.create(Animal.prototype)
+// Dog.prototype.constructor = Dog;
 
-Dog.prototype.bark = function() {
-  return `${this.name} barks!`
-}
+// Dog.prototype.bark = function() {
+//   return `${this.name} barks!`
+// }
 // Создать цепочку прототипов: Dog → Animal → Object
+
+// Реализовать мемоизацию для функций с объектами
+function memoize(fn, resolver = JSON.stringify, ttl = null) {
+  let cache = new Map();
+
+  return function(...args) {
+    const key = resolver(args)
+
+    if (cache.has(key)) {
+       const entry = cache.get(key)
+
+      if (!ttl || (Date.now() - entry.timestamp < ttl)) {
+        return entry.value;
+      }
+    }
+
+    const result = fn(...args)
+    cache.set(key, { value: result, timestamp: Date.now() });
+    return result
+  }
+}
+
+const expensiveCalc = memoize((obj, arr) => {
+  // Сложные вычисления
+});
