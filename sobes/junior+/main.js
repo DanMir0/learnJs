@@ -3522,26 +3522,68 @@ console.log(reverseString("JavaScript"))
 // Создать цепочку прототипов: Dog → Animal → Object
 
 // Реализовать мемоизацию для функций с объектами
-function memoize(fn, resolver = JSON.stringify, ttl = null) {
-  let cache = new Map();
+// function memoize(fn, resolver = JSON.stringify, ttl = null) {
+//   let cache = new Map();
 
-  return function(...args) {
-    const key = resolver(args)
+//   return function(...args) {
+//     const key = resolver(args)
 
-    if (cache.has(key)) {
-       const entry = cache.get(key)
+//     if (cache.has(key)) {
+//        const entry = cache.get(key)
 
-      if (!ttl || (Date.now() - entry.timestamp < ttl)) {
-        return entry.value;
-      }
-    }
+//       if (!ttl || (Date.now() - entry.timestamp < ttl)) {
+//         return entry.value;
+//       }
+//     }
 
-    const result = fn(...args)
-    cache.set(key, { value: result, timestamp: Date.now() });
-    return result
-  }
-}
+//     const result = fn(...args)
+//     cache.set(key, { value: result, timestamp: Date.now() });
+//     return result
+//   }
+// }
 
+//JavaScript - Работа с бинарными данными
 const expensiveCalc = memoize((obj, arr) => {
   // Сложные вычисления
 });
+
+// Реализовать функции для работы с ArrayBuffer
+function encodeText(text) {
+   // Создаем "переводчик" из текста в байты
+    const encoder = new TextEncoder();
+    // Преобразуем текст в Uint8Array (массив байт)
+    const bytes = encoder.encode(text)
+    return bytes.buffer
+}
+
+function decodeText(buffer) {
+  // Создаем "переводчик" из байтов в текст
+  const decoder = new TextDecoder();
+   // Преобразуем ArrayBuffer обратно в текст
+   return decoder.decode(buffer)
+}
+
+// Реализовать простой бинарный протокол
+function memoize(func) {
+    const cache = {};
+    
+    return function(...args) {
+        // Простой ключ (не работает с объектами)
+        const key = args.join('_');
+        
+        if (cache[key] !== undefined) {
+            console.log('Взято из кэша:', key);
+            return cache[key];
+        }
+        
+        console.log('Вычисляем...');
+        const result = func(...args);
+        cache[key] = result;
+        return result;
+    };
+}
+
+// Тестируем
+const calc = memoize((a, b) => a + b);
+calc(2, 3); // "Вычисляем..." → 5
+calc(2, 3); // "Взято из кэша" → 5
