@@ -3543,47 +3543,208 @@ console.log(reverseString("JavaScript"))
 // }
 
 //JavaScript - Работа с бинарными данными
-const expensiveCalc = memoize((obj, arr) => {
-  // Сложные вычисления
-});
+// const expensiveCalc = memoize((obj, arr) => {
+//   // Сложные вычисления
+// });
 
-// Реализовать функции для работы с ArrayBuffer
-function encodeText(text) {
-   // Создаем "переводчик" из текста в байты
-    const encoder = new TextEncoder();
-    // Преобразуем текст в Uint8Array (массив байт)
-    const bytes = encoder.encode(text)
-    return bytes.buffer
-}
+// // Реализовать функции для работы с ArrayBuffer
+// function encodeText(text) {
+//    // Создаем "переводчик" из текста в байты
+//     const encoder = new TextEncoder();
+//     // Преобразуем текст в Uint8Array (массив байт)
+//     const bytes = encoder.encode(text)
+//     return bytes.buffer
+// }
 
-function decodeText(buffer) {
-  // Создаем "переводчик" из байтов в текст
-  const decoder = new TextDecoder();
-   // Преобразуем ArrayBuffer обратно в текст
-   return decoder.decode(buffer)
-}
+// function decodeText(buffer) {
+//   // Создаем "переводчик" из байтов в текст
+//   const decoder = new TextDecoder();
+//    // Преобразуем ArrayBuffer обратно в текст
+//    return decoder.decode(buffer)
+// }
 
-// Реализовать простой бинарный протокол
-function memoize(func) {
-    const cache = {};
+// // Реализовать простой бинарный протокол
+// function memoize(func) {
+//     const cache = {};
     
-    return function(...args) {
-        // Простой ключ (не работает с объектами)
-        const key = args.join('_');
+//     return function(...args) {
+//         // Простой ключ (не работает с объектами)
+//         const key = args.join('_');
         
-        if (cache[key] !== undefined) {
-            console.log('Взято из кэша:', key);
-            return cache[key];
-        }
+//         if (cache[key] !== undefined) {
+//             console.log('Взято из кэша:', key);
+//             return cache[key];
+//         }
         
-        console.log('Вычисляем...');
-        const result = func(...args);
-        cache[key] = result;
-        return result;
-    };
+//         console.log('Вычисляем...');
+//         const result = func(...args);
+//         cache[key] = result;
+//         return result;
+//     };
+// }
+
+// // Тестируем
+// const calc = memoize((a, b) => a + b);
+// calc(2, 3); // "Вычисляем..." → 5
+// calc(2, 3); // "Взято из кэша" → 5
+
+//! Реализовать выполнение промисов с ограничением одновременных
+// class PromiseQueue {
+//   constructor(concurrency = 1) {
+//     this.concurrency = concurrency
+//     this.running = 0
+//     this.queue = []
+//   }
+  
+//   add(promiseFn) {
+//     return new Promise((resolve, reject) => {
+//       this.queue.push({
+//         promiseFn,
+//         resolve,
+//         reject
+//       })
+//       this.execute()
+//     })
+//   }
+
+//   execute() {
+//     if (this.running >= this.concurrency || this.queue.length === 0) {
+//       return
+//     }
+
+//     const { promiseFn, resolve, reject } = this.queue.shift()
+//     this.running++
+
+//     promiseFn()
+//     .then(result => {
+//       resolve(result)
+//       this.complete()
+//     })
+//     .catch(error => {
+//       reject(error)
+//       this.complete()
+//     })
+//   }
+
+//   complete() {
+//     this.running--
+//     this.execute()
+//   }
+// }
+
+// const queue = new PromiseQueue(2);
+// queue.add(() => fetch('/api/1'));
+// queue.add(() => fetch('/api/2'));
+// queue.add(() => fetch('/api/3')); // Этот ждет пока освободится место
+
+//! Deep clone с циклическими ссылками
+// function deepClone(obj, hash = new WeakMap()) {
+//   if (obj === null || typeof obj !== 'object') return obj
+//   if (hash.has(obj)) return hash.get(obj)
+
+//   if (Array.isArray(obj)) {
+//     const copy = []
+//     hash.set(obj, copy)
+//     // Сохраняем результат map в copy и возвращаем его
+//     for (let i = 0; i < obj.length; i++) {
+//       copy[i] = deepClone(obj[i], hash)
+//     }
+//     return copy
+//   }
+  
+//   const copy = {}
+//   hash.set(obj, copy)
+
+//   for (let key in obj) {
+//     if (obj.hasOwnProperty(key)) {
+//       copy[key] = deepClone(obj[key], hash)
+//     }
+//   }
+
+//   return copy
+// }
+
+// const obj = { a: 1 };
+// obj.self = obj;
+// const clone = deepClone(obj);
+// console.log(clone.self === clone); // true
+
+//! Реализовать композицию функций
+// function compose(...fns) {
+//   return fns.reduceRight((prevFn, nextFn) => (...args) => nextFn(prevFn(...args)))
+// }
+
+// const add5 = x => x + 5;
+// const multiply3 = x => x * 3;
+// const composed = compose(add5, multiply3);
+// console.log(composed(10)); // 35 (10 * 3 + 5)
+
+//! Реализовать debounce с возможностью immediate вызова
+// function debounce(func, wait, immediate = false) {
+//   let timeoutId = null
+//   return (...args) => {
+//     const callNow = immediate && !timeoutId
+
+//     if (timeoutId) {
+//       clearTimeout(timeoutId)
+//     }
+
+//     timeoutId = setTimeout(() => {
+//       timeoutId = null
+//       if (!immediate) {
+//         func.apply(this, args)
+//       }
+//     }, wait)
+
+//     if (callNow) {
+//       func.apply(this, args)
+//     }
+//   }
+// }
+
+// function debounce(func, wait, immediate = false) {
+//   let timeoutId = null
+//   return function(...args) {
+//     const context = this
+
+//     if (!timeoutId && immediate) {
+//       func.apply(context, args)
+//     }
+
+//     clearTimeout(timeoutId)
+
+//     timeoutId = setTimeout(() => {
+//       timeoutId = null
+
+//       if (!immediate) {
+//         func.apply(context, args)
+//       }
+//     }, wait)
+//   }
+// }
+
+//const debounced = debounce(console.log, 300, true);
+// immediate: true - вызвать сразу, потом ждать
+// immediate: false - ждать, потом вызвать
+
+//! Пагинация данных
+function paginate(array, page = 1, perPage = 10) {
+  // Вернуть { data, total, page, totalPages, hasNext, hasPrev }
+  const total = array.length
+  const totalPages = Math.ceil(total / perPage)
+
+  const data = []
+  data.push(array.slice((page - 1) * perPage, page * perPage))
+  return {
+    data: data,
+    total: total,
+    page: page,
+    totalPages: totalPages,
+    hasNext: page < totalPages,
+    hasPrev: page > 1
+  }
 }
 
-// Тестируем
-const calc = memoize((a, b) => a + b);
-calc(2, 3); // "Вычисляем..." → 5
-calc(2, 3); // "Взято из кэша" → 5
+const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+console.log(paginate(data, 2, 3));
+// { data: [4,5,6], total: 9, page: 2, totalPages: 3, hasNext: true, hasPrev: true }
