@@ -3728,23 +3728,238 @@ console.log(reverseString("JavaScript"))
 // immediate: false - ждать, потом вызвать
 
 //! Пагинация данных
-function paginate(array, page = 1, perPage = 10) {
-  // Вернуть { data, total, page, totalPages, hasNext, hasPrev }
-  const total = array.length
-  const totalPages = Math.ceil(total / perPage)
+// function paginate(array, page = 1, perPage = 10) {
+//   // Вернуть { data, total, page, totalPages, hasNext, hasPrev }
+//   const total = array.length
+//   const totalPages = Math.ceil(total / perPage)
 
-  const data = []
-  data.push(array.slice((page - 1) * perPage, page * perPage))
-  return {
-    data: data,
-    total: total,
-    page: page,
-    totalPages: totalPages,
-    hasNext: page < totalPages,
-    hasPrev: page > 1
-  }
+//   const data = []
+//   data.push(array.slice((page - 1) * perPage, page * perPage))
+//   return {
+//     data: data,
+//     total: total,
+//     page: page,
+//     totalPages: totalPages,
+//     hasNext: page < totalPages,
+//     hasPrev: page > 1
+//   }
+// }
+
+// const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// console.log(paginate(data, 2, 3));
+// // { data: [4,5,6], total: 9, page: 2, totalPages: 3, hasNext: true, hasPrev: true }
+
+//! Сгруппировать массив объектов по ключу или функции
+// function groupBy(array, key) {
+//   let results = {}
+//   array.forEach(item => {
+//     let currentKey = null
+//     if (typeof key === 'function') {
+//       currentKey = key(item)
+//     } else {
+//       currentKey = item[key]
+//     }
+
+//     if (results[currentKey]) {
+//       results[currentKey].push(item)
+//     } else {
+//       results[currentKey] = [item]
+//     }
+//   })
+//   return results
+// }
+
+// const users = [
+//   { name: 'John', age: 25 },
+//   { name: 'Jane', age: 25 },
+//   { name: 'Bob', age: 30 }
+// ];
+
+// console.log(groupBy(users, 'age'));
+// // { 25: [{name: 'John'}, {name: 'Jane'}], 30: [{name: 'Bob'}] }
+
+// console.log(groupBy(users, user => user.age > 25 ? 'adult' : 'young'));
+// // { young: [...], adult: [...] }
+
+//! 7. Функция curry с placeholder
+// function curry(fn) {
+//   return function curried(...args) {
+//     // Обрабатываем начальные аргументы
+//     const accumulatedArgs = [];
+//     const filledPositions = [];
+    
+//     for (let arg of args) {
+//       if (arg === _) {
+//         accumulatedArgs.push(_);
+//         filledPositions.push(false);
+//       } else {
+//         accumulatedArgs.push(arg);
+//         filledPositions.push(true);
+//       }
+//     }
+    
+//     // Проверяем, можно ли уже вызвать функцию
+//     const filledCount = filledPositions.filter(Boolean).length;
+//     if (filledCount >= fn.length && accumulatedArgs.length >= fn.length) {
+//       return fn(...accumulatedArgs.slice(0, fn.length));
+//     }
+    
+//     // Возвращаем функцию для продолжения
+//     return function continueCurrying(...nextArgs) {
+//       const newAccumulated = [...accumulatedArgs];
+//       const newFilled = [...filledPositions];
+      
+//       // Обрабатываем новые аргументы
+//       for (let arg of nextArgs) {
+//         if (arg === _) {
+//           newAccumulated.push(_);
+//           newFilled.push(false);
+//           continue;
+//         }
+        
+//         // Ищем первый незаполненный placeholder
+//         const placeholderIndex = newAccumulated.findIndex(
+//           (val, idx) => val === _ && !newFilled[idx]
+//         );
+        
+//         if (placeholderIndex !== -1) {
+//           // Заменяем placeholder
+//           newAccumulated[placeholderIndex] = arg;
+//           newFilled[placeholderIndex] = true;
+//         } else {
+//           // Добавляем новый аргумент
+//           newAccumulated.push(arg);
+//           newFilled.push(true);
+//         }
+//       }
+      
+//       // Рекурсивно продолжаем каррирование
+//       return curried(...newAccumulated);
+//     };
+//   };
+// }
+
+// const _ = Symbol('placeholder');
+
+// function sum(a, b, c) {
+//   return a + b + c;
+// }
+
+// const curriedSum = curry(sum);
+// console.log(curriedSum(1)(2)(3)); // 6
+// console.log(curriedSum(1, 2)(3)); // 6
+// console.log(curriedSum(_, 2)(1, 3)); // 6
+
+//! 8. LRU Cache
+// class LRUCache {
+//   constructor(capacity) {
+//     this.capacity = capacity
+//     this.cache = new Map()
+//   }
+  
+//   get(key) {
+//     if (!this.cache.get(key)) {
+//       return undefined
+//     }
+
+//     const value = this.cache.get(key)
+//     this.cache.delete(key)
+//     this.cache.set(key, value)
+//     return value
+//   }
+  
+//   put(key, value) {
+//     if (this.cache.has(key)) {
+//       this.cache.delete(key)
+//     } else if (this.cache.size > this.capacity) {
+//       const firstKey = this.cache.keys().next().value
+//       this.cache.delete(firstKey)
+//     }
+
+//     this.cache.set(key, value)
+//   }
+// }
+
+// const cache = new LRUCache(2);
+// cache.put(1, 'a');
+// cache.put(2, 'b');
+// cache.get(1); // 'a'
+// cache.put(3, 'c'); // Удаляет 2 (самый старый неиспользованный)
+
+//! 9. Promise retry с экспоненциальной задержкой
+// function retry(promiseFn, retries = 3, delay = 1000) {
+//   // Повторять вызов с экспоненциально растущей задержкой
+//   return new Promise((resolve, reject) => {
+//     promiseFn()
+//       .then(res => resolve(res))
+//       .catch(error => {
+//         if (retries > 0) {
+//           setTimeout(() => {
+//             retry(promiseFn, retries - 1, delay * 2)
+//               .then(resolve)
+//               .catch(reject)
+//           }, delay)
+//         } else {
+//           reject(error)
+//         }
+//       })
+//   })
+// }
+
+// const unstableFetch = () => Math.random() > 0.2 
+//   ? Promise.resolve('Success') 
+//   : Promise.reject('Error');
+
+// retry(unstableFetch, 5, 1000)
+//   .then(console.log)
+//   .catch(console.error);
+
+//! 10. Трансформация дерева в плоский список и обратно
+// Из плоского в древовидную структуру
+function buildTree(items, idKey = 'id', parentKey = 'parentId') {
+  const roots = items.filter(item => !item[parentKey]); // ← исправлено здесь
+
+  const findChildren = (parent) => {
+    const children = items.filter(item => item[parentKey] === parent[idKey]);
+    parent.children = children.map(child => {
+      return {
+        ...child,
+        children: findChildren(child)
+      };
+    });
+    return parent.children;
+  };
+
+  return roots.map(root => ({
+    ...root,
+    children: findChildren(root)
+  }));
 }
 
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-console.log(paginate(data, 2, 3));
-// { data: [4,5,6], total: 9, page: 2, totalPages: 3, hasNext: true, hasPrev: true }
+const flat = [
+  { id: 1, name: 'Root' },
+  { id: 2, name: 'Child 1', parentId: 1 },
+  { id: 3, name: 'Child 2', parentId: 1 },
+  { id: 4, name: 'Grandchild', parentId: 2 }
+];
+
+const tree = buildTree(flat);
+// [{ id: 1, name: 'Root', children: [...] }]
+console.log(tree);
+
+// Из дерева в плоский список
+function flattenTree(tree) {
+    const result = [];
+  
+  const traverse = (node) => {
+    const { children, ...nodeWithoutChildren } = node;
+    result.push(nodeWithoutChildren);
+    
+    if (node.children) {
+      node.children.forEach(child => traverse(child));
+    }
+  };
+  
+  tree.forEach(root => traverse(root));
+  return result;
+}
