@@ -3733,8 +3733,8 @@ console.log(reverseString("JavaScript"))
 //   const total = array.length
 //   const totalPages = Math.ceil(total / perPage)
 
-//   const data = []
-//   data.push(array.slice((page - 1) * perPage, page * perPage))
+  // ❌ Лишний массив data.push()
+ // const data = array.slice((page - 1) * perPage, page * perPage);
 //   return {
 //     data: data,
 //     total: total,
@@ -3784,57 +3784,30 @@ console.log(reverseString("JavaScript"))
 //! 7. Функция curry с placeholder
 // function curry(fn) {
 //   return function curried(...args) {
-//     // Обрабатываем начальные аргументы
-//     const accumulatedArgs = [];
-//     const filledPositions = [];
+//     // Фильтруем заполненные аргументы
+//     const filledArgs = args.filter(arg => arg !== _);
     
-//     for (let arg of args) {
-//       if (arg === _) {
-//         accumulatedArgs.push(_);
-//         filledPositions.push(false);
-//       } else {
-//         accumulatedArgs.push(arg);
-//         filledPositions.push(true);
-//       }
+//     if (filledArgs.length >= fn.length) {
+//       return fn(...filledArgs);
 //     }
     
-//     // Проверяем, можно ли уже вызвать функцию
-//     const filledCount = filledPositions.filter(Boolean).length;
-//     if (filledCount >= fn.length && accumulatedArgs.length >= fn.length) {
-//       return fn(...accumulatedArgs.slice(0, fn.length));
-//     }
-    
-//     // Возвращаем функцию для продолжения
-//     return function continueCurrying(...nextArgs) {
-//       const newAccumulated = [...accumulatedArgs];
-//       const newFilled = [...filledPositions];
+//     return function(...nextArgs) {
+//       // Заменяем placeholders
+//       const newArgs = [...args];
+//       let nextIndex = 0;
       
-//       // Обрабатываем новые аргументы
-//       for (let arg of nextArgs) {
-//         if (arg === _) {
-//           newAccumulated.push(_);
-//           newFilled.push(false);
-//           continue;
-//         }
-        
-//         // Ищем первый незаполненный placeholder
-//         const placeholderIndex = newAccumulated.findIndex(
-//           (val, idx) => val === _ && !newFilled[idx]
-//         );
-        
-//         if (placeholderIndex !== -1) {
-//           // Заменяем placeholder
-//           newAccumulated[placeholderIndex] = arg;
-//           newFilled[placeholderIndex] = true;
-//         } else {
-//           // Добавляем новый аргумент
-//           newAccumulated.push(arg);
-//           newFilled.push(true);
+//       for (let i = 0; i < newArgs.length && nextIndex < nextArgs.length; i++) {
+//         if (newArgs[i] === _) {
+//           newArgs[i] = nextArgs[nextIndex++];
 //         }
 //       }
       
-//       // Рекурсивно продолжаем каррирование
-//       return curried(...newAccumulated);
+//       // Добавляем оставшиеся аргументы
+//       while (nextIndex < nextArgs.length) {
+//         newArgs.push(nextArgs[nextIndex++]);
+//       }
+      
+//       return curried(...newArgs);
 //     };
 //   };
 // }
@@ -3916,50 +3889,78 @@ console.log(reverseString("JavaScript"))
 
 //! 10. Трансформация дерева в плоский список и обратно
 // Из плоского в древовидную структуру
-function buildTree(items, idKey = 'id', parentKey = 'parentId') {
-  const roots = items.filter(item => !item[parentKey]); // ← исправлено здесь
+// function buildTree(items, idKey = 'id', parentKey = 'parentId') {
+//   const roots = items.filter(item => !item[parentKey]); // ← исправлено здесь
 
-  const findChildren = (parent) => {
-    const children = items.filter(item => item[parentKey] === parent[idKey]);
-    parent.children = children.map(child => {
-      return {
-        ...child,
-        children: findChildren(child)
-      };
-    });
-    return parent.children;
-  };
+//   const findChildren = (parent) => {
+//     const children = items.filter(item => item[parentKey] === parent[idKey]);
+//     parent.children = children.map(child => {
+//       return {
+//         ...child,
+//         children: findChildren(child)
+//       };
+//     });
+//     return parent.children;
+//   };
 
-  return roots.map(root => ({
-    ...root,
-    children: findChildren(root)
-  }));
-}
+//   return roots.map(root => ({
+//     ...root,
+//     children: findChildren(root)
+//   }));
+// }
 
-const flat = [
-  { id: 1, name: 'Root' },
-  { id: 2, name: 'Child 1', parentId: 1 },
-  { id: 3, name: 'Child 2', parentId: 1 },
-  { id: 4, name: 'Grandchild', parentId: 2 }
-];
+// const flat = [
+//   { id: 1, name: 'Root' },
+//   { id: 2, name: 'Child 1', parentId: 1 },
+//   { id: 3, name: 'Child 2', parentId: 1 },
+//   { id: 4, name: 'Grandchild', parentId: 2 }
+// ];
 
-const tree = buildTree(flat);
-// [{ id: 1, name: 'Root', children: [...] }]
-console.log(tree);
+// const tree = buildTree(flat);
+// // [{ id: 1, name: 'Root', children: [...] }]
+// console.log(tree);
 
-// Из дерева в плоский список
-function flattenTree(tree) {
-    const result = [];
+// // Из дерева в плоский список
+// function flattenTree(tree) {
+//     const result = [];
   
-  const traverse = (node) => {
-    const { children, ...nodeWithoutChildren } = node;
-    result.push(nodeWithoutChildren);
+//   const traverse = (node) => {
+//     const { children, ...nodeWithoutChildren } = node;
+//     result.push(nodeWithoutChildren);
     
-    if (node.children) {
-      node.children.forEach(child => traverse(child));
-    }
-  };
+//     if (node.children) {
+//       node.children.forEach(child => traverse(child));
+//     }
+//   };
   
-  tree.forEach(root => traverse(root));
-  return result;
+//   tree.forEach(root => traverse(root));
+//   return result;
+// }
+
+//! Функция throttle
+function throttle(func, limit) {
+  let isThrottle = false
+  let saveArgs = null
+
+  return function wrapper(...args) {
+    if (saveArgs) {
+      saveArgs = args
+      return null
+    }
+
+    func(...args)
+    isThrottle = true
+
+    setTimeout(() => {
+      isThrottle = false
+
+      if (saveArgs) {
+        wrapper(...saveArgs)
+        saveArgs = null
+      }      
+    }, limit)
+  }
 }
+
+const throttledScroll = throttle(() => console.log('Scroll!'), 1000);
+window.addEventListener('scroll', throttledScroll);
