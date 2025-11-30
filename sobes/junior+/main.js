@@ -3938,29 +3938,45 @@ console.log(reverseString("JavaScript"))
 // }
 
 //! Функция throttle
-function throttle(func, limit) {
-  let isThrottle = false
-  let saveArgs = null
+// function throttle(func, limit) {
+//   let isThrottle = false
+//   let saveArgs = null
 
-  return function wrapper(...args) {
-    if (saveArgs) {
-      saveArgs = args
-      return null
+//   return function wrapper(...args) {
+//     if (saveArgs) {
+//       saveArgs = args
+//       return null
+//     }
+
+//     func(...args)
+//     isThrottle = true
+
+//     setTimeout(() => {
+//       isThrottle = false
+
+//       if (saveArgs) {
+//         wrapper(...saveArgs)
+//         saveArgs = null
+//       }      
+//     }, limit)
+//   }
+// }
+
+// const throttledScroll = throttle(() => console.log('Scroll!'), 1000);
+// window.addEventListener('scroll', throttledScroll);
+
+//! Поиск уникальных путей в матрице
+function uniquePaths(m, n) {
+  const dp = Array(m).fill().map(() => Array(n).fill(1))
+
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      dp[i][j] = dp[i-1][j] + dp[i][j-1]
     }
-
-    func(...args)
-    isThrottle = true
-
-    setTimeout(() => {
-      isThrottle = false
-
-      if (saveArgs) {
-        wrapper(...saveArgs)
-        saveArgs = null
-      }      
-    }, limit)
   }
+
+  return dp[m-1][n-1]
 }
 
-const throttledScroll = throttle(() => console.log('Scroll!'), 1000);
-window.addEventListener('scroll', throttledScroll);
+console.log(uniquePaths(3, 2)); // 3
+console.log(uniquePaths(3, 7)); // 28
