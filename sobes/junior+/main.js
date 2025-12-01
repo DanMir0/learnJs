@@ -3966,17 +3966,100 @@ console.log(reverseString("JavaScript"))
 // window.addEventListener('scroll', throttledScroll);
 
 //! Поиск уникальных путей в матрице
-function uniquePaths(m, n) {
-  const dp = Array(m).fill().map(() => Array(n).fill(1))
+// function uniquePaths(m, n) {
+//   const dp = Array(m).fill().map(() => Array(n).fill(1))
 
-  for (let i = 1; i < m; i++) {
-    for (let j = 1; j < n; j++) {
-      dp[i][j] = dp[i-1][j] + dp[i][j-1]
-    }
-  }
+//   for (let i = 1; i < m; i++) {
+//     for (let j = 1; j < n; j++) {
+//       dp[i][j] = dp[i-1][j] + dp[i][j-1]
+//     }
+//   }
 
-  return dp[m-1][n-1]
+//   return dp[m-1][n-1]
+// }
+
+// console.log(uniquePaths(3, 2)); // 3
+// console.log(uniquePaths(3, 7)); // 28
+
+//!Валидатор скобочных последовательностей
+// function isValidBrackets(str) {
+//   let stack = []
+
+//   for (let char of str) {
+//     if (char === '(' || char === '[' || char === '{' || char === '<') {
+//       stack.push(char)
+//     } else {
+//       let last = stack.pop()
+
+//       if (char === ')' && last !== '(' || char === '}' && last !== '{' || char === ']' && last !== '[' || char === '>' && last !== '<') return false
+//     }
+//   }
+//   return true
+
+// }
+
+// console.log(isValidBrackets('([{}])')); // true
+// console.log(isValidBrackets('([)]'));   // false
+// console.log(isValidBrackets('({[<>]})')); // true
+
+//! Функция flatten с глубиной
+// function flatten(array, depth = 1) {
+//   return array.flat(depth)
+//   // Преобразовать многомерный массив в одномерный
+//   // depth - на какую глубину делать flatten
+// }
+
+// function flatten(array, depth = 1) {
+//   const result = []
+
+//   for (let item of array) {
+//     if (Array.isArray(item) && depth > 0) {
+//        result.push(...flatten(item, depth - 1))
+     
+//     } else {
+//       result.push(item)
+//     }
+//   }
+//   return result
+// }
+// console.log(flatten([1, [2, [3, [4]]]], 2)); // [1, 2, 3, [4]]
+
+//! Кэш с TTL и автоматической очисткой
+// class TTLCache {
+//   constructor(ttl = 60000) {
+//     this.cache = new Map()
+//     this.ttl = ttl
+//   }
+  
+//   set(key, value) {
+//     let expiresAt = Date.now() + this.ttl
+//     this.cache.set(key, {value, expiresAt })
+//   }
+//   get(key) {
+//     if (!this.cache.has(key)) return undefined
+
+//     let entry = this.cache.get(key)
+
+//     if (entry.expiresAt < Date.now()) {
+//       this.cache.delete(key)
+//       return undefined
+//     } 
+
+//     return entry.value
+//   }
+//   clearExpired() {
+//     for (let [key, value] of this.cache.entries()) {
+//       if (value.expiresAt < Date.now()) {
+//         this.cache.delete(key)
+//       }
+//     } 
+//   }
+// }
+
+//!Функция chunk для массива
+function chunk(array, size) {
+  // Разбить массив на подмассивы указанного размера
 }
 
-console.log(uniquePaths(3, 2)); // 3
-console.log(uniquePaths(3, 7)); // 28
+console.log(chunk([1, 2, 3, 4, 5], 2)); // [[1,2], [3,4], [5]]
+console.log(chunk([1, 2, 3, 4, 5], 3)); // [[1,2,3], [4,5]]
