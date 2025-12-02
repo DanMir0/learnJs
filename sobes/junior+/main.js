@@ -3943,19 +3943,19 @@ console.log(reverseString("JavaScript"))
 //   let saveArgs = null
 
 //   return function wrapper(...args) {
-//     if (saveArgs) {
+//     if (isThrottle) {
 //       saveArgs = args
 //       return null
 //     }
 
-//     func(...args)
+//     func.apply(this,...args)
 //     isThrottle = true
 
 //     setTimeout(() => {
 //       isThrottle = false
 
 //       if (saveArgs) {
-//         wrapper(...saveArgs)
+//         wrapper.apply(this, ...saveArgs)
 //         saveArgs = null
 //       }      
 //     }, limit)
@@ -3963,7 +3963,7 @@ console.log(reverseString("JavaScript"))
 // }
 
 // const throttledScroll = throttle(() => console.log('Scroll!'), 1000);
-// window.addEventListener('scroll', throttledScroll);
+// window.addEventListener('click', throttledScroll);
 
 //! Поиск уникальных путей в матрице
 // function uniquePaths(m, n) {
@@ -4057,9 +4057,105 @@ console.log(reverseString("JavaScript"))
 // }
 
 //!Функция chunk для массива
-function chunk(array, size) {
-  // Разбить массив на подмассивы указанного размера
-}
+// function chunk(array, size) {
+//   let result = []
+//   let subArr = []
+//   for (let i = 0; i < array.length; i++) {
+//     if (subArr.length >= size) {
+//       result.push(subArr)
+//       subArr = []
+//     }
+    
+//     subArr.push(array[i])
+//   }
+//   result.push(subArr)
+//   return result
+// }
 
-console.log(chunk([1, 2, 3, 4, 5], 2)); // [[1,2], [3,4], [5]]
-console.log(chunk([1, 2, 3, 4, 5], 3)); // [[1,2,3], [4,5]]
+// function chunk(array, size) {
+//   const result = []
+//   for (let i = 0; i < array.length; i+= size) {
+//     result.push(array.slice(i, i + size))
+//   }
+//   return result
+// }
+
+// console.log(chunk([1, 2, 3, 4, 5], 2)); // [[1,2], [3,4], [5]]
+// console.log(chunk([1, 2, 3, 4, 5], 3)); // [[1,2,3], [4,5]]
+
+//! Подсчет частоты символов
+// function characterFrequency(str) {
+//   // Вернуть объект с частотой каждого символа
+//   // Игнорировать регистр, считать только буквы
+//   str = str.toLowerCase().replace(/[^a-z]/g, "")
+//   let result = {}
+//   str.split("").forEach(char => {
+//     if (result[char]) {
+//       result[char] += 1
+//     } else {
+//       result[char] = 1
+//     }
+//   })
+// return result
+// }
+
+// console.log(characterFrequency('Hello World!'));
+// // { h:1, e:1, l:3, o:2, w:1, r:1, d:1 }
+
+//! Функция zip для массивов
+// function zip(...arrays) {
+//   // Объединить массивы поэлементно
+//   const result = []
+//   const minLength = Math.min(...arrays.map(arr => arr.length))
+
+//   for (let i = 0; i < minLength; i++) {
+//     const zipped = arrays.map(arr => arr[i])
+//     result.push(zipped)
+//   }
+
+//   return result
+// }
+
+// console.log(zip([1, 2], ['a', 'b'], [true, false]));
+// // [[1, 'a', true], [2, 'b', false]]
+
+//! Поиск палиндромов в строке
+// function findAllPalindromes(str) {
+//   // Найти все подстроки-палиндромы в строке
+//   let result = new Set()
+//   const n = str.length;
+
+//   for (let i = 0; i < n; i++) {
+//     for (let j = i + 1; j <= n; j++) {
+//       const substring = str.slice(i, j)
+//       if (isPalindrome(substring)) {
+//         result.add(substring)
+//       }
+//     }
+//   }
+//   return result
+// }
+// function isPalindrome(s) {
+//   return s === s.split('').reverse().join('');
+// }
+
+// console.log(findAllPalindromes('abbarac'));
+// // ['abba', 'bb', 'aca', 'r', 'a', 'c']
+
+//!  Функция memoize с кастомным резолвером
+// function memoize(fn, resolver = JSON.stringify) {
+//   // Мемоизация с кастомной функцией для создания ключа
+//   const cache = new Map()
+
+//   return (...args) => {
+//     let key = resolver(args)
+
+//     if (!cache.has(key)) {
+//       const value = fn(...args) 
+//       cache.set(key, value)
+//     }
+//     return cache.get(key)
+//   }
+// }
+
+// const memoized = memoize((a, b) => a + b, (a, b) => `${a}+${b}`);
