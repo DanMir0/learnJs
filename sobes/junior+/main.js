@@ -4159,3 +4159,212 @@ console.log(reverseString("JavaScript"))
 // }
 
 // const memoized = memoize((a, b) => a + b, (a, b) => `${a}+${b}`);
+
+//! Функция для парсинга query string
+// function parseQueryString(queryString) {
+//   // Парсить query string в объект
+//   // Поддержка массивов: ?tags=js&tags=css
+//   // Декодирование URL
+//   queryString = queryString.replace('?', '')
+
+//   let arr = queryString.split('&')
+
+//   let decodeComponent = decodeURIComponent(arr)
+
+//   return decodeComponent
+// }
+// function decodeURIComponent(arr) {
+//   let result = {}
+
+//   arr = arr.map(item => item.split("="))
+
+//   arr.forEach(item => {
+//     if (result[item[0]]) {
+//      let prevValue = result[item[0]]
+//      result[item[0]] = [prevValue]
+//      result[item[0]].push(item[1])
+//     } else {
+//       result[item[0]] = item[1]
+//     }
+//   })
+//   return result
+// }
+
+// function parseQueryString(queryString) {
+//   queryString = queryString.replace('?', '')
+//   const pairs = queryString.split('&')
+//   const result = {}
+
+//   for (let pair of pairs) {
+//     const [key, value = ''] = pair.split('=')
+
+//     const decodeKey = decodeURIComponent(key)
+//     const decodeValue = decodeURIComponent(value)
+//     console.log(decodeKey, decodeValue);
+    
+
+//     if (decodeKey in result) {
+
+//       if (Array.isArray(result[decodeKey])) {
+//         result[decodeKey].push(decodeValue)
+//       } else {
+//         result [decodeKey] = [result[decodeKey], decodeValue]
+//       }
+//     } else {
+//       result[decodeKey] = decodeValue
+//     }
+//   }
+//   return result
+// }
+// console.log(parseQueryString('?name=John&age=30&tags=js&tags=css'));
+// // { name: 'John', age: '30', tags: ['js', 'css'] }
+
+//! Форматирование чисел с разделителями
+// function formatNumber(num, options = {}) {
+//   // Форматировать число: 1234567.89 → "1,234,567.89"
+//   // Поддержка: разделители тысяч, округление, валюта
+//   const {
+//     locale = 'en-Us',
+//     style = 'decimal',
+//     currency,
+//     minimumFractionDigits = 0,
+//     maximumFractionDigits = 20,
+//   } = options
+  
+//   const formatOptions = {style, minimumFractionDigits, maximumFractionDigits}
+
+//   if (currency) {
+//     formatOptions.currency = currency
+//     formatOptions.style = 'currency'
+//   }
+
+//   const formatter = new Intl.NumberFormat(locale, formatOptions)
+//   return formatter.format(num)
+// }
+
+// console.log(formatNumber(1234567.89, { currency: 'USD' })); // "$1,234,567.89"
+// console.log(formatNumber(1234567.89, { locale: 'ru-RU' })); // "1 234 567,89"
+
+//! Функция для валидации объекта по схеме
+// function validateSchema(data, schema) {
+//   // Валидировать данные по схеме
+//   // Поддержка: required, type, min/max, custom validators
+//   for (let field in schema) {
+//     const validator = schema[field]
+//     const value = data[field]
+
+//     if (typeof validator === 'string') {
+//       if (typeof value !== validator) return false
+//     } else if (typeof validator === 'function') {
+//       if (typeof value !== validator) return false
+//     } else if (typeof validator === 'number') {
+//       if (typeof value !== validator) return false
+//     }
+
+//     if (!(field in data)) return false
+//   }
+//   return true
+// }
+
+// const userSchema = {
+//   name: { type: 'string', required: true, minLength: 2 },
+//   age: { type: 'number', min: 18, max: 100 },
+//   email: { 
+//     type: 'string', 
+//     validate: (value) => /.+@.+\..+/.test(value) 
+//   }
+// };
+
+// console.log(validateSchema({ name: 'John', age: 25, email: 'test@test.com' }, userSchema));
+
+//! Функция для глубокого сравнения с опциями
+// function deepEqual(obj1, obj2, options = {}) {
+//   // Глубокое сравнение с опциями:
+//   // - ignoreCase: для строк
+//   // - ignoreProperties: массив свойств для игнорирования
+//   // - compareDates: как сравнивать Date объекты
+//   if (typeof obj1 === 'string' && typeof obj2 === 'string') {
+//     if (options.ignoreCase) {
+//       return obj1.toLowerCase() === obj2.toLowerCase()
+//     }
+//   }
+
+//   const keys1 = Object.keys(obj1).filter(key => !options.ingoreProperties?.includes(key))
+//   const keys2 = Object.keys(obj2).filter(key => !options.ingoreProperties?.includes(key))
+
+//   if (obj1 instanceof Date && obj2 instanceof Date) {
+//     if (options.compareDates === 'timestamp') {
+//       return obj1.getTime() === obj2.getTime()
+//     }
+//   }
+
+//   if (keys1.length !== keys2.length) return false
+
+//   for (let key of keys1) {
+//     if (!deepEqual(obj1[key], obj2[key], options)) return false
+//   }
+
+//   return true
+// }
+
+// const obj1 = { name: 'John', age: 25, created: new Date('2024-01-01') };
+// const obj2 = { name: 'john', age: 25, created: new Date('2024-01-01') };
+// console.log(deepEqual(obj1, obj2, { ignoreCase: true })); // true
+
+//! Класс для работы с временными интервалами
+// class TimeInterval {
+//   constructor(start, end) {
+//     // Реализовать операции с интервалами времени
+//     this.start = this._timeToMinutes(start)
+//     this.end = this._timeToMinutes(end)
+//   }
+
+//   _timeToMinutes(timeStr) {
+//     const [hours, minutes] = timeStr.split(':').map(Number)
+//     return hours * 60 + minutes
+//   }
+
+//   _minutesToTime(minutes) {
+//   const hours = Math.floor(minutes / 60)
+//   const mins = minutes % 60
+//   return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`
+// }
+//   // Проверить вхождение времени
+//   contains(time) {
+//     const timeMinutes = this._timeToMinutes(time)
+//     return this.start <= timeMinutes && timeMinutes <= this.end
+//   }    
+  
+//   // Проверить пересечение интервалов
+//   overlaps(interval) {
+//     return this.start < interval.end && interval.start < this.end
+    
+//   }    
+
+//   // Объединить интервалы
+//   merge(interval) {
+//     if (!this.overlaps(interval)) {
+//       return null // или бросить ошибку
+//     }
+
+//     let newStart = Math.min(this.start, interval.start)
+//     let newEnd = Math.max(this.end, interval.end)
+
+//     return new TimeInterval(
+//       this._timeToMinutes(newStart),
+//       this._timeToMinutes(newEnd)
+//     )
+//   }      
+
+//   // Длительность интервала
+//   duration() {
+//     let duration = this.end - this.start
+//     return duration;
+    
+//   }           
+// }
+
+// const meeting = new TimeInterval('09:00', '10:30');
+// const lunch = new TimeInterval('18:00', '13:00');
+// console.log(meeting.overlaps(lunch)); // false
+// console.log(meeting.duration());
