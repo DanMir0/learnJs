@@ -4368,3 +4368,185 @@ console.log(reverseString("JavaScript"))
 // const lunch = new TimeInterval('18:00', '13:00');
 // console.log(meeting.overlaps(lunch)); // false
 // console.log(meeting.duration());
+
+//! Функция для транслитерации текста
+// function transliterate(text, direction = 'ru-en') {
+//   // Транслитерация русско-английская и обратно
+//   // 'Привет мир' → 'Privet mir'
+//   // 'Privet mir' → 'Привет мир'
+
+//   const ruToEn = {
+//     'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
+//     'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i',
+//     'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n',
+//     'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't',
+//     'у': 'u', 'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch',
+//     'ш': 'sh', 'щ': 'shch', 'ъ': '', 'ы': 'y', 'ь': '',
+//     'э': 'e', 'ю': 'yu', 'я': 'ya'
+//   };
+
+//   const enToRu = {
+//     'a': 'а', 'b': 'б', 'v': 'в', 'g': 'г', 'd': 'д',
+//     'e': 'е', 'yo': 'ё', 'zh': 'ж', 'z': 'з', 'i': 'и',
+//     'y': 'й', 'k': 'к', 'l': 'л', 'm': 'м', 'n': 'н',
+//     'o': 'о', 'p': 'п', 'r': 'р', 's': 'с', 't': 'т',
+//     'u': 'у', 'f': 'ф', 'kh': 'х', 'ts': 'ц', 'ch': 'ч',
+//     'sh': 'ш', 'shch': 'щ', 'yu': 'ю', 'ya': 'я',
+//     // Дубли для некоторых вариантов
+//     'x': 'кс', 'q': 'к', 'w': 'в', 'j': 'дж'
+//   };
+
+//   const map = direction === 'ru-en' ? ruToEn : enToRu
+
+//   let result = ''
+//   for (let char of text) {
+//     let lowerChar = char.toLowerCase()
+//     const transliterated = map[lowerChar] || char
+
+//     if (char === char.toUpperCase()) {
+//       result += transliterated.toUpperCase()
+//     } else {
+//       result += transliterated
+//     }
+ 
+//   }
+//   return result
+// }
+
+// console.log(transliterate('Привет мир')); // 'Privet mir'
+// console.log(transliterate('Privet mir', 'en-ru')); // 'Привет мир'
+
+//! Функция для генерации случайных данных
+// function generateRandomData(schema, count = 1) {
+//   const result = []
+  
+//   for (let i = 0; i < count; i++) {
+//     const obj = {}
+    
+//     for (let key in schema) {
+//       const field = schema[key]
+      
+//       switch(field.type) {
+//         case 'number':
+//           obj[key] = generateNumber(field)
+//           break
+//         case 'string':
+//           obj[key] = generateString(field)
+//           break
+//         case 'email':
+//           obj[key] = generateEmail()
+//           break
+//         case 'date':
+//           obj[key] = generateDate(field)
+//           break
+//         default:
+//           obj[key] = null
+//       }
+//     }
+    
+//     result.push(obj)
+//   }
+  
+//   return result
+// }
+
+// function generateNumber(field) {
+//   const min = field.min || 0
+//   const max = field.max || 100
+//   return Math.floor(Math.random() * (max - min + 1)) + min
+// }
+
+// function generateString(field) {
+//   if (field.pattern) {
+//     // Для паттерна имени-фамилии
+//     const firstName = generateRandomName()
+//     const lastName = generateRandomName()
+//     return `${firstName} ${lastName}`
+//   }
+  
+//   const length = field.length || 10
+//   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+//   let result = ''
+//   for (let i = 0; i < length; i++) {
+//     result += chars.charAt(Math.floor(Math.random() * chars.length))
+//   }
+//   return result
+// }
+
+// function generateRandomName() {
+//   const names = ['John', 'Jane', 'Alex', 'Emma', 'Mike', 'Anna', 'David', 'Sarah']
+//   return names[Math.floor(Math.random() * names.length)]
+// }
+
+// function generateEmail() {
+//   const domains = ['gmail.com', 'yahoo.com', 'outlook.com', 'test.com']
+//   const name = generateString({ length: 8 }).toLowerCase()
+//   const domain = domains[Math.floor(Math.random() * domains.length)]
+//   return `${name}@${domain}`
+// }
+
+// function generateDate(field) {
+//   const from = new Date(field.from || '2020-01-01').getTime()
+//   const to = new Date(field.to || '2024-01-01').getTime()
+//   const randomTime = Math.random() * (to - from) + from
+//   return new Date(randomTime).toISOString().split('T')[0] // YYYY-MM-DD
+// }
+
+// const userSchema = {
+//   id: { type: 'number', min: 1, max: 1000 },
+//   name: { type: 'string', pattern: /^[A-Z][a-z]+ [A-Z][a-z]+$/ },
+//   email: { type: 'email' },
+//   createdAt: { type: 'date', from: '2023-01-01', to: '2024-01-01' }
+// };
+
+// console.log(generateRandomData(userSchema, 3));
+
+//!  Функция для преобразования camelCase ↔ snake_case ↔ kebab-case
+function convertCase(str, targetCase) {
+  // 1. Определяем исходный формат и разбиваем на слова
+  let words = [];
+  
+  if (str.includes('_')) {
+    // snake_case
+    words = str.toLowerCase().split('_');
+  } else if (str.includes('-')) {
+    // kebab-case
+    words = str.toLowerCase().split('-');
+  } else if (str[0] === str[0].toUpperCase()) {
+    // PascalCase (первая буква заглавная)
+    words = str.split(/(?=[A-Z])/).map(w => w.toLowerCase());
+  } else {
+    // camelCase
+    words = str.split(/(?=[A-Z])/).map(w => w.toLowerCase());
+  }
+  
+  // 2. Преобразуем в целевой формат
+  switch(targetCase) {
+    case 'snake':
+      return words.join('_');
+      
+    case 'kebab':
+      return words.join('-');
+      
+    case 'camel':
+      return words.map((word, i) => 
+        i === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
+      ).join('');
+      
+    case 'pascal':
+      return words.map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join('');
+      
+    default:
+      return str;
+  }
+}
+
+// Тестирование
+console.log(convertCase('helloWorld', 'snake')); // 'hello_world'
+console.log(convertCase('hello_world', 'camel')); // 'helloWorld'
+console.log(convertCase('hello-world', 'pascal')); // 'HelloWorld'
+console.log(convertCase('HelloWorld', 'snake')); // 'hello_world'
+console.log(convertCase('test_string_example', 'camel')); // 'testStringExample'
+
