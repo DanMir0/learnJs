@@ -4502,51 +4502,395 @@ console.log(reverseString("JavaScript"))
 // console.log(generateRandomData(userSchema, 3));
 
 //!  Функция для преобразования camelCase ↔ snake_case ↔ kebab-case
-function convertCase(str, targetCase) {
-  // 1. Определяем исходный формат и разбиваем на слова
-  let words = [];
+// function convertCase(str, targetCase) {
+//   // 1. Определяем исходный формат и разбиваем на слова
+//   let words = [];
   
-  if (str.includes('_')) {
-    // snake_case
-    words = str.toLowerCase().split('_');
-  } else if (str.includes('-')) {
-    // kebab-case
-    words = str.toLowerCase().split('-');
-  } else if (str[0] === str[0].toUpperCase()) {
-    // PascalCase (первая буква заглавная)
-    words = str.split(/(?=[A-Z])/).map(w => w.toLowerCase());
-  } else {
-    // camelCase
-    words = str.split(/(?=[A-Z])/).map(w => w.toLowerCase());
+//   if (str.includes('_')) {
+//     // snake_case
+//     words = str.toLowerCase().split('_');
+//   } else if (str.includes('-')) {
+//     // kebab-case
+//     words = str.toLowerCase().split('-');
+//   } else if (str[0] === str[0].toUpperCase()) {
+//     // PascalCase (первая буква заглавная)
+//     words = str.split(/(?=[A-Z])/).map(w => w.toLowerCase());
+//   } else {
+//     // camelCase
+//     words = str.split(/(?=[A-Z])/).map(w => w.toLowerCase());
+//   }
+  
+//   // 2. Преобразуем в целевой формат
+//   switch(targetCase) {
+//     case 'snake':
+//       return words.join('_');
+      
+//     case 'kebab':
+//       return words.join('-');
+      
+//     case 'camel':
+//       return words.map((word, i) => 
+//         i === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
+//       ).join('');
+      
+//     case 'pascal':
+//       return words.map(word => 
+//         word.charAt(0).toUpperCase() + word.slice(1)
+//       ).join('');
+      
+//     default:
+//       return str;
+//   }
+// }
+
+// // Тестирование
+// console.log(convertCase('helloWorld', 'snake')); // 'hello_world'
+// console.log(convertCase('hello_world', 'camel')); // 'helloWorld'
+// console.log(convertCase('hello-world', 'pascal')); // 'HelloWorld'
+// console.log(convertCase('HelloWorld', 'snake')); // 'hello_world'
+// console.log(convertCase('test_string_example', 'camel')); // 'testStringExample'
+
+//! Функция для работы с цветами (HEX/RGB/HSL)
+// class Color {
+//   constructor(value) {
+//     if (typeof value === 'string') {
+//       if (value.startsWith('#')) {
+//         this._parseHex(value);
+//       } else if (value.startsWith('rgb')) {
+//         this._parseRgb(value);
+//       } else if (value.startsWith('hsl')) {
+//         this._parseHsl(value);
+//       }
+//     } else if (typeof value === 'object') {
+//       if (value.r !== undefined && value.g !== undefined && value.b !== undefined) {
+//         this.r = value.r;
+//         this.g = value.g;
+//         this.b = value.b;
+//       } else if (value.h !== undefined && value.s !== undefined && value.l !== undefined) {
+//         this._hslToRgb(value.h, value.s, value.l);
+//       }
+//     }
+//   }
+
+//   _parseHex(hex) {
+//     hex = hex.replace('#', '');
+    
+//     if (hex.length === 3) {
+//       hex = hex.split('').map(c => c + c).join('');
+//     }
+    
+//     this.r = parseInt(hex.substring(0, 2), 16);
+//     this.g = parseInt(hex.substring(2, 4), 16);
+//     this.b = parseInt(hex.substring(4, 6), 16);
+//   }
+
+//   _parseRgb(rgbStr) {
+//     const match = rgbStr.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+//     if (match) {
+//       this.r = parseInt(match[1]);
+//       this.g = parseInt(match[2]);
+//       this.b = parseInt(match[3]);
+//     }
+//   }
+
+//   _parseHsl(hslStr) {
+//     const match = hslStr.match(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/);
+//     if (match) {
+//       const h = parseInt(match[1]);
+//       const s = parseInt(match[2]);
+//       const l = parseInt(match[3]);
+//       this._hslToRgb(h, s, l);
+//     }
+//   }
+
+//   _hslToRgb(h, s, l) {
+//     h /= 360;
+//     s /= 100;
+//     l /= 100;
+    
+//     let r, g, b;
+    
+//     if (s === 0) {
+//       r = g = b = l;
+//     } else {
+//       const hue2rgb = (p, q, t) => {
+//         if (t < 0) t += 1;
+//         if (t > 1) t -= 1;
+//         if (t < 1/6) return p + (q - p) * 6 * t;
+//         if (t < 1/2) return q;
+//         if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+//         return p;
+//       };
+      
+//       const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+//       const p = 2 * l - q;
+      
+//       r = hue2rgb(p, q, h + 1/3);
+//       g = hue2rgb(p, q, h);
+//       b = hue2rgb(p, q, h - 1/3);
+//     }
+    
+//     this.r = Math.round(r * 255);
+//     this.g = Math.round(g * 255);
+//     this.b = Math.round(b * 255);
+//   }
+
+//   _rgbToHsl() {
+//     const r = this.r / 255;
+//     const g = this.g / 255;
+//     const b = this.b / 255;
+    
+//     const max = Math.max(r, g, b);
+//     const min = Math.min(r, g, b);
+//     let h, s, l = (max + min) / 2;
+    
+//     if (max === min) {
+//       h = s = 0;
+//     } else {
+//       const d = max - min;
+//       s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      
+//       switch (max) {
+//         case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+//         case g: h = (b - r) / d + 2; break;
+//         case b: h = (r - g) / d + 4; break;
+//       }
+      
+//       h /= 6;
+//     }
+    
+//     return {
+//       h: Math.round(h * 360),
+//       s: Math.round(s * 100),
+//       l: Math.round(l * 100)
+//     };
+//   }
+
+//   toHex() {
+//     const toHex = (c) => {
+//       const hex = c.toString(16);
+//       return hex.length === 1 ? '0' + hex : hex;
+//     };
+    
+//     return #${toHex(this.r)}${toHex(this.g)}${toHex(this.b)};
+//   }
+
+//   toRgb() {
+//     return { r: this.r, g: this.g, b: this.b };
+//   }
+
+//   toHsl() {
+//     return this._rgbToHsl();
+//   }
+
+//   lighten(percent) {
+//     const hsl = this._rgbToHsl();
+//     hsl.l = Math.min(100, hsl.l + percent);
+//     return new Color(hsl);
+//   }
+
+//   darken(percent) {
+//     const hsl = this._rgbToHsl();
+//     hsl.l = Math.max(0, hsl.l - percent);
+//     return new Color(hsl);
+//   }
+
+//   isDark() {
+//     const hsl = this._rgbToHsl();
+//     return hsl.l < 50;
+//   }
+// }
+
+// // Тестирование
+// const color = new Color('#ff0000');
+// console.log(color.toRgb()); // { r: 255, g: 0, b: 0 }
+// console.log(color.lighten(20).toHex()); // '#ff6666'
+
+// const color2 = new Color('rgb(100, 200, 50)');
+// console.log(color2.toHsl()); // { h: 96, s: 61, l: 49 }
+// console.log(color2.isDark()); // false
+
+//!Функция для расчета разницы между датами
+/**
+ * Расчет разницы между двумя датами в различных единицах измерения
+ * @param {Date|string} date1 - Первая дата
+ * @param {Date|string} date2 - Вторая дата
+ * @param {string} unit - Единица измерения ('days', 'hours', 'minutes', 'seconds', 'milliseconds', 'formatted')
+ * @returns {number|string} - Разница в указанных единицах или форматированная строка
+ */
+function dateDiff(date1, date2, unit = 'days') {
+  // Преобразуем входные данные в объекты Date
+  const d1 = new Date(date1);
+  const d2 = new Date(date2);
+  
+  // Проверяем валидность дат
+  if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
+    throw new Error('Одна или обе даты невалидны');
   }
   
-  // 2. Преобразуем в целевой формат
-  switch(targetCase) {
-    case 'snake':
-      return words.join('_');
+  // Вычисляем разницу в миллисекундах (абсолютное значение)
+  const diffMs = Math.abs(d2 - d1);
+  
+  // Константы для конвертации
+  const MS_IN_SECOND = 1000;
+  const MS_IN_MINUTE = 60 * MS_IN_SECOND;
+  const MS_IN_HOUR = 60 * MS_IN_MINUTE;
+  const MS_IN_DAY = 24 * MS_IN_HOUR;
+  const MS_IN_WEEK = 7 * MS_IN_DAY;
+  const MS_IN_MONTH = 30.44 * MS_IN_DAY;   // Среднее количество дней в месяце
+  const MS_IN_YEAR = 365.25 * MS_IN_DAY;   // Учет високосных годов
+  
+  // Если нужен форматированный вывод
+  if (unit === 'formatted') {
+    return formatDuration(diffMs);
+  }
+  
+  // Возвращаем разницу в указанной единице
+  switch (unit.toLowerCase()) {
+    case 'milliseconds':
+      return diffMs;
       
-    case 'kebab':
-      return words.join('-');
+    case 'seconds':
+      return Math.floor(diffMs / MS_IN_SECOND);
       
-    case 'camel':
-      return words.map((word, i) => 
-        i === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
-      ).join('');
+    case 'minutes':
+      return Math.floor(diffMs / MS_IN_MINUTE);
       
-    case 'pascal':
-      return words.map(word => 
-        word.charAt(0).toUpperCase() + word.slice(1)
-      ).join('');
+    case 'hours':
+      return Math.floor(diffMs / MS_IN_HOUR);
+      
+    case 'days':
+      return Math.floor(diffMs / MS_IN_DAY);
+      
+    case 'weeks':
+      return Math.floor(diffMs / MS_IN_WEEK);
+      
+    case 'months':
+      return Math.floor(diffMs / MS_IN_MONTH);
+      
+    case 'years':
+      return Math.floor(diffMs / MS_IN_YEAR);
       
     default:
-      return str;
+      return Math.floor(diffMs / MS_IN_DAY);
   }
 }
 
-// Тестирование
-console.log(convertCase('helloWorld', 'snake')); // 'hello_world'
-console.log(convertCase('hello_world', 'camel')); // 'helloWorld'
-console.log(convertCase('hello-world', 'pascal')); // 'HelloWorld'
-console.log(convertCase('HelloWorld', 'snake')); // 'hello_world'
-console.log(convertCase('test_string_example', 'camel')); // 'testStringExample'
+/**
+ * Форматирование длительности в читаемый вид
+ * @param {number} ms - Время в миллисекундах
+ * @returns {string} - Форматированная строка
+ */
+function formatDuration(ms) {
+  // Единицы измерения с делителями и формами слов
+  const units = [
+    { 
+      name: 'year', 
+      divisor: 365.25 * 24 * 60 * 60 * 1000, 
+      forms: ['год', 'года', 'лет'] 
+    },
+    { 
+      name: 'month', 
+      divisor: 30.44 * 24 * 60 * 60 * 1000, 
+      forms: ['месяц', 'месяца', 'месяцев'] 
+    },
+    { 
+      name: 'week', 
+      divisor: 7 * 24 * 60 * 60 * 1000, 
+      forms: ['неделя', 'недели', 'недель'] 
+    },
+    { 
+      name: 'day', 
+      divisor: 24 * 60 * 60 * 1000, 
+      forms: ['день', 'дня', 'дней'] 
+    },
+    { 
+      name: 'hour', 
+      divisor: 60 * 60 * 1000, 
+      forms: ['час', 'часа', 'часов'] 
+    },
+    { 
+      name: 'minute', 
+      divisor: 60 * 1000, 
+      forms: ['минута', 'минуты', 'минут'] 
+    },
+    { 
+      name: 'second', 
+      divisor: 1000, 
+      forms: ['секунда', 'секунды', 'секунд'] 
+    }
+  ];
+  
+  let remaining = ms;
+  const parts = [];
+  
+  // Проходим по всем единицам измерения
+  for (const unit of units) {
+    const value = Math.floor(remaining / unit.divisor);
+    
+    if (value > 0) {
+      parts.push(`${value} ${getWordForm(value, unit.forms)}`);
+      remaining %= unit.divisor;
+      
+      // Ограничиваем вывод 3-мя самыми крупными единицами
+      if (parts.length >= 3) {
+        break;
+      }
+    }
+  }
+  
+  // Если ничего не набрали - возвращаем "0 секунд"
+  return parts.join(' ') || '0 секунд';
+}
 
+/**
+ * Получение правильной формы слова для русского языка
+ * @param {number} number - Число
+ * @param {string[]} words - Массив форм: [1, 2, 5]
+ * @returns {string} - Правильная форма слова
+ */
+function getWordForm(number, words) {
+  const cases = [2, 0, 1, 1, 1, 2]; // Индексы для 0, 1, 2, 3, 4, 5
+  
+  // Для чисел, оканчивающихся на 11-19
+  if (number % 100 >= 11 && number % 100 <= 19) {
+    return words[2];
+  }
+  
+  // Для остальных случаев
+  const index = cases[Math.min(number % 10, 5)];
+  return words[index];
+}
+
+/**
+ * Альтернативная версия: форматирование с использованием Intl.RelativeTimeFormat
+ * (более современный подход, но требует поддержки браузером)
+ */
+function formatDurationModern(ms) {
+  if ('Intl' in window && 'RelativeTimeFormat' in Intl) {
+    const rtf = new Intl.RelativeTimeFormat('ru', { numeric: 'auto' });
+    
+    const units = [
+      { name: 'year', divisor: 365.25 * 24 * 60 * 60 * 1000 },
+      { name: 'month', divisor: 30.44 * 24 * 60 * 60 * 1000 },
+      { name: 'week', divisor: 7 * 24 * 60 * 60 * 1000 },
+      { name: 'day', divisor: 24 * 60 * 60 * 1000 },
+      { name: 'hour', divisor: 60 * 60 * 1000 },
+      { name: 'minute', divisor: 60 * 1000 },
+      { name: 'second', divisor: 1000 }
+    ];
+    
+    let remaining = ms;
+    
+    for (const unit of units) {
+      const value = Math.floor(remaining / unit.divisor);
+      if (value !== 0) {
+        return rtf.format(value, unit.name);
+      }
+      remaining %= unit.divisor;
+    }
+  }
+  
+  // Фолбэк на нашу реализацию если Intl не поддерживается
+  return formatDuration(ms);
+}
