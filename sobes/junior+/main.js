@@ -4718,179 +4718,204 @@ console.log(reverseString("JavaScript"))
  * @param {string} unit - Единица измерения ('days', 'hours', 'minutes', 'seconds', 'milliseconds', 'formatted')
  * @returns {number|string} - Разница в указанных единицах или форматированная строка
  */
-function dateDiff(date1, date2, unit = 'days') {
-  // Преобразуем входные данные в объекты Date
-  const d1 = new Date(date1);
-  const d2 = new Date(date2);
+// function dateDiff(date1, date2, unit = 'days') {
+//   // Преобразуем входные данные в объекты Date
+//   const d1 = new Date(date1);
+//   const d2 = new Date(date2);
   
-  // Проверяем валидность дат
-  if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
-    throw new Error('Одна или обе даты невалидны');
-  }
+//   // Проверяем валидность дат
+//   if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
+//     throw new Error('Одна или обе даты невалидны');
+//   }
   
-  // Вычисляем разницу в миллисекундах (абсолютное значение)
-  const diffMs = Math.abs(d2 - d1);
+//   // Вычисляем разницу в миллисекундах (абсолютное значение)
+//   const diffMs = Math.abs(d2 - d1);
   
-  // Константы для конвертации
-  const MS_IN_SECOND = 1000;
-  const MS_IN_MINUTE = 60 * MS_IN_SECOND;
-  const MS_IN_HOUR = 60 * MS_IN_MINUTE;
-  const MS_IN_DAY = 24 * MS_IN_HOUR;
-  const MS_IN_WEEK = 7 * MS_IN_DAY;
-  const MS_IN_MONTH = 30.44 * MS_IN_DAY;   // Среднее количество дней в месяце
-  const MS_IN_YEAR = 365.25 * MS_IN_DAY;   // Учет високосных годов
+//   // Константы для конвертации
+//   const MS_IN_SECOND = 1000;
+//   const MS_IN_MINUTE = 60 * MS_IN_SECOND;
+//   const MS_IN_HOUR = 60 * MS_IN_MINUTE;
+//   const MS_IN_DAY = 24 * MS_IN_HOUR;
+//   const MS_IN_WEEK = 7 * MS_IN_DAY;
+//   const MS_IN_MONTH = 30.44 * MS_IN_DAY;   // Среднее количество дней в месяце
+//   const MS_IN_YEAR = 365.25 * MS_IN_DAY;   // Учет високосных годов
   
-  // Если нужен форматированный вывод
-  if (unit === 'formatted') {
-    return formatDuration(diffMs);
-  }
+//   // Если нужен форматированный вывод
+//   if (unit === 'formatted') {
+//     return formatDuration(diffMs);
+//   }
   
-  // Возвращаем разницу в указанной единице
-  switch (unit.toLowerCase()) {
-    case 'milliseconds':
-      return diffMs;
+//   // Возвращаем разницу в указанной единице
+//   switch (unit.toLowerCase()) {
+//     case 'milliseconds':
+//       return diffMs;
       
-    case 'seconds':
-      return Math.floor(diffMs / MS_IN_SECOND);
+//     case 'seconds':
+//       return Math.floor(diffMs / MS_IN_SECOND);
       
-    case 'minutes':
-      return Math.floor(diffMs / MS_IN_MINUTE);
+//     case 'minutes':
+//       return Math.floor(diffMs / MS_IN_MINUTE);
       
-    case 'hours':
-      return Math.floor(diffMs / MS_IN_HOUR);
+//     case 'hours':
+//       return Math.floor(diffMs / MS_IN_HOUR);
       
-    case 'days':
-      return Math.floor(diffMs / MS_IN_DAY);
+//     case 'days':
+//       return Math.floor(diffMs / MS_IN_DAY);
       
-    case 'weeks':
-      return Math.floor(diffMs / MS_IN_WEEK);
+//     case 'weeks':
+//       return Math.floor(diffMs / MS_IN_WEEK);
       
-    case 'months':
-      return Math.floor(diffMs / MS_IN_MONTH);
+//     case 'months':
+//       return Math.floor(diffMs / MS_IN_MONTH);
       
-    case 'years':
-      return Math.floor(diffMs / MS_IN_YEAR);
+//     case 'years':
+//       return Math.floor(diffMs / MS_IN_YEAR);
       
-    default:
-      return Math.floor(diffMs / MS_IN_DAY);
-  }
-}
+//     default:
+//       return Math.floor(diffMs / MS_IN_DAY);
+//   }
+// }
 
-/**
- * Форматирование длительности в читаемый вид
- * @param {number} ms - Время в миллисекундах
- * @returns {string} - Форматированная строка
- */
-function formatDuration(ms) {
-  // Единицы измерения с делителями и формами слов
-  const units = [
-    { 
-      name: 'year', 
-      divisor: 365.25 * 24 * 60 * 60 * 1000, 
-      forms: ['год', 'года', 'лет'] 
-    },
-    { 
-      name: 'month', 
-      divisor: 30.44 * 24 * 60 * 60 * 1000, 
-      forms: ['месяц', 'месяца', 'месяцев'] 
-    },
-    { 
-      name: 'week', 
-      divisor: 7 * 24 * 60 * 60 * 1000, 
-      forms: ['неделя', 'недели', 'недель'] 
-    },
-    { 
-      name: 'day', 
-      divisor: 24 * 60 * 60 * 1000, 
-      forms: ['день', 'дня', 'дней'] 
-    },
-    { 
-      name: 'hour', 
-      divisor: 60 * 60 * 1000, 
-      forms: ['час', 'часа', 'часов'] 
-    },
-    { 
-      name: 'minute', 
-      divisor: 60 * 1000, 
-      forms: ['минута', 'минуты', 'минут'] 
-    },
-    { 
-      name: 'second', 
-      divisor: 1000, 
-      forms: ['секунда', 'секунды', 'секунд'] 
-    }
-  ];
+// /**
+//  * Форматирование длительности в читаемый вид
+//  * @param {number} ms - Время в миллисекундах
+//  * @returns {string} - Форматированная строка
+//  */
+// function formatDuration(ms) {
+//   // Единицы измерения с делителями и формами слов
+//   const units = [
+//     { 
+//       name: 'year', 
+//       divisor: 365.25 * 24 * 60 * 60 * 1000, 
+//       forms: ['год', 'года', 'лет'] 
+//     },
+//     { 
+//       name: 'month', 
+//       divisor: 30.44 * 24 * 60 * 60 * 1000, 
+//       forms: ['месяц', 'месяца', 'месяцев'] 
+//     },
+//     { 
+//       name: 'week', 
+//       divisor: 7 * 24 * 60 * 60 * 1000, 
+//       forms: ['неделя', 'недели', 'недель'] 
+//     },
+//     { 
+//       name: 'day', 
+//       divisor: 24 * 60 * 60 * 1000, 
+//       forms: ['день', 'дня', 'дней'] 
+//     },
+//     { 
+//       name: 'hour', 
+//       divisor: 60 * 60 * 1000, 
+//       forms: ['час', 'часа', 'часов'] 
+//     },
+//     { 
+//       name: 'minute', 
+//       divisor: 60 * 1000, 
+//       forms: ['минута', 'минуты', 'минут'] 
+//     },
+//     { 
+//       name: 'second', 
+//       divisor: 1000, 
+//       forms: ['секунда', 'секунды', 'секунд'] 
+//     }
+//   ];
   
-  let remaining = ms;
-  const parts = [];
+//   let remaining = ms;
+//   const parts = [];
   
-  // Проходим по всем единицам измерения
-  for (const unit of units) {
-    const value = Math.floor(remaining / unit.divisor);
+//   // Проходим по всем единицам измерения
+//   for (const unit of units) {
+//     const value = Math.floor(remaining / unit.divisor);
     
-    if (value > 0) {
-      parts.push(`${value} ${getWordForm(value, unit.forms)}`);
-      remaining %= unit.divisor;
+//     if (value > 0) {
+//       parts.push(`${value} ${getWordForm(value, unit.forms)}`);
+//       remaining %= unit.divisor;
       
-      // Ограничиваем вывод 3-мя самыми крупными единицами
-      if (parts.length >= 3) {
-        break;
-      }
-    }
-  }
+//       // Ограничиваем вывод 3-мя самыми крупными единицами
+//       if (parts.length >= 3) {
+//         break;
+//       }
+//     }
+//   }
   
-  // Если ничего не набрали - возвращаем "0 секунд"
-  return parts.join(' ') || '0 секунд';
-}
+//   // Если ничего не набрали - возвращаем "0 секунд"
+//   return parts.join(' ') || '0 секунд';
+// }
 
-/**
- * Получение правильной формы слова для русского языка
- * @param {number} number - Число
- * @param {string[]} words - Массив форм: [1, 2, 5]
- * @returns {string} - Правильная форма слова
- */
-function getWordForm(number, words) {
-  const cases = [2, 0, 1, 1, 1, 2]; // Индексы для 0, 1, 2, 3, 4, 5
+// /**
+//  * Получение правильной формы слова для русского языка
+//  * @param {number} number - Число
+//  * @param {string[]} words - Массив форм: [1, 2, 5]
+//  * @returns {string} - Правильная форма слова
+//  */
+// function getWordForm(number, words) {
+//   const cases = [2, 0, 1, 1, 1, 2]; // Индексы для 0, 1, 2, 3, 4, 5
   
-  // Для чисел, оканчивающихся на 11-19
-  if (number % 100 >= 11 && number % 100 <= 19) {
-    return words[2];
-  }
+//   // Для чисел, оканчивающихся на 11-19
+//   if (number % 100 >= 11 && number % 100 <= 19) {
+//     return words[2];
+//   }
   
-  // Для остальных случаев
-  const index = cases[Math.min(number % 10, 5)];
-  return words[index];
-}
+//   // Для остальных случаев
+//   const index = cases[Math.min(number % 10, 5)];
+//   return words[index];
+// }
 
-/**
- * Альтернативная версия: форматирование с использованием Intl.RelativeTimeFormat
- * (более современный подход, но требует поддержки браузером)
- */
-function formatDurationModern(ms) {
-  if ('Intl' in window && 'RelativeTimeFormat' in Intl) {
-    const rtf = new Intl.RelativeTimeFormat('ru', { numeric: 'auto' });
+// /**
+//  * Альтернативная версия: форматирование с использованием Intl.RelativeTimeFormat
+//  * (более современный подход, но требует поддержки браузером)
+//  */
+// function formatDurationModern(ms) {
+//   if ('Intl' in window && 'RelativeTimeFormat' in Intl) {
+//     const rtf = new Intl.RelativeTimeFormat('ru', { numeric: 'auto' });
     
-    const units = [
-      { name: 'year', divisor: 365.25 * 24 * 60 * 60 * 1000 },
-      { name: 'month', divisor: 30.44 * 24 * 60 * 60 * 1000 },
-      { name: 'week', divisor: 7 * 24 * 60 * 60 * 1000 },
-      { name: 'day', divisor: 24 * 60 * 60 * 1000 },
-      { name: 'hour', divisor: 60 * 60 * 1000 },
-      { name: 'minute', divisor: 60 * 1000 },
-      { name: 'second', divisor: 1000 }
-    ];
+//     const units = [
+//       { name: 'year', divisor: 365.25 * 24 * 60 * 60 * 1000 },
+//       { name: 'month', divisor: 30.44 * 24 * 60 * 60 * 1000 },
+//       { name: 'week', divisor: 7 * 24 * 60 * 60 * 1000 },
+//       { name: 'day', divisor: 24 * 60 * 60 * 1000 },
+//       { name: 'hour', divisor: 60 * 60 * 1000 },
+//       { name: 'minute', divisor: 60 * 1000 },
+//       { name: 'second', divisor: 1000 }
+//     ];
     
-    let remaining = ms;
+//     let remaining = ms;
     
-    for (const unit of units) {
-      const value = Math.floor(remaining / unit.divisor);
-      if (value !== 0) {
-        return rtf.format(value, unit.name);
-      }
-      remaining %= unit.divisor;
-    }
-  }
+//     for (const unit of units) {
+//       const value = Math.floor(remaining / unit.divisor);
+//       if (value !== 0) {
+//         return rtf.format(value, unit.name);
+//       }
+//       remaining %= unit.divisor;
+//     }
+//   }
   
-  // Фолбэк на нашу реализацию если Intl не поддерживается
-  return formatDuration(ms);
-}
+//   // Фолбэк на нашу реализацию если Intl не поддерживается
+//   return formatDuration(ms);
+// }
+
+//! Функция для фильтрации уникальных объектов
+// function uniqueObjects(arr, key) {
+//   // Вернуть массив уникальных объектов по ключу
+//    const uniq = new Set()
+//   const result = []
+
+//   arr.forEach(obj => {
+//     if (!uniq.has(obj[key])) {
+//       uniq.add(obj[key])
+//       result.push(obj)
+//     }
+//   })
+//   return result
+// }
+
+// const users = [
+//   { id: 1, name: 'John' },
+//   { id: 2, name: 'Jane' },
+//   { id: 1, name: 'John' }, // Дубликат
+//   { id: 3, name: 'Bob' }
+// ];
+
+// console.log(uniqueObjects(users, 'id'));
+// // [{id:1, name:'John'}, {id:2, name:'Jane'}, {id:3, name:'Bob'}]
