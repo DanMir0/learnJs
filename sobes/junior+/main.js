@@ -4919,3 +4919,188 @@ console.log(reverseString("JavaScript"))
 
 // console.log(uniqueObjects(users, 'id'));
 // // [{id:1, name:'John'}, {id:2, name:'Jane'}, {id:3, name:'Bob'}]
+
+//! Функция для группировки по диапазонам
+// function groupByRange(arr, ranges) {
+//   // Сгруппировать числа по диапазонам
+//   const result = {}
+//   let start, end;
+//   ranges.forEach(diapozons => {
+//     [start, end] = [...diapozons]
+//     let key = `${start}-${end}`
+//     result[key] = []
+//     for (let i = 0; i < arr.length; i++) {
+//       if (arr[i] >= start && arr[i] <= end) {
+//         result[key].push(arr[i])
+//       } 
+//     }
+    
+//   });
+
+//   return result
+// }
+
+// const numbers = [15, 25, 35, 45, 55, 65, 75];
+// const ranges = [[0, 30], [31, 60], [61, 100]];
+
+// console.log(groupByRange(numbers, ranges));
+// // { '0-30': [15, 25], '31-60': [35, 45, 55], '61-100': [65, 75] }
+
+//! Функция для подсчета вхождений
+// function countOccurrences(arr) {
+//   // Подсчитать сколько раз каждый элемент встречается в массиве
+//   let result = {}
+//   arr.forEach(element => {
+//     if (result[element]) {
+//       result[element] += 1
+//     } else {
+//       result[element] = 1
+//     }
+//   });
+//   return result
+// }
+// function countOccurrences(arr) {
+//   return arr.reduce((acc, elem) => {
+//     if (acc[elem]) {
+//       acc[elem] += 1
+//     } else {
+//       acc[elem] = 1
+//     }
+//     return acc
+//   }, {})
+// }
+
+// console.log(countOccurrences(['apple', 'banana', 'apple', 'orange', 'banana', 'banana']));
+// // { apple: 2, banana: 3, orange: 1 }
+
+//! Функция для разделения массива по условию
+// function partition(array, predicate) {
+//   let falseArray = []
+//   let trueArray = []
+//   array.forEach(element => {
+//     if (predicate(element)) {
+//       trueArray.push(element)
+//     } else {
+//       falseArray.push(element)
+//     }
+//   });
+//   return [trueArray, falseArray]
+// }
+
+// const numbers = [1, 2, 3, 4, 5, 6];
+// const [even, odd] = partition(numbers, n => n % 2 === 0);
+// console.log(even); // [2, 4, 6]
+// console.log(odd);  // [1, 3, 5]
+
+//! Функция для поиска пересечения массивов
+// function intersection(...arrays) {
+//   // Найти общие элементы во всех массивах
+//   let result = new Set(arrays[0])
+
+//   for (let i = 1; i < arrays.length; i++) {
+//     let currentSet = new Set(arrays[i])
+
+//     result = new Set([...result].filter(item => currentSet.has(item)))
+//   }
+//   return Array.from(result)  
+// }
+
+// console.log(intersection([1, 2, 3], [2, 3, 4], [3, 4, 5])); // [3]
+// console.log(intersection(['a', 'b', 'c'], ['b', 'c', 'd'], ['c', 'd', 'e'])); // ['c']
+
+//! Функция для глубокого поиска в объекте
+// function findDeep(obj, predicate) {
+//   // Найти первое значение удовлетворяющее предикату
+//   for (let key in obj) {
+//     if (predicate(obj[key])) {
+//       return obj[key]
+//     } else if (typeof obj[key] === 'object') {
+//       return findDeep(obj[key], predicate)
+//     } 
+//   }
+//   return null
+// }
+
+// const obj = {
+//   a: 1,
+//   b: {
+//     c: 2,
+//     d: {
+//       e: 3,
+//       f: 4
+//     }
+//   }
+// };
+
+// console.log(findDeep(obj, val => val > 2)); // 3
+// console.log(findDeep(obj, val => typeof val === 'string')); // null
+
+
+//! Функция для трансформации ключей объекта
+// function mapKeys(obj, mapper) {
+//   // Преобразовать ключи объекта с помощью функции
+//   let result = {}
+//   for (let key in obj) {
+//     result[mapper(key)] = obj[key]
+//   }
+//   return result
+// }
+
+// const user = { firstName: 'John', lastName: 'Doe', age: 30 };
+
+// console.log(mapKeys(user, key => key.toUpperCase()));
+// // { FIRSTNAME: 'John', LASTNAME: 'Doe', AGE: 30 }
+
+// console.log(mapKeys(user, (key, value) => `user_${key}`));
+// // { user_firstName: 'John', user_lastName: 'Doe', user_age: 30 }
+
+//! Функция для чередования массивов
+// function interleave(...arrays) {
+//   // Смешать элементы массивов по очереди
+//   let result = []
+//   const maxLength = Math.max(...arrays.map(arr => arr.length))
+
+//   for (let i = 0; i < maxLength; i++) {
+//     for (let arr of arrays) {
+//       if (i < arr.length) {
+//         result.push(arr[i])
+//       }
+//     }
+//   }
+//   return result
+// }
+
+// console.log(interleave([1, 2, 3], ['a', 'b', 'c'], ['x', 'y', 'z']));
+// // [1, 'a', 'x', 2, 'b', 'y', 3, 'c', 'z']
+
+//!  Функция для поиска наиболее частого элемента
+function findMode(arr) {
+  // Найти элемент(ы) которые встречаются чаще всего
+  if (arr.length === 0) return []
+
+  const countObj = {}
+  arr.forEach(element => {
+    countObj[element] = (countObj[element] || 0) + 1
+  })
+
+  let maxCount = 0
+  for (let key in countObj) {
+    if (countObj[key] > maxCount) {
+      maxCount = countObj[key]
+    }
+  }
+
+  const result = [] 
+  for (let key in countObj) {
+    if (countObj[key] === maxCount) {
+      const value = isNaN(key) ? key : Number(key)
+      result.push(key)
+    }
+  }
+
+  return result
+}
+
+console.log(findMode([1, 2, 2, 3, 3, 3, 4])); // [3]
+console.log(findMode([1, 1, 2, 2, 3])); // [1, 2]
+console.log(findMode([1, 2, 3, 4, 5])); // [1, 2, 3, 4, 5]
