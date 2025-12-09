@@ -4940,6 +4940,17 @@ console.log(reverseString("JavaScript"))
 //   return result
 // }
 
+// function groupByRange(arr, ranges) {
+//   const result = {};
+  
+//   ranges.forEach(([start, end]) => {
+//     const key = `${start}-${end}`;
+//     result[key] = arr.filter(num => num >= start && num <= end);
+//   });
+  
+//   return result;
+// }
+
 // const numbers = [15, 25, 35, 45, 55, 65, 75];
 // const ranges = [[0, 30], [31, 60], [61, 100]];
 
@@ -4970,6 +4981,12 @@ console.log(reverseString("JavaScript"))
 //   }, {})
 // }
 
+// function countOccurrences(arr) {
+//   return arr.reduce((acc, elem) => {
+//     acc[elem] = (acc[elem] || 0) + 1;
+//     return acc;
+//   }, {});
+// }
 // console.log(countOccurrences(['apple', 'banana', 'apple', 'orange', 'banana', 'banana']));
 // // { apple: 2, banana: 3, orange: 1 }
 
@@ -4985,6 +5002,13 @@ console.log(reverseString("JavaScript"))
 //     }
 //   });
 //   return [trueArray, falseArray]
+// }
+
+// function partition(array, predicate) {
+//   return array.reduce(([pass, fail], elem) => {
+//     predicate(elem) ? pass.push(elem) : fail.push(elem);
+//     return [pass, fail];
+//   }, [[], []]);
 // }
 
 // const numbers = [1, 2, 3, 4, 5, 6];
@@ -5005,6 +5029,12 @@ console.log(reverseString("JavaScript"))
 //   return Array.from(result)  
 // }
 
+// function intersection(...arrays) {
+//   return arrays.reduce((acc, curr) => 
+//     acc.filter(item => curr.includes(item))
+//   );
+// }
+
 // console.log(intersection([1, 2, 3], [2, 3, 4], [3, 4, 5])); // [3]
 // console.log(intersection(['a', 'b', 'c'], ['b', 'c', 'd'], ['c', 'd', 'e'])); // ['c']
 
@@ -5014,8 +5044,10 @@ console.log(reverseString("JavaScript"))
 //   for (let key in obj) {
 //     if (predicate(obj[key])) {
 //       return obj[key]
-//     } else if (typeof obj[key] === 'object') {
-//       return findDeep(obj[key], predicate)
+//     } 
+//     if (typeof obj[key] === 'object' && obj[key] !== null) {
+//       const found = findDeep(obj[key], predicate)
+//       if (found !== null) return found
 //     } 
 //   }
 //   return null
@@ -5046,6 +5078,12 @@ console.log(reverseString("JavaScript"))
 //   return result
 // }
 
+// function mapKeys(obj, mapper) {
+//   return Object.fromEntries(
+//     Object.entries(obj).map(([key, value]) => [mapper(key, value), value])
+//   );
+// }
+
 // const user = { firstName: 'John', lastName: 'Doe', age: 30 };
 
 // console.log(mapKeys(user, key => key.toUpperCase()));
@@ -5074,33 +5112,109 @@ console.log(reverseString("JavaScript"))
 // // [1, 'a', 'x', 2, 'b', 'y', 3, 'c', 'z']
 
 //!  Функция для поиска наиболее частого элемента
-function findMode(arr) {
-  // Найти элемент(ы) которые встречаются чаще всего
-  if (arr.length === 0) return []
+// function findMode(arr) {
+//   // Найти элемент(ы) которые встречаются чаще всего
+//   if (arr.length === 0) return []
 
-  const countObj = {}
-  arr.forEach(element => {
-    countObj[element] = (countObj[element] || 0) + 1
-  })
+//   const countObj = {}
+//   arr.forEach(element => {
+//     countObj[element] = (countObj[element] || 0) + 1
+//   })
 
-  let maxCount = 0
-  for (let key in countObj) {
-    if (countObj[key] > maxCount) {
-      maxCount = countObj[key]
+//   let maxCount = 0
+//   for (let key in countObj) {
+//     if (countObj[key] > maxCount) {
+//       maxCount = countObj[key]
+//     }
+//   }
+
+//   const result = [] 
+//   for (let key in countObj) {
+//     if (countObj[key] === maxCount) {
+//       const value = isNaN(key) ? key : Number(key)
+//       result.push(value)
+//     }
+//   }
+
+//   return result
+// }
+
+// function findMode(arr) {
+//   if (arr.length === 0) return [];
+  
+//   const countMap = arr.reduce((acc, val) => {
+//     acc.set(val, (acc.get(val) || 0) + 1);
+//     return acc;
+//   }, new Map());
+  
+//   const maxCount = Math.max(...countMap.values());
+  
+//   return Array.from(countMap.entries())
+//     .filter(([_, count]) => count === maxCount)
+//     .map(([val]) => val);
+// }
+
+// console.log(findMode([1, 2, 2, 3, 3, 3, 4])); // [3]
+// console.log(findMode([1, 1, 2, 2, 3])); // [1, 2]
+// console.log(findMode([1, 2, 3, 4, 5])); // [1, 2, 3, 4, 5]
+
+//!Функция для валидации пароля
+function validatePassword(password, options = {}) {
+  // Проверить пароль по критериям
+  // - minLength (по умолчанию 8)
+  // - requireUppercase (требовать заглавную букву)
+  // - requireLowercase (требовать строчную букву)
+  // - requireNumbers (требовать цифру)
+  // - requireSpecial (требовать спецсимвол)
+  // Вернуть объект с ошибками
+  errors = []
+  const {
+    minLength = 8,
+    requireUppercase = false,
+    requireLowercase = false,
+    requireNumbers = false,
+    requireSpecial = false
+  } = options;
+  if (options.minLength && password.length < options.minLength) {
+    errors.push('Too short')
+  }
+  if (options.requireSpecial) {
+    const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+    if (!specialChars.test(password)) {
+      errors.push('Missing special character')
     }
   }
-
-  const result = [] 
-  for (let key in countObj) {
-    if (countObj[key] === maxCount) {
-      const value = isNaN(key) ? key : Number(key)
-      result.push(key)
+  if (options.requireUppercase) {
+    return password.split("").forEach(char => char )
+  }
+  if (options.requireUppercase) {
+    const valid = /^[a-zа-я\d]*$/
+    if (!valid.test(password)) {
+      errors.puhs('A capital letter is required')
     }
   }
+  if (options.requireLowercase) {
+    const valid = /^[A-ZА-Я\d]*$/
+    if (!valid.test(password)) {
+      errors.puhs('A lower letter is required')
+    }
+  } 
+  if (options.requireNumbers) {
+    const valid = /^[0-9]*$/
+    if (!valid.test(password)) {
+      errors.puhs('There must be at least one digit.')
+    }
+  } 
 
-  return result
+  return {
+    valid: errors.length === 0,
+    errors: errors
+  }
 }
 
-console.log(findMode([1, 2, 2, 3, 3, 3, 4])); // [3]
-console.log(findMode([1, 1, 2, 2, 3])); // [1, 2]
-console.log(findMode([1, 2, 3, 4, 5])); // [1, 2, 3, 4, 5]
+const result = validatePassword('Weak123', { 
+  minLength: 8, 
+  requireSpecial: true 
+});
+console.log(result);
+// { valid: false, errors: ['Too short', 'Missing special character'] }
