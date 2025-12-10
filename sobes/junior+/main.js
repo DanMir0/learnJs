@@ -5159,62 +5159,142 @@ console.log(reverseString("JavaScript"))
 // console.log(findMode([1, 2, 3, 4, 5])); // [1, 2, 3, 4, 5]
 
 //!Функция для валидации пароля
-function validatePassword(password, options = {}) {
-  // Проверить пароль по критериям
-  // - minLength (по умолчанию 8)
-  // - requireUppercase (требовать заглавную букву)
-  // - requireLowercase (требовать строчную букву)
-  // - requireNumbers (требовать цифру)
-  // - requireSpecial (требовать спецсимвол)
-  // Вернуть объект с ошибками
-  errors = []
-  const {
-    minLength = 8,
-    requireUppercase = false,
-    requireLowercase = false,
-    requireNumbers = false,
-    requireSpecial = false
-  } = options;
-  if (options.minLength && password.length < options.minLength) {
-    errors.push('Too short')
-  }
-  if (options.requireSpecial) {
-    const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
-    if (!specialChars.test(password)) {
-      errors.push('Missing special character')
-    }
-  }
-  if (options.requireUppercase) {
-    return password.split("").forEach(char => char )
-  }
-  if (options.requireUppercase) {
-    const valid = /^[a-zа-я\d]*$/
-    if (!valid.test(password)) {
-      errors.puhs('A capital letter is required')
-    }
-  }
-  if (options.requireLowercase) {
-    const valid = /^[A-ZА-Я\d]*$/
-    if (!valid.test(password)) {
-      errors.puhs('A lower letter is required')
-    }
-  } 
-  if (options.requireNumbers) {
-    const valid = /^[0-9]*$/
-    if (!valid.test(password)) {
-      errors.puhs('There must be at least one digit.')
-    }
-  } 
+// function validatePassword(password, options = {}) {
+//   // Проверить пароль по критериям
+//   // - minLength (по умолчанию 8)
+//   // - requireUppercase (требовать заглавную букву)
+//   // - requireLowercase (требовать строчную букву)
+//   // - requireNumbers (требовать цифру)
+//   // - requireSpecial (требовать спецсимвол)
+//   // Вернуть объект с ошибками
+//   errors = []
+//   const {
+//     minLength = 8,
+//     requireUppercase = false,
+//     requireLowercase = false,
+//     requireNumbers = false,
+//     requireSpecial = false
+//   } = options;
+//   if (options.minLength && password.length < options.minLength) {
+//     errors.push('Too short')
+//   }
+//   if (options.requireSpecial) {
+//     const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+//     if (!specialChars.test(password)) {
+//       errors.push('Missing special character')
+//     }
+//   }
+//   if (options.requireUppercase) {
+//     return password.split("").forEach(char => char )
+//   }
+//   if (options.requireUppercase) {
+//     const valid = /^[a-zа-я\d]*$/
+//     if (!valid.test(password)) {
+//       errors.puhs('A capital letter is required')
+//     }
+//   }
+//   if (options.requireLowercase) {
+//     const valid = /^[A-ZА-Я\d]*$/
+//     if (!valid.test(password)) {
+//       errors.puhs('A lower letter is required')
+//     }
+//   } 
+//   if (options.requireNumbers) {
+//     const valid = /^[0-9]*$/
+//     if (!valid.test(password)) {
+//       errors.puhs('There must be at least one digit.')
+//     }
+//   } 
 
-  return {
-    valid: errors.length === 0,
-    errors: errors
-  }
+//   return {
+//     valid: errors.length === 0,
+//     errors: errors
+//   }
+// }
+
+// const result = validatePassword('Weak123', { 
+//   minLength: 8, 
+//   requireSpecial: true 
+// });
+// console.log(result);
+// // { valid: false, errors: ['Too short', 'Missing special character'] }
+
+//!  Функция для дебаунса (Debounce)
+/**
+ * Реализуйте функцию debounce, которая откладывает вызов функции
+ * до тех пор, пока не пройдет указанное время без новых вызовов.
+ */
+// function debounce(func, delay) {
+//   let timerId = null
+
+//   return (...args) => {
+//     if (timerId) {
+//       clearTimeout(timerId)
+//     }
+
+//     timerId = setTimeout(() => {
+//       timerId = null
+//       func(...args)
+//     }, delay)
+//   }
+// }
+
+// // Пример использования:
+// const debouncedSearch = debounce((query) => {
+//   console.log('Searching for:', query);
+// }, 300);
+
+// // Только последний вызов сработает через 300ms
+// debouncedSearch('a');
+// debouncedSearch('ab');
+// debouncedSearch('abc');
+
+//! Промисы: реализация Promise.allSettled
+/**
+ * Реализуйте аналог Promise.allSettled.
+ * Возвращает промис, который исполняется когда все полученные промисы завершены
+ * (исполнены или отклонены).
+ */
+function promiseAllSettled(promises) {
+  return new Promise((resolve) => {
+    const results = [];
+    let completed = 0;
+    
+    if (promises.length === 0) {
+      resolve(results);
+      return;
+    }
+    
+    promises.forEach((promise, index) => {
+      Promise.resolve(promise)
+        .then(value => {
+          results[index] = { status: 'fulfilled', value };
+        })
+        .catch(reason => {
+          results[index] = { status: 'rejected', reason };
+        })
+        .finally(() => {
+          completed++;
+          if (completed === promises.length) {
+            resolve(results);
+          }
+        });
+    });
+  });
 }
 
-const result = validatePassword('Weak123', { 
-  minLength: 8, 
-  requireSpecial: true 
+// Пример использования:
+const promises = [
+  Promise.resolve(1),
+  Promise.reject(2),
+  Promise.resolve(3)
+];
+
+promiseAllSettled(promises).then(results => {
+  console.log(results);
+  // [
+  //   { status: 'fulfilled', value: 1 },
+  //   { status: 'rejected', reason: 'Error' },
+  //   { status: 'fulfilled', value: 3 }
+  // ]
 });
-console.log(result);
-// { valid: false, errors: ['Too short', 'Missing special character'] }
