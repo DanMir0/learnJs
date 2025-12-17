@@ -5255,46 +5255,89 @@ console.log(reverseString("JavaScript"))
  * Возвращает промис, который исполняется когда все полученные промисы завершены
  * (исполнены или отклонены).
  */
-function promiseAllSettled(promises) {
-  return new Promise((resolve) => {
-    const results = [];
-    let completed = 0;
+// function promiseAllSettled(promises) {
+//   return new Promise((resolve) => {
+//     const results = [];
+//     let completed = 0;
     
-    if (promises.length === 0) {
-      resolve(results);
-      return;
+//     if (promises.length === 0) {
+//       resolve(results);
+//       return;
+//     }
+    
+//     promises.forEach((promise, index) => {
+//       Promise.resolve(promise)
+//         .then(value => {
+//           results[index] = { status: 'fulfilled', value };
+//         })
+//         .catch(reason => {
+//           results[index] = { status: 'rejected', reason };
+//         })
+//         .finally(() => {
+//           completed++;
+//           if (completed === promises.length) {
+//             resolve(results);
+//           }
+//         });
+//     });
+//   });
+// }
+
+// // Пример использования:
+// const promises = [
+//   Promise.resolve(1),
+//   Promise.reject(2),
+//   Promise.resolve(3)
+// ];
+
+// promiseAllSettled(promises).then(results => {
+//   console.log(results);
+//   // [
+//   //   { status: 'fulfilled', value: 1 },
+//   //   { status: 'rejected', reason: 'Error' },
+//   //   { status: 'fulfilled', value: 3 }
+//   // ]
+// });
+
+//! Клонирование объектов с циклическими ссылками
+/**
+ * Реализуйте глубокое клонирование объектов,
+ * которое поддерживает циклические ссылки.
+ */
+function deepClone(obj, cache = new WeakMap()) {
+  if (obj === null || typeof obj !== 'object') return obj
+  
+  if (cache.has(obj)) return cache.get(obj)
+
+  if (Array.isArray(obj)) {
+    const clone = []
+    cache.set(obj, clone) // Сохраняем в кеш до заполнения
+    for (let i = 0; i < obj.length; i++) {
+      clone[i] = deepClone(obj[i], cache)
     }
-    
-    promises.forEach((promise, index) => {
-      Promise.resolve(promise)
-        .then(value => {
-          results[index] = { status: 'fulfilled', value };
-        })
-        .catch(reason => {
-          results[index] = { status: 'rejected', reason };
-        })
-        .finally(() => {
-          completed++;
-          if (completed === promises.length) {
-            resolve(results);
-          }
-        });
-    });
-  });
+    return clone
+  }
+
+  const clone = {}
+  cache.set(obj, clone) // Сохраняем в кеш до заполнения
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      clone[key] = deepClone(obj[key], cache)
+    }
+  }
+  return result
 }
 
 // Пример использования:
-const promises = [
-  Promise.resolve(1),
-  Promise.reject(2),
-  Promise.resolve(3)
-];
+const obj = {
+  a: 1,
+  b: {
+    c: 2
+  }
+};
+obj.self = obj; // Циклическая ссылка
 
-promiseAllSettled(promises).then(results => {
-  console.log(results);
-  // [
-  //   { status: 'fulfilled', value: 1 },
-  //   { status: 'rejected', reason: 'Error' },
-  //   { status: 'fulfilled', value: 3 }
-  // ]
-});
+const cloned = deepClone(obj);
+console.log(cloned !== obj); // true
+console.log(cloned.b !== obj.b); // true
+console.log(cloned.self === cloned); // true
