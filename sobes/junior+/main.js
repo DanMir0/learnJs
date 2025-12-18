@@ -5303,41 +5303,95 @@ console.log(reverseString("JavaScript"))
 /**
  * Реализуйте глубокое клонирование объектов,
  * которое поддерживает циклические ссылки.
- */
-function deepClone(obj, cache = new WeakMap()) {
-  if (obj === null || typeof obj !== 'object') return obj
+//  */
+// function deepClone(obj, cache = new WeakMap()) {
+//   if (obj === null || typeof obj !== 'object') return obj
   
-  if (cache.has(obj)) return cache.get(obj)
+//   if (cache.has(obj)) return cache.get(obj)
 
-  if (Array.isArray(obj)) {
-    const clone = []
-    cache.set(obj, clone) // Сохраняем в кеш до заполнения
-    for (let i = 0; i < obj.length; i++) {
-      clone[i] = deepClone(obj[i], cache)
-    }
-    return clone
-  }
+//   if (Array.isArray(obj)) {
+//     const clone = []
+//     cache.set(obj, clone) // Сохраняем в кеш до заполнения
+//     for (let i = 0; i < obj.length; i++) {
+//       clone[i] = deepClone(obj[i], cache)
+//     }
+//     return clone
+//   }
 
-  const clone = {}
-  cache.set(obj, clone) // Сохраняем в кеш до заполнения
-  for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      clone[key] = deepClone(obj[key], cache)
+//   const clone = {}
+//   cache.set(obj, clone) // Сохраняем в кеш до заполнения
+//   for (let key in obj) {
+//     if (obj.hasOwnProperty(key)) {
+//       clone[key] = deepClone(obj[key], cache)
+//     }
+//   }
+//   return result
+// }
+
+// // Пример использования:
+// const obj = {
+//   a: 1,
+//   b: {
+//     c: 2
+//   }
+// };
+// obj.self = obj; // Циклическая ссылка
+
+// const cloned = deepClone(obj);
+// console.log(cloned !== obj); // true
+// console.log(cloned.b !== obj.b); // true
+// console.log(cloned.self === cloned); // true
+
+//! Генератор уникальных ID
+/**
+ * Создайте функцию, которая генерирует уникальные ID.
+ * Требования:
+ * - ID должны быть уникальными в пределах сессии
+ * - Должна быть возможность задать префикс
+ * - ID должны быть читаемыми (например: user_1, user_2, task_1)
+ */
+// function createIdGenerator(prefix = '') {
+//   let counter = 0;
+//   return function() {
+//     counter++
+//     return prefix + counter
+//   }
+// }
+
+// // Пример использования:
+// const userIdGenerator = createIdGenerator('user_');
+// console.log(userIdGenerator()); // 'user_1'
+// console.log(userIdGenerator()); // 'user_2'
+
+// const taskIdGenerator = createIdGenerator('task_');
+// console.log(taskIdGenerator()); // 'task_1'
+
+//! Функция для мемоизации
+/**
+ * Реализуйте функцию мемоизации для функций с любым количеством аргументов.
+ */
+function memoize(fn) {
+  let cache = new Map()
+
+  return (...args) => {
+    const key = JSON.stringify(...args)
+
+    if (cache.has(key)) {
+      return cache.get(key)
+    } else {
+      let value = fn(...args)
+      cache.set(key, value)
+      return value
     }
   }
-  return result
 }
 
 // Пример использования:
-const obj = {
-  a: 1,
-  b: {
-    c: 2
-  }
-};
-obj.self = obj; // Циклическая ссылка
+const expensiveCalculation = memoize((a, b) => {
+  console.log('Calculating...');
+  return a + b;
+});
 
-const cloned = deepClone(obj);
-console.log(cloned !== obj); // true
-console.log(cloned.b !== obj.b); // true
-console.log(cloned.self === cloned); // true
+console.log(expensiveCalculation(2, 3)); // Calculating... 5
+console.log(expensiveCalculation(2, 3)); // 5 (из кэша, без "Calculating...")
+console.log(expensiveCalculation(3, 4)); // Calculating... 7
